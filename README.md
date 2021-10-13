@@ -35,6 +35,6 @@ add additional functionality.*
 
 ## User Stories
 - As a user, I want to be able to add an ability to a list of abilities
-- As a user, I want to be able to save my game and load it on other computers
+- As a user, I want to be able to be eaten by other blobs if they are bigger than me
 - As a user, I want to be able to add blobs I have eaten to a list of blobs I have eaten and view the list
 - As a user, I want to be able to eat blobs smaller than me
