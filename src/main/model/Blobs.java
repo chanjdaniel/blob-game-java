@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-// Represents a list of blobs
+// Represents a list of blob
 public class Blobs {
     private ArrayList<Blob> blobs;
 

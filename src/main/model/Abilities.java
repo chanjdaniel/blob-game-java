@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-// Represents a list of abilities
+// Represents a list of ability
 public class Abilities {
     private ArrayList<Ability> abilities;
 
