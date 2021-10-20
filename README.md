@@ -39,3 +39,7 @@ add additional functionality.*
 - As a user, I want to be able to add names of blobs I have eaten to a list of names of blobs eaten
 - As a user, I want to be able to eat blobs smaller than me
 - As a user, I want to be able to remove unwanted abilities
+- As a user, I want to be able to save the state of my blob and the state of the game to file;
+ I want to be able to  make multiple save files and name them
+- As a user, I want to be able to load the state of my blob and the state of the game from file;
+ I want to be able to choose to start a new game or choose a file to load from when starting the game
