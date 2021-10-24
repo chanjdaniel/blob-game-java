@@ -1,0 +1,167 @@
+{
+    "abilities": {"abilities": [
+        {
+            "name": "Super Speed",
+            "description": ""
+        },
+        {
+            "name": "Physical Resistance",
+            "description": ""
+        },
+        {
+            "name": "Regeneration",
+            "description": ""
+        },
+        {
+            "name": "Sticky",
+            "description": ""
+        },
+        {
+            "name": "Heat Resistance",
+            "description": ""
+        },
+        {
+            "name": "Acid",
+            "description": ""
+        },
+        {
+            "name": "Digest",
+            "description": ""
+        },
+        {
+            "name": "Grow",
+            "description": ""
+        },
+        {
+            "name": "Jump",
+            "description": ""
+        },
+        {
+            "name": "Dash",
+            "description": ""
+        }
+    ]},
+    "enemyBlobs": {"blobs": [
+        {
+            "abilities": {"abilities": []},
+            "size": 13,
+            "color": {
+                "r": 24,
+                "b": 84,
+                "g": 193
+            },
+            "name": "Gary",
+            "victims": {"blobs": []}
+        },
+        {
+            "abilities": {"abilities": []},
+            "size": 45,
+            "color": {
+                "r": 78,
+                "b": 179,
+                "g": 124
+            },
+            "name": "Jane",
+            "victims": {"blobs": []}
+        },
+        {
+            "abilities": {"abilities": []},
+            "size": 6,
+            "color": {
+                "r": 32,
+                "b": 67,
+                "g": 220
+            },
+            "name": "Hannah",
+            "victims": {"blobs": []}
+        },
+        {
+            "abilities": {"abilities": []},
+            "size": 18,
+            "color": {
+                "r": 51,
+                "b": 47,
+                "g": 195
+            },
+            "name": "Peter",
+            "victims": {"blobs": []}
+        },
+        {
+            "abilities": {"abilities": []},
+            "size": 9,
+            "color": {
+                "r": 180,
+                "b": 199,
+                "g": 30
+            },
+            "name": "Aaron",
+            "victims": {"blobs": []}
+        },
+        {
+            "abilities": {"abilities": []},
+            "size": 26,
+            "color": {
+                "r": 243,
+                "b": 229,
+                "g": 66
+            },
+            "name": "Gordon",
+            "victims": {"blobs": []}
+        },
+        {
+            "abilities": {"abilities": []},
+            "size": 17,
+            "color": {
+                "r": 224,
+                "b": 193,
+                "g": 1
+            },
+            "name": "Tiffany",
+            "victims": {"blobs": []}
+        },
+        {
+            "abilities": {"abilities": []},
+            "size": 19,
+            "color": {
+                "r": 69,
+                "b": 64,
+                "g": 217
+            },
+            "name": "Sam",
+            "victims": {"blobs": []}
+        },
+        {
+            "abilities": {"abilities": []},
+            "size": 39,
+            "color": {
+                "r": 86,
+                "b": 109,
+                "g": 211
+            },
+            "name": "James",
+            "victims": {"blobs": []}
+        },
+        {
+            "abilities": {"abilities": []},
+            "size": 8,
+            "color": {
+                "r": 197,
+                "b": 194,
+                "g": 103
+            },
+            "name": "Michael",
+            "victims": {"blobs": []}
+        }
+    ]},
+    "player": {
+        "abilities": {"abilities": []},
+        "size": 15,
+        "color": {
+            "r": 0,
+            "b": 255,
+            "g": 0
+        },
+        "name": "George",
+        "victims": {"blobs": []}
+    }
+}

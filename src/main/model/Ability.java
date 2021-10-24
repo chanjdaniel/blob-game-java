@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents an ability having a name and a description
-public class Ability {
+public class Ability implements Writable {
     private String name;
     private String description;
 
@@ -15,5 +18,17 @@ public class Ability {
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("description", description);
+        return json;
     }
 }

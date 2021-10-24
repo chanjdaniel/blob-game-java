@@ -1,11 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 // Represents a list of blob
-public class Blobs {
+public class Blobs implements Writable {
     private ArrayList<Blob> blobs;
 
     // EFFECTS: blobs is set to empty ArrayList<Blob>
@@ -83,5 +87,22 @@ public class Blobs {
             newBlob = new Blob(name, size, color);
             this.addBlob(newBlob);
         }
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("blobs", blobsToJson());
+        return json;
+    }
+
+    private JSONArray blobsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Blob b : blobs) {
+            jsonArray.put(b.toJson());
+        }
+
+        return jsonArray;
     }
 }

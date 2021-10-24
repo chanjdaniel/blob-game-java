@@ -1,35 +1,40 @@
 package ui;
 
-import model.Abilities;
-import model.Ability;
-import model.Blob;
-import model.Blobs;
+import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 // Blob game application
 public class BlobApp {
+    private static final String JSON_STORE = "./data/blobGame.json";
     private Blob player;
-    private int playerInitialSize;
     private Abilities abilities;
-    private ArrayList<String> abilityNames;
     private Blobs enemyBlobs;
-    private int initialEnemies;
-    private ArrayList<String> enemyBlobNames;
+    private BlobGame blobGame;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     boolean keepGoing = true;
 
     // EFFECTS: runs the blob game application
-    public BlobApp() {
+    public BlobApp() throws IOException, NoSuchFieldException,
+            ClassNotFoundException, IllegalAccessException {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runBlob();
     }
 
     // MODIFIES: this
     // EFFECTS: processes user input
-    private void runBlob() {
+    private void runBlob() throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
         String command = null;
 
         init();
@@ -56,33 +61,54 @@ public class BlobApp {
             doEatBlob();
         } else if (command.equals("p")) {
             doPlayerInfo();
+        } else if (command.equals("s")) {
+            saveBlobGame();
         } else {
             System.out.println("Selection not valid...");
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes player blob, enemy blobs, and available abilities
-    private void init() {
+    // EFFECTS: initializes new blob game or loads a saved blob game
+    private void init() throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        String selection = "";
 
-        // Creates initial enemy blobs
-        initialEnemies = 10;
-        enemyBlobNames = new ArrayList<>(Arrays.asList(
-                "Michael", "James", "Sam", "Tiffany", "Gordon",
-                "Aaron", "Peter", "Hannah", "Jane", "Gary"));
-        enemyBlobs = makeBlobs();
+        while (!selection.equals("n") && !selection.equals("l")) {
+            System.out.println("\nChoose an option:");
+            System.out.println("\tn -> start a new game");
+            System.out.println("\tl - > load a saved game");
+            selection = input.next();
+            selection = selection.toLowerCase();
+        }
 
-        // Creates initial available abilities
-        abilityNames = new ArrayList<>(Arrays.asList(
-                "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
-                "Acid", "Digest", "Grow", "Jump", "Dash"));
-        abilities = makeAbilities();
+        if (selection.equals("n")) {
+            initNew();
+        } else if (selection.equals("l")) {
+            initSaved();
+        }
+    }
 
-        // Creates player blob
-        playerInitialSize = 15;
-        player = makePlayerBlob();
+    // MODIFIES: this
+    // EFFECTS: initializes new blob game with player blob, enemy blobs, and available abilities
+    private void initNew() throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+        String playerName = setPlayerName();
+        Color playerColor = setPlayerColor();
+
+        blobGame = new BlobGame(playerName, playerColor);
+        player = blobGame.getPlayer();
+        abilities = blobGame.getAbilities();
+        enemyBlobs = blobGame.getEnemyBlobs();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads saved blob game with player blob, enemy blobs, and available abilities
+    private void initSaved() {
+        loadBlobGame();
+        player = blobGame.getPlayer();
+        abilities = blobGame.getAbilities();
+        enemyBlobs = blobGame.getEnemyBlobs();
     }
 
     // EFFECTS: displays menu of options to user
@@ -90,6 +116,7 @@ public class BlobApp {
         System.out.println("\nSelect from:");
         System.out.println("\te -> eat a blob");
         System.out.println("\tp -> view and edit player info");
+        System.out.println("\ts -> save game");
         System.out.println("\tq -> quit");
     }
 
@@ -217,7 +244,7 @@ public class BlobApp {
         // checks whether ability with name selection exists, and whether player already has it
         while (!abilityNames.contains(selection) || playerAbilityNames.contains(selection)) {
             System.out.println("Available abilities:");
-            for (String next : this.abilityNames) {
+            for (String next : blobGame.getAbilities().getNames()) {
                 System.out.println(next);
             }
 
@@ -267,29 +294,61 @@ public class BlobApp {
         }
     }
 
-    // REQUIRES: initialEnemies < enemyBlobNames.size()
-    // MODIFIES: this
-    // EFFECTS: makes n = initialEnemies blobs using names in enemyBlobNames
-    public Blobs makeBlobs() {
-        Blobs blobs = new Blobs();
-        blobs.makeBlobs(initialEnemies, enemyBlobNames);
-        return blobs;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: makes n = abilityNames.size() abilities using names in abilityNames
-    public Abilities makeAbilities() {
-        Abilities abilities = new Abilities();
-        abilities.makeAbilities(abilityNames);
-        return abilities;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: makes player blob with name selected by user, size as playerInitialSize, and color as blue
-    public Blob makePlayerBlob() {
+    // EFFECTS: returns player blob's name as entered by user
+    public String setPlayerName() {
         System.out.println("Name your blob!");
-        String selected = input.next();
+        String selection = input.next();
 
-        return new Blob(selected, playerInitialSize, Color.getColor("blue"));
+        return selection;
+    }
+
+    // EFFECTS: returns player blob's color as entered by user
+    public Color setPlayerColor() throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+        String selection = ""; // force entry into loop
+        ArrayList<String> colors = new ArrayList<>(Arrays.asList(
+                "Red", "Green", "Blue", "Cyan", "Magenta",
+                "Orange", "Pink", "Yellow", "Black", "Gray"));
+
+        ArrayList<String> lowerCaseColors = new ArrayList<>();
+        for (String next : colors) {
+            lowerCaseColors.add(next.toLowerCase());
+        }
+
+        while (!lowerCaseColors.contains(selection)) {
+            // prints out names of available colors
+            System.out.println("Choose a color!");
+            for (String next : colors) {
+                System.out.println(next);
+            }
+            selection = input.next();
+            selection = selection.toLowerCase();
+        }
+
+        Field field = Class.forName("java.awt.Color").getField(selection);
+        Color color = (Color)field.get(null);
+        return color;
+    }
+
+    // EFFECTS: saves the blob game to file
+    private void saveBlobGame() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(blobGame);
+            jsonWriter.close();
+            System.out.println("Saved game to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads blob game from file
+    private void loadBlobGame() {
+        try {
+            blobGame = jsonReader.read();
+            System.out.println("Loaded game from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Represents a list of ability
-public class Abilities {
+public class Abilities implements Writable {
     private ArrayList<Ability> abilities;
 
     // EFFECTS: abilities is set to empty ArrayList<Ability>
@@ -77,5 +81,23 @@ public class Abilities {
     public void removeByName(String name) {
         Ability toRemove = getByName(name);
         abilities.remove(toRemove);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("abilities", abilitiesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns Abilities in abilities as a JSON array
+    private JSONArray abilitiesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Ability a : abilities) {
+            jsonArray.put(a.toJson());
+        }
+
+        return jsonArray;
     }
 }
