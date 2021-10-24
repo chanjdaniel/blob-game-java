@@ -5,8 +5,8 @@ import persistence.Writable;
 
 // Represents an ability having a name and a description
 public class Ability implements Writable {
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
 
     // REQUIRES: abilityName has length > 0;
     // EFFECTS: name of ability is set to abilityName;

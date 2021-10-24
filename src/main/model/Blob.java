@@ -4,15 +4,14 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 // Represents a blob having a name, size (diameter of circle), color,
 // list of abilities, and list of names of blobs eaten
 public class Blob implements Writable {
-    private String name;
+    private final String name;
     private int size;
-    private Color color;
+    private final Color color;
     private Abilities abilities;
     private Blobs victims;
 

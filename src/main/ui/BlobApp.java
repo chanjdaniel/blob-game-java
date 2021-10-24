@@ -20,8 +20,8 @@ public class BlobApp {
     private Blobs enemyBlobs;
     private BlobGame blobGame;
     private Scanner input;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private final JsonWriter jsonWriter;
+    private final JsonReader jsonReader;
     boolean keepGoing = true;
 
     // EFFECTS: runs the blob game application
@@ -297,9 +297,7 @@ public class BlobApp {
     // EFFECTS: returns player blob's name as entered by user
     public String setPlayerName() {
         System.out.println("Name your blob!");
-        String selection = input.next();
-
-        return selection;
+        return input.next();
     }
 
     // EFFECTS: returns player blob's color as entered by user
@@ -325,8 +323,7 @@ public class BlobApp {
         }
 
         Field field = Class.forName("java.awt.Color").getField(selection);
-        Color color = (Color)field.get(null);
-        return color;
+        return (Color)field.get(null);
     }
 
     // EFFECTS: saves the blob game to file
