@@ -44,77 +44,77 @@
     "enemyBlobs": {"blobs": [
         {
             "abilities": {"abilities": []},
-            "size": 23,
+            "size": 12,
             "color": {
-                "r": 60,
-                "b": 39,
-                "g": 27
+                "r": 72,
+                "b": 181,
+                "g": 141
             },
             "name": "Peter",
             "victims": {"blobs": []}
         },
         {
             "abilities": {"abilities": []},
-            "size": 12,
+            "size": 14,
             "color": {
-                "r": 109,
-                "b": 41,
-                "g": 70
+                "r": 154,
+                "b": 36,
+                "g": 54
             },
             "name": "Aaron",
             "victims": {"blobs": []}
         },
         {
             "abilities": {"abilities": []},
-            "size": 36,
+            "size": 50,
             "color": {
-                "r": 231,
-                "b": 92,
-                "g": 18
+                "r": 158,
+                "b": 140,
+                "g": 232
             },
             "name": "Gordon",
             "victims": {"blobs": []}
         },
         {
             "abilities": {"abilities": []},
-            "size": 49,
+            "size": 31,
             "color": {
-                "r": 107,
+                "r": 108,
                 "b": 174,
-                "g": 78
+                "g": 139
             },
             "name": "Tiffany",
             "victims": {"blobs": []}
         },
         {
             "abilities": {"abilities": []},
-            "size": 41,
+            "size": 23,
             "color": {
-                "r": 34,
-                "b": 52,
-                "g": 232
+                "r": 176,
+                "b": 215,
+                "g": 255
             },
             "name": "Sam",
             "victims": {"blobs": []}
         },
         {
             "abilities": {"abilities": []},
-            "size": 16,
+            "size": 10,
             "color": {
-                "r": 253,
-                "b": 11,
-                "g": 5
+                "r": 138,
+                "b": 66,
+                "g": 204
             },
             "name": "James",
             "victims": {"blobs": []}
         },
         {
             "abilities": {"abilities": []},
-            "size": 38,
+            "size": 37,
             "color": {
-                "r": 196,
-                "b": 243,
-                "g": 193
+                "r": 247,
+                "b": 77,
+                "g": 21
             },
             "name": "Michael",
             "victims": {"blobs": []}
@@ -135,33 +135,33 @@
         "victims": {"blobs": [
             {
                 "abilities": {"abilities": []},
-                "size": 42,
+                "size": 10,
                 "color": {
-                    "r": 16,
-                    "b": 183,
-                    "g": 69
+                    "r": 15,
+                    "b": 77,
+                    "g": 185
                 },
                 "name": "Gary",
                 "victims": {"blobs": []}
             },
             {
                 "abilities": {"abilities": []},
-                "size": 11,
+                "size": 32,
                 "color": {
-                    "r": 213,
-                    "b": 197,
-                    "g": 176
+                    "r": 250,
+                    "b": 32,
+                    "g": 247
                 },
                 "name": "Jane",
                 "victims": {"blobs": []}
             },
             {
                 "abilities": {"abilities": []},
-                "size": 1,
+                "size": 13,
                 "color": {
-                    "r": 119,
-                    "b": 182,
-                    "g": 14
+                    "r": 152,
+                    "b": 28,
+                    "g": 145
                 },
                 "name": "Hannah",
                 "victims": {"blobs": []}

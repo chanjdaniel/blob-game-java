@@ -82,7 +82,11 @@ public class BlobApp {
             playerColor = Color.cyan;
         }
 
-        blobGame = new BlobGame(playerName, playerColor);
+        try {
+            blobGame = new BlobGame(playerName, playerColor);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
         player = blobGame.getPlayer();
         abilities = blobGame.getAbilities();
         enemyBlobs = blobGame.getEnemyBlobs();

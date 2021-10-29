@@ -10,9 +10,9 @@ import java.util.ArrayList;
 // Represents a blob having a name, size (diameter of circle), color,
 // list of abilities, and list of names of blobs eaten
 public class Blob implements Writable {
-    private final String name;
+    private String name;
     private int size;
-    private final Color color;
+    private Color color;
     private Abilities abilities;
     private Blobs victims;
 
@@ -31,15 +31,14 @@ public class Blob implements Writable {
     // EFFECTS: name of blob is set to blobName;
     //          size of blob is set to initialSize; color of blob is set to blobColor;
     //          this.abilities is set to abilities; this.victims is set to victims.
-    public Blob(String name, int size, Color color, Abilities abilities, Blobs victims) throws InvalidInputException {
-        if (name.length() <= 0 || size <= 0) {
-            throw new InvalidInputException();
+    public Blob(String name, int size, Color color, Abilities abilities, Blobs victims) {
+        if (name.length() > 0 && size > 0) {
+            this.name = name;
+            this.size = size;
+            this.color = color;
+            this.abilities = abilities;
+            this.victims = victims;
         }
-        this.name = name;
-        this.size = size;
-        this.color = color;
-        this.abilities = abilities;
-        this.victims = victims;
     }
 
     public String getName() {

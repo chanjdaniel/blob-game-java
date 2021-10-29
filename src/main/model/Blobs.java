@@ -67,30 +67,28 @@ public class Blobs implements Writable {
 
     // MODIFIES: this
     // EFFECTS: creates n = blobsToMake new blobs with random size [1, 50], random color,
-    //          and name from blobNames, and adds them to this.blobs; throws InvalidInputException if this.blobs is
+    //          and name from blobNames, and adds them to this.blobs; does nothing if this.blobs is
     //          not empty, blobsToMake <= 0, or blobNames.size() >= blobsToMake
-    public void makeBlobs(int blobsToMake, ArrayList<String> blobNames) throws InvalidInputException {
+    public void makeBlobs(int blobsToMake, ArrayList<String> blobNames) {
 
-        if (blobsToMake > blobNames.size()) {
-            throw new InvalidInputException();
-        }
+        if (blobsToMake >= blobNames.size()) {
+            int minSize = 1;
+            int maxSize = 50;
+            int minRGB = 0;
+            int maxRGB = 255;
 
-        int minSize = 1;
-        int maxSize = 50;
-        int minRGB = 0;
-        int maxRGB = 255;
+            for (int i = blobsToMake; i > 0; i--) {
+                String name = blobNames.get(i - 1);
+                int size = randIntBetweenValues(minSize, maxSize);
+                int r = randIntBetweenValues(minRGB, maxRGB);
+                int g = randIntBetweenValues(minRGB, maxRGB);
+                int b = randIntBetweenValues(minRGB, maxRGB);
+                Color color = new Color(r, g, b);
 
-        for (int i = blobsToMake; i > 0; i--) {
-            String name = blobNames.get(i - 1);
-            int size = randIntBetweenValues(minSize, maxSize);
-            int r = randIntBetweenValues(minRGB, maxRGB);
-            int g = randIntBetweenValues(minRGB, maxRGB);
-            int b = randIntBetweenValues(minRGB, maxRGB);
-            Color color = new Color(r, g, b);
-
-            Blob newBlob;
-            newBlob = new Blob(name, size, color);
-            this.addBlob(newBlob);
+                Blob newBlob;
+                newBlob = new Blob(name, size, color);
+                this.addBlob(newBlob);
+            }
         }
     }
 

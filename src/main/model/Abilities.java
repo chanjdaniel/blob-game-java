@@ -62,7 +62,7 @@ public class Abilities implements Writable {
             throw new InvalidInputException();
         }
         try {
-            getByName(name);
+            this.getByName(name);
             throw new InvalidInputException();
         } catch (IndexOutOfBoundsException e) {
             Ability newAbility;
@@ -74,13 +74,16 @@ public class Abilities implements Writable {
 
     // MODIFIES: this
     // EFFECTS: for each name in list of names, creates a new ability with name and empty description and
-    //          adds to this.abilities; throws InvalidInputException if abilities is not empty
-    public void makeAbilities(ArrayList<String> names) throws InvalidInputException {
-        if (abilities.size() != 0) {
-            throw new InvalidInputException();
-        }
-        for (String next : names) {
-            this.addNewAbility(next);
+    //          adds to this.abilities; does nothing if abilities is not empty
+    public void makeAbilities(ArrayList<String> names) {
+        if (abilities.size() == 0) {
+            for (String next : names) {
+                try {
+                    this.addNewAbility(next);
+                } catch (InvalidInputException e) {
+                    // don't add duplicate
+                }
+            }
         }
     }
 

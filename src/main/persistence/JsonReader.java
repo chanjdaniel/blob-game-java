@@ -27,11 +27,7 @@ public class JsonReader {
     public BlobGame read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        try {
-            return parseBlobGame(jsonObject);
-        } catch (InvalidInputException e) {
-            throw new IOException();
-        }
+        return parseBlobGame(jsonObject);
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -46,7 +42,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses blob game from JSON object and returns it
-    private BlobGame parseBlobGame(JSONObject jsonObject) throws InvalidInputException {
+    private BlobGame parseBlobGame(JSONObject jsonObject) {
         Blob player = parseBlob(jsonObject.getJSONObject("player"));
         Abilities abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
         Blobs enemyBlobs = parseBlobs(jsonObject.getJSONObject("enemyBlobs"));
@@ -55,7 +51,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses blob from JSON object and returns it
-    private Blob parseBlob(JSONObject jsonObject) throws InvalidInputException {
+    private Blob parseBlob(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int size = jsonObject.getInt("size");
         Color color = parseColor(jsonObject.getJSONObject("color"));
@@ -101,7 +97,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses blobs from JSON object and returns it
-    private Blobs parseBlobs(JSONObject jsonObject) throws InvalidInputException {
+    private Blobs parseBlobs(JSONObject jsonObject) {
         Blobs bbs = new Blobs();
         addBlobs(bbs, jsonObject);
         return bbs;
@@ -109,7 +105,7 @@ public class JsonReader {
 
     // MODIFIES: bbs
     // EFFECTS: parses blob from JSON object and adds them to blobs
-    private void addBlobs(Blobs bbs, JSONObject jsonObject) throws InvalidInputException {
+    private void addBlobs(Blobs bbs, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("blobs");
         for (Object json : jsonArray) {
             JSONObject nextBlob = (JSONObject) json;
@@ -119,7 +115,7 @@ public class JsonReader {
 
     // MODIFIES: bbs
     // EFFECTS: parses blob from JSON object and adds it to blobs
-    private void addBlob(Blobs bbs, JSONObject jsonObject) throws InvalidInputException {
+    private void addBlob(Blobs bbs, JSONObject jsonObject) {
         Blob blob = parseBlob(jsonObject);
         bbs.addBlob(blob);
     }

@@ -50,27 +50,18 @@ public class AbilitiesTest {
         ArrayList<String> testAbilityNames = new ArrayList<>(Arrays.asList(
                 "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
                 "Acid", "Digest", "Grow", "Jump", "Dash"));
-        try {
-            testAbilities.makeAbilities(testAbilityNames);
-            assertEquals(10, testAbilities.getAbilities().size());
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-            fail("caught InvalidInputException");
-        }
+        testAbilities.makeAbilities(testAbilityNames);
+        assertEquals(10, testAbilities.getAbilities().size());
     }
 
     @Test
-    void testMakeAbilitiesException() {
-        testAbilities.addAbility(testAbility1);
+    void testMakeAbilitiesExceptionDuplicates() {
+
         ArrayList<String> testAbilityNames = new ArrayList<>(Arrays.asList(
                 "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
-                "Acid", "Digest", "Grow", "Jump", "Dash"));
-        try {
-            testAbilities.makeAbilities(testAbilityNames);
-            fail("expected InvalidInputException");
-        } catch (InvalidInputException e) {
-            // expected
-        }
+                "Acid", "Acid", "Digest", "Grow", "Jump", "Dash"));
+        testAbilities.makeAbilities(testAbilityNames);
+        assertEquals(10, testAbilities.getAbilities().size());
     }
 
     @Test
@@ -86,10 +77,22 @@ public class AbilitiesTest {
     }
 
     @Test
-    void testAddNewAbilitySingleException() {
+    void testAddNewAbilitySingleExceptionLength() {
 
         try {
             testAbilities.addNewAbility("");
+            fail("expected InvalidInputException");
+        } catch (InvalidInputException e) {
+            // expected
+        }
+    }
+
+    @Test
+    void testAddNewAbilitySingleExceptionDuplicate() {
+
+        try {
+            testAbilities.addNewAbility("duplicate");
+            testAbilities.addNewAbility("duplicate");
             fail("expected InvalidInputException");
         } catch (InvalidInputException e) {
             // expected

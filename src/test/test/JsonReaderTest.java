@@ -1,5 +1,6 @@
 package test;
 
+import exceptions.InvalidInputException;
 import model.BlobGame;
 import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
@@ -32,7 +33,7 @@ class JsonReaderTest extends JsonTest {
 
             checkBlob(sbg.getPlayer(), lbg.getPlayer());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
-        } catch (IOException e) {
+        } catch (IOException | InvalidInputException e) {
             fail("Couldn't read from file");
         }
     }
@@ -50,7 +51,7 @@ class JsonReaderTest extends JsonTest {
 
             checkBlob(sbg.getPlayer(), lbg.getPlayer());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
-        } catch (IOException e) {
+        } catch (IOException | InvalidInputException e) {
             fail("Couldn't read from file");
         }
     }

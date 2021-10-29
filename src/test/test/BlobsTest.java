@@ -106,28 +106,13 @@ public class BlobsTest {
     @Test
     void testMakeBlobs() {
 
-        try {
-            testBlobs.makeBlobs(testNames.size(), testNames);
-            assertEquals(testNames.size(), testBlobs.getBlobs().size());
-            for (Blob next : testBlobs.getBlobs()) {
-                assertEquals(testNamesReversed.get(testBlobs.getBlobs().indexOf(next)), next.getName());
-                assertTrue(next.getSize() >= 1 && next.getSize() <= 50);
-                assertEquals(0, next.getVictims().size());
-                assertEquals(0, next.getAbilities().size());
-            }
-        } catch (InvalidInputException e) {
-            fail("caught InvalidInputException");
-        }
-    }
-
-    @Test
-    void testMakeBlobsException() {
-
-        try {
-            testBlobs.makeBlobs(testNames.size() + 1, testNames);
-            fail("expected InvalidInputException");
-        } catch (InvalidInputException e) {
-            // expected
+        testBlobs.makeBlobs(testNames.size(), testNames);
+        assertEquals(testNames.size(), testBlobs.getBlobs().size());
+        for (Blob next : testBlobs.getBlobs()) {
+            assertEquals(testNamesReversed.get(testBlobs.getBlobs().indexOf(next)), next.getName());
+            assertTrue(next.getSize() >= 1 && next.getSize() <= 50);
+            assertEquals(0, next.getVictims().size());
+            assertEquals(0, next.getAbilities().size());
         }
     }
 }

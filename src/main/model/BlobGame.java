@@ -24,7 +24,7 @@ public class BlobGame implements Writable {
     private Blobs enemyBlobs;
 
     // Creates an initial blob game with player with name and color;
-    public BlobGame(String playerName, Color playerColor) {
+    public BlobGame(String playerName, Color playerColor) throws InvalidInputException {
 
         // Creates player with name and color
         player = makePlayerBlob(playerName, playerColor);
@@ -66,11 +66,7 @@ public class BlobGame implements Writable {
     public Blobs makeBlobs() {
 
         Blobs blobs = new Blobs();
-        try {
-            blobs.makeBlobs(initialEnemies, enemyBlobNames);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-        }
+        blobs.makeBlobs(initialEnemies, enemyBlobNames);
         return blobs;
     }
 
@@ -79,11 +75,7 @@ public class BlobGame implements Writable {
     public Abilities makeAbilities() {
 
         Abilities abilities = new Abilities();
-        try {
-            abilities.makeAbilities(abilityNames);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-        }
+        abilities.makeAbilities(abilityNames);
         return abilities;
     }
 

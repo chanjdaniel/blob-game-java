@@ -27,14 +27,20 @@ public class BlobGameTest {
     private Blob testPlayer;
     private Blob testBlob1;
     private Abilities testAbilities;
+    private Ability testAbility1;
     private Blobs testEnemyBlobs;
 
 
     @BeforeEach
     void runBefore() {
+        testAbility1 = new Ability("Test_Ability1", "");
         initialEnemies = enemyBlobNames.size();
         playerInitialSize = 15;
-        testBlobGame = new BlobGame("testBlob", Color.cyan);
+        try {
+            testBlobGame = new BlobGame("testBlob", Color.cyan);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
         testPlayer = testBlobGame.getPlayer();
         testBlob1 = new Blob("test_blob1", 20, blue);
         testAbilities = testBlobGame.getAbilities();
@@ -67,7 +73,8 @@ public class BlobGameTest {
 
     @Test
     void testMakeAbilities(){
-        Abilities actual = testBlobGame.makeAbilities();
+        Abilities actual = null;
+        actual = testBlobGame.makeAbilities();
         assertEquals(abilityNames.size(), actual.getAbilities().size());
     }
 

@@ -1,5 +1,6 @@
 package test;
 
+import exceptions.InvalidInputException;
 import model.Abilities;
 import model.Blob;
 import model.BlobGame;
@@ -27,7 +28,7 @@ class JsonWriterTest extends JsonTest {
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
-        } catch (IOException e) {
+        } catch (IOException | InvalidInputException e) {
             // pass
         }
     }
@@ -46,7 +47,7 @@ class JsonWriterTest extends JsonTest {
             checkBlob(sbg.getPlayer(), lbg.getPlayer());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
             checkBlobs(sbg.getEnemyBlobs().getBlobs(), lbg.getEnemyBlobs().getBlobs());
-        } catch (IOException e) {
+        } catch (IOException | InvalidInputException e) {
             fail("Exception should not have been thrown");
         }
     }
@@ -78,7 +79,7 @@ class JsonWriterTest extends JsonTest {
             checkBlob(sbg.getPlayer(), lbg.getPlayer());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
             checkBlobs(sbg.getEnemyBlobs().getBlobs(), lbg.getEnemyBlobs().getBlobs());
-        } catch (IOException e) {
+        } catch (IOException | InvalidInputException e) {
             fail("Exception should not have been thrown");
         }
     }
