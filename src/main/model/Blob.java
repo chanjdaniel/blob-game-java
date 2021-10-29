@@ -32,13 +32,11 @@ public class Blob implements Writable {
     //          size of blob is set to initialSize; color of blob is set to blobColor;
     //          this.abilities is set to abilities; this.victims is set to victims.
     public Blob(String name, int size, Color color, Abilities abilities, Blobs victims) {
-        if (name.length() > 0 && size > 0) {
-            this.name = name;
-            this.size = size;
-            this.color = color;
-            this.abilities = abilities;
-            this.victims = victims;
-        }
+        this.name = name;
+        this.size = size;
+        this.color = color;
+        this.abilities = abilities;
+        this.victims = victims;
     }
 
     public String getName() {

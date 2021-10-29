@@ -115,4 +115,11 @@ public class BlobsTest {
             assertEquals(0, next.getAbilities().size());
         }
     }
+
+    @Test
+    void testMakeBlobsInvalidSize() {
+
+        testBlobs.makeBlobs(testNames.size() + 1, testNames);
+        assertEquals(0, testBlobs.getBlobs().size());
+    }
 }

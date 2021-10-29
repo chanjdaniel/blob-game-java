@@ -65,6 +65,17 @@ public class AbilitiesTest {
     }
 
     @Test
+    void testMakeAbilitiesNotEmpty() {
+
+        ArrayList<String> testAbilityNames = new ArrayList<>(Arrays.asList(
+                "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
+                "Acid", "Acid", "Digest", "Grow", "Jump", "Dash"));
+        testAbilities.addAbility(testAbility1);
+        testAbilities.makeAbilities(testAbilityNames);
+        assertEquals(1, testAbilities.getAbilities().size());
+    }
+
+    @Test
     void testAddNewAbilitySingle() {
 
         try {

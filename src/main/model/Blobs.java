@@ -71,7 +71,7 @@ public class Blobs implements Writable {
     //          not empty, blobsToMake <= 0, or blobNames.size() >= blobsToMake
     public void makeBlobs(int blobsToMake, ArrayList<String> blobNames) {
 
-        if (blobsToMake >= blobNames.size()) {
+        if (blobsToMake <= blobNames.size()) {
             int minSize = 1;
             int maxSize = 50;
             int minRGB = 0;
