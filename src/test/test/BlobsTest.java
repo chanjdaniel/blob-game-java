@@ -1,5 +1,6 @@
 package test;
 
+import exceptions.InvalidInputException;
 import model.Blob;
 import model.Blobs;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,11 +22,20 @@ public class BlobsTest {
     private Color blue = Color.blue;
     private Color red = Color.red;
 
+    private ArrayList<String> testNames;
+    private ArrayList<String> testNamesReversed;
+
     @BeforeEach
     void runBefore() {
         testBlobs = new Blobs();
         testBlob1 = new Blob("test_blob1", 20, blue);
         testBlob2 = new Blob("test_blob2", 10, red);
+
+        testNames = new ArrayList<>(Arrays.asList(
+                "Michael", "James", "Sam", "Tiffany", "Gordon", "Aaron", "Peter", "Hannah", "Jane", "Gary"));
+        testNamesReversed = new ArrayList<>(Arrays.asList(
+                "Michael", "James", "Sam", "Tiffany", "Gordon", "Aaron", "Peter", "Hannah", "Jane", "Gary"));
+        Collections.reverse(testNamesReversed);
     }
 
     @Test
@@ -96,18 +106,28 @@ public class BlobsTest {
     @Test
     void testMakeBlobs() {
 
-        ArrayList<String> testNames = new ArrayList<>(Arrays.asList(
-                "Michael", "James", "Sam", "Tiffany", "Gordon", "Aaron", "Peter", "Hannah", "Jane", "Gary"));
-        ArrayList<String> testNamesReversed = new ArrayList<>(Arrays.asList(
-                "Michael", "James", "Sam", "Tiffany", "Gordon", "Aaron", "Peter", "Hannah", "Jane", "Gary"));
-        Collections.reverse(testNamesReversed);
-        testBlobs.makeBlobs(10, testNames);
-        assertEquals(10, testBlobs.getBlobs().size());
-        for (Blob next : testBlobs.getBlobs()) {
-            assertEquals(testNamesReversed.get(testBlobs.getBlobs().indexOf(next)), next.getName());
-            assertTrue(next.getSize() >= 1 && next.getSize() <= 50);
-            assertEquals(0, next.getVictims().size());
-            assertEquals(0, next.getAbilities().size());
+        try {
+            testBlobs.makeBlobs(testNames.size(), testNames);
+            assertEquals(testNames.size(), testBlobs.getBlobs().size());
+            for (Blob next : testBlobs.getBlobs()) {
+                assertEquals(testNamesReversed.get(testBlobs.getBlobs().indexOf(next)), next.getName());
+                assertTrue(next.getSize() >= 1 && next.getSize() <= 50);
+                assertEquals(0, next.getVictims().size());
+                assertEquals(0, next.getAbilities().size());
+            }
+        } catch (InvalidInputException e) {
+            fail("caught InvalidInputException");
+        }
+    }
+
+    @Test
+    void testMakeBlobsException() {
+
+        try {
+            testBlobs.makeBlobs(testNames.size() + 1, testNames);
+            fail("expected InvalidInputException");
+        } catch (InvalidInputException e) {
+            // expected
         }
     }
 }

@@ -43,3 +43,4 @@ add additional functionality.*
  I want to be able to make multiple save files and name them
 - As a user, I want to be able to load the state of my blob and the state of the game from file;
  I want to be able to choose to start a new game or choose a file to load from when starting the game
+- As a user, I want to be able to name save files and load save files using their names

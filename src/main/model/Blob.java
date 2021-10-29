@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.InvalidInputException;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -27,11 +28,13 @@ public class Blob implements Writable {
         this.victims = new Blobs();
     }
 
-    // REQUIRES: blobName has length > 0; initialSize > 0
     // EFFECTS: name of blob is set to blobName;
     //          size of blob is set to initialSize; color of blob is set to blobColor;
     //          this.abilities is set to abilities; this.victims is set to victims.
-    public Blob(String name, int size, Color color, Abilities abilities, Blobs victims) {
+    public Blob(String name, int size, Color color, Abilities abilities, Blobs victims) throws InvalidInputException {
+        if (name.length() <= 0 || size <= 0) {
+            throw new InvalidInputException();
+        }
         this.name = name;
         this.size = size;
         this.color = color;
@@ -75,18 +78,19 @@ public class Blob implements Writable {
         abilities.addAbility(ability);
     }
 
-    // REQUIRES: one, and only one ability with name abilityName is in this.abilities
     // MODIFIES: this.abilities
-    // EFFECTS: removes ability with name abilityName in this.abilities
+    // EFFECTS: removes first ability with name abilityName in this.abilities
     public void removeAbility(String abilityName) {
         abilities.removeByName(abilityName);
     }
 
-    // REQUIRES: this.size >= enemyBlob.getSize()
     // MODIFIES: this.victims
-    // EFFECTS: eats another blob; adds enemyBlob.getName() to victims;
-    //          increases this.size by enemyBlob.getSize()
-    public void eatBlob(Blob enemyBlob) {
+    // EFFECTS: eats another blob; adds enemyBlob.getName() to victims; increases this.size by enemyBlob.getSize();
+    // throws InvalidInputException if this.getSize() < enemyBlob.getSize()
+    public void eatBlob(Blob enemyBlob) throws InvalidInputException {
+        if (this.getSize() < enemyBlob.getSize()) {
+            throw new InvalidInputException();
+        }
         victims.addBlob(enemyBlob);
         size += enemyBlob.getSize();
     }

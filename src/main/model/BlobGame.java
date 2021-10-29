@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.InvalidInputException;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -13,7 +14,7 @@ public class BlobGame implements Writable {
     private final ArrayList<String> abilityNames = new ArrayList<>(Arrays.asList(
             "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
             "Acid", "Digest", "Grow", "Jump", "Dash"));
-    private final int initialEnemies = 10;
+    private int initialEnemies = 10;
     private final ArrayList<String> enemyBlobNames = new ArrayList<>(Arrays.asList(
             "Michael", "James", "Sam", "Tiffany", "Gordon",
             "Aaron", "Peter", "Hannah", "Jane", "Gary"));
@@ -22,7 +23,7 @@ public class BlobGame implements Writable {
     private Abilities abilities;
     private Blobs enemyBlobs;
 
-    // Creates an initial blob game with player with name and color
+    // Creates an initial blob game with player with name and color;
     public BlobGame(String playerName, Color playerColor) {
 
         // Creates player with name and color
@@ -55,19 +56,21 @@ public class BlobGame implements Writable {
         return enemyBlobs;
     }
 
-    // REQUIRES: ability with name is in abilities
-    // EFFECTS: returns ability in abilities with matching name
-    public Ability getAbilityByName(String name) {
+    // EFFECTS: returns ability in abilities with matching name; throws IndexOutOfBoundsException if none found
+    public Ability getAbilityByName(String name) throws IndexOutOfBoundsException {
         return abilities.getByName(name);
     }
 
-    // REQUIRES: initialEnemies < enemyBlobNames.size()
     // MODIFIES: this
     // EFFECTS: makes n = initialEnemies blobs using names in enemyBlobNames
     public Blobs makeBlobs() {
 
         Blobs blobs = new Blobs();
-        blobs.makeBlobs(initialEnemies, enemyBlobNames);
+        try {
+            blobs.makeBlobs(initialEnemies, enemyBlobNames);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
         return blobs;
     }
 
@@ -76,7 +79,11 @@ public class BlobGame implements Writable {
     public Abilities makeAbilities() {
 
         Abilities abilities = new Abilities();
-        abilities.makeAbilities(abilityNames);
+        try {
+            abilities.makeAbilities(abilityNames);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
         return abilities;
     }
 

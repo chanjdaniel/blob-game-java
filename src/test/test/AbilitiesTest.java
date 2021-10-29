@@ -1,5 +1,6 @@
 package test;
 
+import exceptions.InvalidInputException;
 import model.Abilities;
 import model.Ability;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,26 +50,64 @@ public class AbilitiesTest {
         ArrayList<String> testAbilityNames = new ArrayList<>(Arrays.asList(
                 "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
                 "Acid", "Digest", "Grow", "Jump", "Dash"));
-        testAbilities.makeAbilities(testAbilityNames);
-        assertEquals(10, testAbilities.getAbilities().size());
+        try {
+            testAbilities.makeAbilities(testAbilityNames);
+            assertEquals(10, testAbilities.getAbilities().size());
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+            fail("caught InvalidInputException");
+        }
+    }
+
+    @Test
+    void testMakeAbilitiesException() {
+        testAbilities.addAbility(testAbility1);
+        ArrayList<String> testAbilityNames = new ArrayList<>(Arrays.asList(
+                "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
+                "Acid", "Digest", "Grow", "Jump", "Dash"));
+        try {
+            testAbilities.makeAbilities(testAbilityNames);
+            fail("expected InvalidInputException");
+        } catch (InvalidInputException e) {
+            // expected
+        }
     }
 
     @Test
     void testAddNewAbilitySingle() {
 
-        testAbilities.addNewAbility(testAbility1.getName());
-        assertEquals(1, testAbilities.getAbilities().size());
-        assertEquals(testAbility1.getName(), testAbilities.getAbilities().get(0).getName());
+        try {
+            testAbilities.addNewAbility(testAbility1.getName());
+            assertEquals(1, testAbilities.getAbilities().size());
+            assertEquals(testAbility1.getName(), testAbilities.getAbilities().get(0).getName());
+        } catch (InvalidInputException e) {
+            fail("caught InvalidInputException");
+        }
+    }
+
+    @Test
+    void testAddNewAbilitySingleException() {
+
+        try {
+            testAbilities.addNewAbility("");
+            fail("expected InvalidInputException");
+        } catch (InvalidInputException e) {
+            // expected
+        }
     }
 
     @Test
     void testAddNewAbilityMultiple() {
 
-        testAbilities.addNewAbility(testAbility1.getName());
-        testAbilities.addNewAbility(testAbility2.getName());
-        assertEquals(2, testAbilities.getAbilities().size());
-        assertEquals(testAbility1.getName(), testAbilities.getAbilities().get(0).getName());
-        assertEquals(testAbility2.getName(), testAbilities.getAbilities().get(1).getName());
+        try {
+            testAbilities.addNewAbility(testAbility1.getName());
+            testAbilities.addNewAbility(testAbility2.getName());
+            assertEquals(2, testAbilities.getAbilities().size());
+            assertEquals(testAbility1.getName(), testAbilities.getAbilities().get(0).getName());
+            assertEquals(testAbility2.getName(), testAbilities.getAbilities().get(1).getName());
+        } catch (InvalidInputException e) {
+            fail("caught InvalidInputException");
+        }
     }
 
     @Test

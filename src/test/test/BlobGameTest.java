@@ -1,5 +1,6 @@
 package test;
 
+import exceptions.InvalidInputException;
 import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,27 +9,34 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static java.awt.Color.blue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class BlobGameTest {
-    private final int playerInitialSize = 15;
+    private int playerInitialSize;
     private final ArrayList<String> abilityNames = new ArrayList<>(Arrays.asList(
             "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
             "Acid", "Digest", "Grow", "Jump", "Dash"));
-    private final int initialEnemies = 10;
+    private int initialEnemies;
     private final ArrayList<String> enemyBlobNames = new ArrayList<>(Arrays.asList(
             "Michael", "James", "Sam", "Tiffany", "Gordon",
             "Aaron", "Peter", "Hannah", "Jane", "Gary"));
 
     private BlobGame testBlobGame;
     private Blob testPlayer;
+    private Blob testBlob1;
     private Abilities testAbilities;
     private Blobs testEnemyBlobs;
 
+
     @BeforeEach
     void runBefore() {
+        initialEnemies = enemyBlobNames.size();
+        playerInitialSize = 15;
         testBlobGame = new BlobGame("testBlob", Color.cyan);
         testPlayer = testBlobGame.getPlayer();
+        testBlob1 = new Blob("test_blob1", 20, blue);
         testAbilities = testBlobGame.getAbilities();
         testEnemyBlobs = testBlobGame.getEnemyBlobs();
     }
@@ -52,7 +60,8 @@ public class BlobGameTest {
 
     @Test
     void testMakeBlobs(){
-        Blobs actual = testBlobGame.makeBlobs();
+        Blobs actual = null;
+        actual = testBlobGame.makeBlobs();
         assertEquals(initialEnemies, actual.getBlobs().size());
     }
 

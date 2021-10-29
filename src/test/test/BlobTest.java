@@ -1,5 +1,6 @@
 package test;
 
+import exceptions.InvalidInputException;
 import model.Ability;
 import model.Blob;
 import org.junit.jupiter.api.BeforeEach;
@@ -106,20 +107,39 @@ class BlobTest {
     @Test
     void testEatBlobBigger() {
 
-        testBlob1.eatBlob(testBlob2);
-        assertEquals(30, testBlob1.getSize());
-        assertEquals(1, testBlob1.getVictimNames().size());
-        assertEquals("test_blob2", testBlob1.getVictimNames().get(0));
+        try {
+            testBlob1.eatBlob(testBlob2);
+            assertEquals(30, testBlob1.getSize());
+            assertEquals(1, testBlob1.getVictimNames().size());
+            assertEquals("test_blob2", testBlob1.getVictimNames().get(0));
+        } catch (InvalidInputException e) {
+            fail("caught InvalidInputException");
+        }
+    }
+
+    @Test
+    void testEatBlobSmaller() {
+
+        try {
+            testBlob2.eatBlob(testBlob1);
+            fail("expected InvalidInputException");
+        } catch (InvalidInputException e) {
+            // expected
+        }
     }
 
     @Test
     void testEatBlobMultiple() {
 
-        testBlob1.eatBlob(testBlob2);
-        testBlob1.eatBlob(testBlob2);
-        assertEquals(40, testBlob1.getSize());
-        assertEquals(2, testBlob1.getVictimNames().size());
-        assertEquals("test_blob2", testBlob1.getVictimNames().get(0));
-        assertEquals("test_blob2", testBlob1.getVictimNames().get(1));
+        try {
+            testBlob1.eatBlob(testBlob2);
+            testBlob1.eatBlob(testBlob2);
+            assertEquals(40, testBlob1.getSize());
+            assertEquals(2, testBlob1.getVictimNames().size());
+            assertEquals("test_blob2", testBlob1.getVictimNames().get(0));
+            assertEquals("test_blob2", testBlob1.getVictimNames().get(1));
+        } catch (InvalidInputException e) {
+            fail("caught InvalidInputException");
+        }
     }
 }

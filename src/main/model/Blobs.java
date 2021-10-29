@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.InvalidInputException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -51,9 +52,8 @@ public class Blobs implements Writable {
         return lowerCaseNames;
     }
 
-    // REQUIRES: one, and only one Blob with name (not case-sensitive) is in blobs
-    // EFFECTS: returns Blob in blobs with matching name
-    public Blob getByName(String name) {
+    // EFFECTS: returns first Blob in blobs with matching name, throws IndexOutOfBoundsException if none found
+    public Blob getByName(String name) throws IndexOutOfBoundsException {
         ArrayList<String> lowerCaseNames = this.getLowerCaseNames();
         int index = lowerCaseNames.indexOf(name);
 
@@ -65,11 +65,16 @@ public class Blobs implements Writable {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
-    // REQUIRES: this.blobs is empty; blobsToMake > 0; blobNames.size() >= blobsToMake
     // MODIFIES: this
     // EFFECTS: creates n = blobsToMake new blobs with random size [1, 50], random color,
-    //          and name from blobNames, and adds them to this.blobs
-    public void makeBlobs(int blobsToMake, ArrayList<String> blobNames) {
+    //          and name from blobNames, and adds them to this.blobs; throws InvalidInputException if this.blobs is
+    //          not empty, blobsToMake <= 0, or blobNames.size() >= blobsToMake
+    public void makeBlobs(int blobsToMake, ArrayList<String> blobNames) throws InvalidInputException {
+
+        if (blobsToMake > blobNames.size()) {
+            throw new InvalidInputException();
+        }
+
         int minSize = 1;
         int maxSize = 50;
         int minRGB = 0;

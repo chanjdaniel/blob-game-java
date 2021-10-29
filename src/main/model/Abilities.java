@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.InvalidInputException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -45,39 +46,46 @@ public class Abilities implements Writable {
         return lowerCaseNames;
     }
 
-    // REQUIRES: one, and only one Ability with name (not case-sensitive) is in abilities
-    // EFFECTS: returns Ability in abilities with matching name
-    public Ability getByName(String name) {
+    // EFFECTS: returns first Ability in abilities with matching name, throws IndexOutOfBoundsException if none found
+    public Ability getByName(String name) throws IndexOutOfBoundsException {
         ArrayList<String> lowerCaseNames = this.getLowerCaseNames();
         int index = lowerCaseNames.indexOf(name.toLowerCase());
 
         return abilities.get(index);
     }
 
-    // REQUIRES: abilityName has length > 0; ability with abilityName is not already in this.abilities
     // MODIFIES: this.abilities
     // EFFECTS: creates new ability with name abilityName and empty description;
-    //          adds new ability to this.abilities
-    public void addNewAbility(String name) {
-        Ability newAbility;
-        newAbility = new Ability(name, "");
+    //          adds new ability to this.abilities; throws InvalidInputException if name.length() <= 0
+    public void addNewAbility(String name) throws InvalidInputException {
+        if (name.length() <= 0) {
+            throw new InvalidInputException();
+        }
+        try {
+            getByName(name);
+            throw new InvalidInputException();
+        } catch (IndexOutOfBoundsException e) {
+            Ability newAbility;
+            newAbility = new Ability(name, "");
 
-        abilities.add(newAbility);
+            abilities.add(newAbility);
+        }
     }
 
-    // REQUIRES: this.abilities is empty
     // MODIFIES: this
     // EFFECTS: for each name in list of names, creates a new ability with name and empty description and
-    //          adds to this.abilities
-    public void makeAbilities(ArrayList<String> names) {
+    //          adds to this.abilities; throws InvalidInputException if abilities is not empty
+    public void makeAbilities(ArrayList<String> names) throws InvalidInputException {
+        if (abilities.size() != 0) {
+            throw new InvalidInputException();
+        }
         for (String next : names) {
             this.addNewAbility(next);
         }
     }
 
-    // REQUIRES: one, and only one Ability with name (not case-sensitive) is in abilities
     // MODIFIES: this.abilities
-    // EFFECTS: removes ability in this.abilities with matching name
+    // EFFECTS: removes first ability in this.abilities with matching name
     public void removeByName(String name) {
         Ability toRemove = getByName(name);
         abilities.remove(toRemove);

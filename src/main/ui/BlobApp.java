@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.InvalidInputException;
 import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -14,28 +15,22 @@ import java.util.Scanner;
 
 // Blob game application
 public class BlobApp {
-    private static final String JSON_STORE = "./data/blobGame.json";
     private Blob player;
     private Abilities abilities;
     private Blobs enemyBlobs;
     private BlobGame blobGame;
     private Scanner input;
-    private final JsonWriter jsonWriter;
-    private final JsonReader jsonReader;
     boolean keepGoing = true;
 
     // EFFECTS: runs the blob game application
-    public BlobApp() throws IOException, NoSuchFieldException,
-            ClassNotFoundException, IllegalAccessException {
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
+    public BlobApp() {
         runBlob();
     }
 
     // MODIFIES: this
     // EFFECTS: processes user input
-    private void runBlob() throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
-        String command = null;
+    private void runBlob() {
+        String command;
 
         init();
 
@@ -50,27 +45,12 @@ public class BlobApp {
                 processCommand(command);
             }
         }
-
-        System.out.println("\nGoodbye!");
-    }
-
-    // MODIFIES: this
-    // EFFECTS: processes user command
-    private void processCommand(String command) {
-        if (command.equals("e")) {
-            doEatBlob();
-        } else if (command.equals("p")) {
-            doPlayerInfo();
-        } else if (command.equals("s")) {
-            saveBlobGame();
-        } else {
-            System.out.println("Selection not valid...");
-        }
+        doQuitGame();
     }
 
     // MODIFIES: this
     // EFFECTS: initializes new blob game or loads a saved blob game
-    private void init() throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+    private void init() {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
         String selection = "";
@@ -85,16 +65,22 @@ public class BlobApp {
 
         if (selection.equals("n")) {
             initNew();
-        } else if (selection.equals("l")) {
+        } else {
             initSaved();
         }
     }
 
     // MODIFIES: this
     // EFFECTS: initializes new blob game with player blob, enemy blobs, and available abilities
-    private void initNew() throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+    private void initNew() {
         String playerName = setPlayerName();
-        Color playerColor = setPlayerColor();
+        Color playerColor;
+        try {
+            playerColor = setPlayerColor();
+        } catch (ReflectiveOperationException e) {
+            System.out.println("Something went wrong with the colors! Continuing with cyan as default...");
+            playerColor = Color.cyan;
+        }
 
         blobGame = new BlobGame(playerName, playerColor);
         player = blobGame.getPlayer();
@@ -105,10 +91,46 @@ public class BlobApp {
     // MODIFIES: this
     // EFFECTS: loads saved blob game with player blob, enemy blobs, and available abilities
     private void initSaved() {
-        loadBlobGame();
+        doLoadBlobGame();
         player = blobGame.getPlayer();
         abilities = blobGame.getAbilities();
         enemyBlobs = blobGame.getEnemyBlobs();
+    }
+
+    // EFFECTS: processes quitting of the game
+    private void doQuitGame() {
+        String command = "";
+
+        while (!command.equals("y") && !command.equals("n")) {
+            System.out.println("Save before quitting?");
+            System.out.println("y / n");
+            command = input.next();
+            command = command.toLowerCase();
+        }
+
+        if (command.equals("y")) {
+            doSaveBlobGame();
+        }
+        System.out.println("Goodbye!");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes user command
+    private void processCommand(String command) {
+        switch (command) {
+            case "e":
+                doEatBlob();
+                break;
+            case "p":
+                doPlayerInfo();
+                break;
+            case "s":
+                doSaveBlobGame();
+                break;
+            default:
+                System.out.println("Selection not valid...");
+                break;
+        }
     }
 
     // EFFECTS: displays menu of options to user
@@ -140,12 +162,16 @@ public class BlobApp {
             selection = selection.toLowerCase();
         }
 
-        if (selection.equals("s")) {
-            doPlayerStatus();
-        } else if (selection.equals("a")) {
-            doViewAbilities();
-        } else if (selection.equals("v")) {
-            doViewVictims();
+        switch (selection) {
+            case "s":
+                doPlayerStatus();
+                break;
+            case "a":
+                doViewAbilities();
+                break;
+            case "v":
+                doViewVictims();
+                break;
         }
     }
 
@@ -179,11 +205,11 @@ public class BlobApp {
     //          eats the selected blob if player.getSize() >= food.getSize(),
     //          else player gets eaten and game is over
     private void doEatBlob(Blob food) {
-        if (player.getSize() >= food.getSize()) {
-            System.out.println("You ate " + food.getName() + "!");
+        try {
             player.eatBlob(food); // eats blob, food is added to player.victims and player.size grows by food.size
+            System.out.println("You ate " + food.getName() + "!");
             enemyBlobs.removeBlob(food); // food is removed from game
-        } else {
+        } catch (InvalidInputException e) {
             System.out.println("They were bigger than you! You got eaten. :(");
             keepGoing = false; // game over
         }
@@ -296,8 +322,14 @@ public class BlobApp {
 
     // EFFECTS: returns player blob's name as entered by user
     public String setPlayerName() {
-        System.out.println("Name your blob!");
-        return input.next();
+        String selection = "";
+
+        while (selection.isEmpty()) {
+            System.out.println("Name your blob!");
+            selection = input.next();
+        }
+
+        return selection;
     }
 
     // EFFECTS: returns player blob's color as entered by user
@@ -323,29 +355,54 @@ public class BlobApp {
         }
 
         Field field = Class.forName("java.awt.Color").getField(selection);
-        return (Color)field.get(null);
+        return (Color) field.get(null);
     }
 
-    // EFFECTS: saves the blob game to file
-    private void saveBlobGame() {
+    // EFFECTS: returns a file path for a JSONStore from jsonStoreName
+    private String generateJsonStore(String jsonStoreName) {
+        return "./data/saves/" + jsonStoreName + ".json";
+    }
+
+    // EFFECTS: saves the blob game to file with jsonStore
+    private void saveBlobGame(String jsonStore) {
         try {
+            JsonWriter jsonWriter = new JsonWriter(jsonStore);
             jsonWriter.open();
             jsonWriter.write(blobGame);
             jsonWriter.close();
-            System.out.println("Saved game to " + JSON_STORE);
+            System.out.println("Saved game to " + jsonStore);
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            System.out.println("Unable to write to file: " + jsonStore);
+        }
+    }
+
+    // EFFECTS: saves the blob game to file with save name
+    private void doSaveBlobGame() {
+        System.out.println("Enter your save name...");
+        String selection = input.next();
+        String jsonStore = generateJsonStore(selection);
+        saveBlobGame(jsonStore);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads blob game from file with jsonStore
+    private void loadBlobGame(String jsonStore) {
+        try {
+            JsonReader jsonReader = new JsonReader(jsonStore);
+            blobGame = jsonReader.read();
+            System.out.println("Loaded game from " + jsonStore);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + jsonStore);
+            doLoadBlobGame();
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: loads blob game from file
-    private void loadBlobGame() {
-        try {
-            blobGame = jsonReader.read();
-            System.out.println("Loaded game from " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
-        }
+    // EFFECTS: loads blob game from file with save name
+    private void doLoadBlobGame() {
+        System.out.println("Enter your save name...");
+        String selection = input.next();
+        String jsonStore = generateJsonStore(selection);
+        loadBlobGame(jsonStore);
     }
 }
