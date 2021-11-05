@@ -17,11 +17,12 @@ import java.awt.event.KeyEvent;
 public class BlobGame extends JFrame {
 
     private static final int INTERVAL = 10;
+
     private BGame game;
     private GamePanel gp;
-    private InfoPanel ip;
+    private InfoScreen ip;
     private MenuPanel mp;
-    private StartPanel sp;
+    private StartScreen sp;
 
     // Constructs main window
     // effects: sets up window in which Space Invaders game will be played
@@ -29,9 +30,8 @@ public class BlobGame extends JFrame {
         super("A Blob Eat Blob World");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(false);
-        sp = new MenuPanel();
-        add(gp);
-        add(ip, BorderLayout.NORTH);
+        sp = new StartScreen();
+        add(sp);
         addKeyListener(new KeyHandler());
         pack();
         centreOnScreen();
@@ -60,8 +60,8 @@ public class BlobGame extends JFrame {
     // modifies: this
     // effects:  location of frame is set so frame is centred on desktop
     private void centreOnScreen() {
-        Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((screen.width - getWidth()) / 2, (screen.height - getHeight()) / 2);
     }
 
     /*
@@ -78,6 +78,6 @@ public class BlobGame extends JFrame {
      * Play the game
      */
     public static void main(String[] args) {
-        new BlobApp();
+        new BlobGame();
     }
 }
