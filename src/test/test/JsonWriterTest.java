@@ -1,9 +1,8 @@
 package test;
 
 import exceptions.InvalidInputException;
-import model.Abilities;
 import model.Blob;
-import model.BlobGame;
+import model.BGame;
 import model.Blobs;
 import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
@@ -11,7 +10,6 @@ import persistence.JsonWriter;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -24,7 +22,7 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterInvalidFile() {
         try {
-            BlobGame bg = new BlobGame("George", Color.blue);
+            BGame bg = new BGame("George", Color.blue);
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
@@ -36,14 +34,14 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterNewBlobGame() {
         try {
-            BlobGame sbg = new BlobGame("George", Color.blue);
+            BGame sbg = new BGame("George", Color.blue);
             JsonWriter writer = new JsonWriter("./data/testWriterNewBlobGame.json");
             writer.open();
             writer.write(sbg);
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterNewBlobGame.json");
-            BlobGame lbg = reader.read();
+            BGame lbg = reader.read();
             checkBlob(sbg.getPlayer(), lbg.getPlayer());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
             checkBlobs(sbg.getEnemyBlobs().getBlobs(), lbg.getEnemyBlobs().getBlobs());
@@ -55,7 +53,7 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterGeneralBlobGame() {
         try {
-            BlobGame sbg = new BlobGame("George", Color.blue);
+            BGame sbg = new BGame("George", Color.blue);
             Blob player = sbg.getPlayer();
             Blobs enemyBlobs = sbg.getEnemyBlobs();
 
@@ -75,7 +73,7 @@ class JsonWriterTest extends JsonTest {
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterGeneralBlobGame.json");
-            BlobGame lbg = reader.read();
+            BGame lbg = reader.read();
             checkBlob(sbg.getPlayer(), lbg.getPlayer());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
             checkBlobs(sbg.getEnemyBlobs().getBlobs(), lbg.getEnemyBlobs().getBlobs());

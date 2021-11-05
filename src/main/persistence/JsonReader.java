@@ -1,6 +1,5 @@
 package persistence;
 
-import exceptions.InvalidInputException;
 import model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,7 +23,7 @@ public class JsonReader {
 
     // EFFECTS: reads blob game from file and returns it;
     // throws IOException if an error occurs reading data from file
-    public BlobGame read() throws IOException {
+    public BGame read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseBlobGame(jsonObject);
@@ -42,12 +41,12 @@ public class JsonReader {
     }
 
     // EFFECTS: parses blob game from JSON object and returns it
-    private BlobGame parseBlobGame(JSONObject jsonObject) {
+    private BGame parseBlobGame(JSONObject jsonObject) {
         Blob player = parseBlob(jsonObject.getJSONObject("player"));
         Abilities abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
         Blobs enemyBlobs = parseBlobs(jsonObject.getJSONObject("enemyBlobs"));
 
-        return new BlobGame(player, abilities, enemyBlobs);
+        return new BGame(player, abilities, enemyBlobs);
     }
 
     // EFFECTS: parses blob from JSON object and returns it

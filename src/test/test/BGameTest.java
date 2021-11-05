@@ -13,7 +13,7 @@ import static java.awt.Color.blue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class BlobGameTest {
+public class BGameTest {
     private int playerInitialSize;
     private final ArrayList<String> abilityNames = new ArrayList<>(Arrays.asList(
             "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
@@ -23,7 +23,7 @@ public class BlobGameTest {
             "Michael", "James", "Sam", "Tiffany", "Gordon",
             "Aaron", "Peter", "Hannah", "Jane", "Gary"));
 
-    private BlobGame testBlobGame;
+    private BGame testBGame;
     private Blob testPlayer;
     private Blob testBlob1;
     private Abilities testAbilities;
@@ -37,14 +37,14 @@ public class BlobGameTest {
         initialEnemies = enemyBlobNames.size();
         playerInitialSize = 15;
         try {
-            testBlobGame = new BlobGame("testBlob", Color.cyan);
+            testBGame = new BGame("testBlob", Color.cyan);
         } catch (InvalidInputException e) {
             e.printStackTrace();
         }
-        testPlayer = testBlobGame.getPlayer();
+        testPlayer = testBGame.getPlayer();
         testBlob1 = new Blob("test_blob1", 20, blue);
-        testAbilities = testBlobGame.getAbilities();
-        testEnemyBlobs = testBlobGame.getEnemyBlobs();
+        testAbilities = testBGame.getAbilities();
+        testEnemyBlobs = testBGame.getEnemyBlobs();
     }
 
     @Test
@@ -60,21 +60,21 @@ public class BlobGameTest {
     @Test
     void testGetAbilityByName(){
         String expect = abilityNames.get(0);
-        String actual = testBlobGame.getAbilityByName(abilityNames.get(0)).getName();
+        String actual = testBGame.getAbilityByName(abilityNames.get(0)).getName();
         assertEquals(expect, actual);
     }
 
     @Test
     void testMakeBlobs(){
         Blobs actual = null;
-        actual = testBlobGame.makeBlobs();
+        actual = testBGame.makeBlobs();
         assertEquals(initialEnemies, actual.getBlobs().size());
     }
 
     @Test
     void testMakeAbilities(){
         Abilities actual = null;
-        actual = testBlobGame.makeAbilities();
+        actual = testBGame.makeAbilities();
         assertEquals(abilityNames.size(), actual.getAbilities().size());
     }
 

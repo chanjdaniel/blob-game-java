@@ -1,8 +1,7 @@
 package persistence;
 
-import model.BlobGame;
+import model.BGame;
 import org.json.JSONObject;
-import ui.BlobApp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +28,7 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of blob game to file
-    public void write(BlobGame bg) {
+    public void write(BGame bg) {
         JSONObject json = bg.toJson();
         saveToFile(json.toString(TAB));
     }
