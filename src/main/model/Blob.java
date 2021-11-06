@@ -11,6 +11,7 @@ import java.util.ArrayList;
 // list of abilities, and list of names of blobs eaten
 public class Blob implements Writable {
     private String name;
+    private final int playerInitialSize = 15;
     private int size;
     private Color color;
     private Abilities abilities;

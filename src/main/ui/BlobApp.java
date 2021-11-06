@@ -18,7 +18,7 @@ public class BlobApp {
     private Blob player;
     private Abilities abilities;
     private Blobs enemyBlobs;
-    private BGame bGame;
+    private BlobGame blobGame;
     private Scanner input;
     boolean keepGoing = true;
 
@@ -83,22 +83,22 @@ public class BlobApp {
         }
 
         try {
-            bGame = new BGame(playerName, playerColor);
+            blobGame = new BlobGame(playerName, playerColor);
         } catch (InvalidInputException e) {
             e.printStackTrace();
         }
-        player = bGame.getPlayer();
-        abilities = bGame.getAbilities();
-        enemyBlobs = bGame.getEnemyBlobs();
+        player = blobGame.getPlayer();
+        abilities = blobGame.getAbilities();
+        enemyBlobs = blobGame.getEnemyBlobs();
     }
 
     // MODIFIES: this
     // EFFECTS: loads saved blob game with player blob, enemy blobs, and available abilities
     private void initSaved() {
         doLoadBlobGame();
-        player = bGame.getPlayer();
-        abilities = bGame.getAbilities();
-        enemyBlobs = bGame.getEnemyBlobs();
+        player = blobGame.getPlayer();
+        abilities = blobGame.getAbilities();
+        enemyBlobs = blobGame.getEnemyBlobs();
     }
 
     // EFFECTS: processes quitting of the game
@@ -274,7 +274,7 @@ public class BlobApp {
         // checks whether ability with name selection exists, and whether player already has it
         while (!abilityNames.contains(selection) || playerAbilityNames.contains(selection)) {
             System.out.println("Available abilities:");
-            for (String next : bGame.getAbilities().getNames()) {
+            for (String next : blobGame.getAbilities().getNames()) {
                 System.out.println(next);
             }
 
@@ -372,7 +372,7 @@ public class BlobApp {
         try {
             JsonWriter jsonWriter = new JsonWriter(jsonStore);
             jsonWriter.open();
-            jsonWriter.write(bGame);
+            jsonWriter.write(blobGame);
             jsonWriter.close();
             System.out.println("Saved game to " + jsonStore);
         } catch (FileNotFoundException e) {
@@ -393,7 +393,7 @@ public class BlobApp {
     private void loadBlobGame(String jsonStore) {
         try {
             JsonReader jsonReader = new JsonReader(jsonStore);
-            bGame = jsonReader.read();
+            blobGame = jsonReader.read();
             System.out.println("Loaded game from " + jsonStore);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + jsonStore);

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 // Represents the game state of the blob game
-public class BGame implements Writable {
+public class BlobGame implements Writable {
     private final int playerInitialSize = 15;
     private final ArrayList<String> abilityNames = new ArrayList<>(Arrays.asList(
             "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
@@ -24,7 +24,7 @@ public class BGame implements Writable {
     private Blobs enemyBlobs;
 
     // Creates an initial blob game with player with name and color;
-    public BGame(String playerName, Color playerColor) throws InvalidInputException {
+    public BlobGame(String playerName, Color playerColor) throws InvalidInputException {
 
         // Creates player with name and color
         player = makePlayerBlob(playerName, playerColor);
@@ -37,7 +37,7 @@ public class BGame implements Writable {
     }
 
     // Creates a blob game with all fields given as parameters; for loading a saved game
-    public BGame(Blob player, Abilities abilities, Blobs enemyBlobs) {
+    public BlobGame(Blob player, Abilities abilities, Blobs enemyBlobs) {
 
         this.player = player;
         this.enemyBlobs = enemyBlobs;

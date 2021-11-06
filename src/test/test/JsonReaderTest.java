@@ -1,7 +1,7 @@
 package test;
 
 import exceptions.InvalidInputException;
-import model.BGame;
+import model.BlobGame;
 import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
 
@@ -17,7 +17,7 @@ class JsonReaderTest extends JsonTest {
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
         try {
-            BGame bg = reader.read();
+            BlobGame bg = reader.read();
             fail("IOException expected");
         } catch (IOException e) {
             // pass
@@ -28,8 +28,8 @@ class JsonReaderTest extends JsonTest {
     void testReaderNewBlobGame() {
         JsonReader reader = new JsonReader("./data/testReaderNewBlobGame.json");
         try {
-            BGame sbg = new BGame("George", Color.blue);
-            BGame lbg = reader.read();
+            BlobGame sbg = new BlobGame("George", Color.blue);
+            BlobGame lbg = reader.read();
 
             checkBlob(sbg.getPlayer(), lbg.getPlayer());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
@@ -42,12 +42,12 @@ class JsonReaderTest extends JsonTest {
     void testReaderGeneralBlobGame() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralBlobGame.json");
         try {
-            BGame sbg = new BGame("George", Color.blue);
+            BlobGame sbg = new BlobGame("George", Color.blue);
 
             // adds an ability
             sbg.getPlayer().addAbility(sbg.getAbilityByName("Jump"));
 
-            BGame lbg = reader.read();
+            BlobGame lbg = reader.read();
 
             checkBlob(sbg.getPlayer(), lbg.getPlayer());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());

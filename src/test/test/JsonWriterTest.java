@@ -2,7 +2,7 @@ package test;
 
 import exceptions.InvalidInputException;
 import model.Blob;
-import model.BGame;
+import model.BlobGame;
 import model.Blobs;
 import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
@@ -22,7 +22,7 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterInvalidFile() {
         try {
-            BGame bg = new BGame("George", Color.blue);
+            BlobGame bg = new BlobGame("George", Color.blue);
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
@@ -34,14 +34,14 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterNewBlobGame() {
         try {
-            BGame sbg = new BGame("George", Color.blue);
+            BlobGame sbg = new BlobGame("George", Color.blue);
             JsonWriter writer = new JsonWriter("./data/testWriterNewBlobGame.json");
             writer.open();
             writer.write(sbg);
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterNewBlobGame.json");
-            BGame lbg = reader.read();
+            BlobGame lbg = reader.read();
             checkBlob(sbg.getPlayer(), lbg.getPlayer());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
             checkBlobs(sbg.getEnemyBlobs().getBlobs(), lbg.getEnemyBlobs().getBlobs());
@@ -53,7 +53,7 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterGeneralBlobGame() {
         try {
-            BGame sbg = new BGame("George", Color.blue);
+            BlobGame sbg = new BlobGame("George", Color.blue);
             Blob player = sbg.getPlayer();
             Blobs enemyBlobs = sbg.getEnemyBlobs();
 
@@ -73,7 +73,7 @@ class JsonWriterTest extends JsonTest {
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterGeneralBlobGame.json");
-            BGame lbg = reader.read();
+            BlobGame lbg = reader.read();
             checkBlob(sbg.getPlayer(), lbg.getPlayer());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
             checkBlobs(sbg.getEnemyBlobs().getBlobs(), lbg.getEnemyBlobs().getBlobs());

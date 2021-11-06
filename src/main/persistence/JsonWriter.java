@@ -1,6 +1,6 @@
 package persistence;
 
-import model.BGame;
+import model.BlobGame;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -28,7 +28,7 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of blob game to file
-    public void write(BGame bg) {
+    public void write(BlobGame bg) {
         JSONObject json = bg.toJson();
         saveToFile(json.toString(TAB));
     }
