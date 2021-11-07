@@ -3,6 +3,7 @@ package model;
 import exceptions.InvalidInputException;
 import org.json.JSONObject;
 import persistence.Writable;
+import ui.Screen;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -80,10 +81,13 @@ public class BlobGame implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: makes player blob with name playerName, size as playerInitialSize, and color playerColor
+    // EFFECTS: makes player blob with name playerName, size as playerInitialSize,
+    // and color playerColor at centre of screen
     public Blob makePlayerBlob(String playerName, Color playerColor) {
+        int centreX = Screen.CENTRE_WIDTH - playerInitialSize / 2;
+        int centreY = Screen.CENTRE_HEIGHT - playerInitialSize / 2;
 
-        return new Blob(playerName, playerInitialSize, playerColor);
+        return new Blob(playerName, playerInitialSize, centreX, centreY, playerColor);
     }
 
     @Override

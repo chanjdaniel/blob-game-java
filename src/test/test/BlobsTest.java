@@ -28,8 +28,8 @@ public class BlobsTest {
     @BeforeEach
     void runBefore() {
         testBlobs = new Blobs();
-        testBlob1 = new Blob("test_blob1", 20, blue);
-        testBlob2 = new Blob("test_blob2", 10, red);
+        testBlob1 = new Blob("test_blob1", 20, 0, 0, blue);
+        testBlob2 = new Blob("test_blob2", 10, 0, 0, red);
 
         testNames = new ArrayList<>(Arrays.asList(
                 "Michael", "James", "Sam", "Tiffany", "Gordon", "Aaron", "Peter", "Hannah", "Jane", "Gary"));

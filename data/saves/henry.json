@@ -45,11 +45,11 @@
         {
             "positionY": 0,
             "abilities": {"abilities": []},
-            "size": 18,
+            "size": 19,
             "color": {
-                "r": 243,
-                "b": 26,
-                "g": 184
+                "r": 94,
+                "b": 134,
+                "g": 93
             },
             "name": "Gary",
             "victims": {"blobs": []},
@@ -58,11 +58,11 @@
         {
             "positionY": 0,
             "abilities": {"abilities": []},
-            "size": 46,
+            "size": 23,
             "color": {
-                "r": 76,
-                "b": 146,
-                "g": 126
+                "r": 209,
+                "b": 187,
+                "g": 25
             },
             "name": "Jane",
             "victims": {"blobs": []},
@@ -71,11 +71,11 @@
         {
             "positionY": 0,
             "abilities": {"abilities": []},
-            "size": 6,
+            "size": 16,
             "color": {
-                "r": 33,
-                "b": 206,
-                "g": 65
+                "r": 96,
+                "b": 161,
+                "g": 241
             },
             "name": "Hannah",
             "victims": {"blobs": []},
@@ -84,11 +84,11 @@
         {
             "positionY": 0,
             "abilities": {"abilities": []},
-            "size": 44,
+            "size": 18,
             "color": {
-                "r": 151,
-                "b": 152,
-                "g": 208
+                "r": 57,
+                "b": 0,
+                "g": 148
             },
             "name": "Peter",
             "victims": {"blobs": []},
@@ -97,11 +97,11 @@
         {
             "positionY": 0,
             "abilities": {"abilities": []},
-            "size": 20,
+            "size": 27,
             "color": {
-                "r": 138,
-                "b": 82,
-                "g": 154
+                "r": 87,
+                "b": 115,
+                "g": 134
             },
             "name": "Aaron",
             "victims": {"blobs": []},
@@ -110,11 +110,11 @@
         {
             "positionY": 0,
             "abilities": {"abilities": []},
-            "size": 23,
+            "size": 50,
             "color": {
-                "r": 77,
-                "b": 222,
-                "g": 64
+                "r": 107,
+                "b": 217,
+                "g": 236
             },
             "name": "Gordon",
             "victims": {"blobs": []},
@@ -123,11 +123,11 @@
         {
             "positionY": 0,
             "abilities": {"abilities": []},
-            "size": 20,
+            "size": 36,
             "color": {
-                "r": 104,
-                "b": 224,
-                "g": 53
+                "r": 235,
+                "b": 19,
+                "g": 167
             },
             "name": "Tiffany",
             "victims": {"blobs": []},
@@ -136,11 +136,11 @@
         {
             "positionY": 0,
             "abilities": {"abilities": []},
-            "size": 36,
+            "size": 28,
             "color": {
-                "r": 5,
-                "b": 82,
-                "g": 108
+                "r": 40,
+                "b": 84,
+                "g": 126
             },
             "name": "Sam",
             "victims": {"blobs": []},
@@ -149,11 +149,11 @@
         {
             "positionY": 0,
             "abilities": {"abilities": []},
-            "size": 15,
+            "size": 6,
             "color": {
-                "r": 62,
-                "b": 54,
-                "g": 207
+                "r": 130,
+                "b": 198,
+                "g": 48
             },
             "name": "James",
             "victims": {"blobs": []},
@@ -162,11 +162,11 @@
         {
             "positionY": 0,
             "abilities": {"abilities": []},
-            "size": 36,
+            "size": 25,
             "color": {
-                "r": 34,
-                "b": 240,
-                "g": 239
+                "r": 66,
+                "b": 255,
+                "g": 249
             },
             "name": "Michael",
             "victims": {"blobs": []},
@@ -178,11 +178,11 @@
         "abilities": {"abilities": []},
         "size": 15,
         "color": {
-            "r": 51,
-            "b": 51,
+            "r": 102,
+            "b": 204,
             "g": 255
         },
-        "name": "george",
+        "name": "Henry",
         "victims": {"blobs": []},
         "positionX": 493
     }

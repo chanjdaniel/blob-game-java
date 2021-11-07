@@ -5,42 +5,80 @@ import model.Blob;
 import model.BlobGame;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
+// Represents the new game screen
 public class NewGameScreen extends Screen {
-
-    private static final int X_OFFSET = 350;
+    private static final int X_OFFSET_LEFT = 200;
+    private static final int X_OFFSET_RIGHT = 280;
 
     private BlobEatBlob beb;
-    private Blob blob = new Blob("",15,Color.WHITE); // default blob
-    private String playerName;
-    private Color playerColor;
+    private JTextField textField;
+    private JLabel blobNameLabel;
+    private JColorChooser colorChooser;
+    private ChangeHandler changeHandler;
+    private DocumentHandler documentHandler;
 
     // Constructs a new game screen
-    // effects: sets size and background colour of panel
     public NewGameScreen(BlobEatBlob beb) {
         super();
         this.beb = beb;
-        drawScreen();
-    }
+        documentHandler = new DocumentHandler();
+        textField = new JTextField("", 20);
+        textField.getDocument().addDocumentListener(documentHandler);
 
-    private void drawScreen() {
-        drawNamer();
-        drawColorPicker();
+        changeHandler = new ChangeHandler();
+        colorChooser = new JColorChooser(Color.CYAN);
+        colorChooser.getSelectionModel().addChangeListener(changeHandler);
+        drawScreen();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawBlobRenderer(g);
+
+        // Blob preview
+        addBlob(g);
+        addBlobLabel();
     }
 
-    private void drawNamer() {
-        drawNameText();
-        drawTextField();
+    // MODIFIES: this
+    // EFFECTS:  adds the blob preview
+    private void addBlob(Graphics g) {
+        int size = 200;
+        int centreX = CENTRE_WIDTH - size / 2;
+        int centreY = CENTRE_HEIGHT - size / 2;
+        int offSetY = 50;
+        Color blobColor = colorChooser.getColor();
+        Blob blob = new Blob("", size, centreX + X_OFFSET_RIGHT, centreY - offSetY, blobColor);
+        BlobRenderer renderer = new BlobRenderer();
+
+        renderer.renderBlob(g, blob);
     }
 
-    private void drawNameText() {
+    // MODIFIES: this
+    // EFFECTS:  draws the components
+    private void drawScreen() {
+        // Name text field
+        addNameFieldLabel();
+        addTextField();
+
+        // Color chooser
+        addColorLabel();
+        addColorChooser();
+
+        // Confirm button
+        addConfirmButton();
+    }
+
+    // MODIFIES: this
+    // EFFECTS:  adds the name field label
+    private void addNameFieldLabel() {
         int width = 300;
         int height = 50;
         int centreX = CENTRE_WIDTH - width / 2;
@@ -49,30 +87,27 @@ public class NewGameScreen extends Screen {
         JLabel text = new JLabel("Name your blob!", SwingConstants.CENTER);
         Font font = new Font(Font.SERIF, Font.BOLD, 30);
         text.setFont(font);
-        text.setBounds(centreX - X_OFFSET,centreY - offSetY,width,height);
+        text.setBounds(centreX - X_OFFSET_LEFT, centreY - offSetY, width, height);
         add(text);
     }
 
-    private void drawTextField() {
+    // MODIFIES: this
+    // EFFECTS:  adds the text field
+    private void addTextField() {
         int width = 200;
         int height = 30;
         int centreX = CENTRE_WIDTH - width / 2;
         int centreY = CENTRE_HEIGHT - height / 2;
         int offSetY = 200;
-        JTextField field = new JTextField(20);
-        field.setBounds(centreX - X_OFFSET,centreY - offSetY,width,height);
-        field.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        field.setHorizontalAlignment(JTextField.CENTER);
-        add(field);
-        playerName = field.getText();
+        textField.setBounds(centreX - X_OFFSET_LEFT, centreY - offSetY, width, height);
+        textField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        textField.setHorizontalAlignment(JTextField.CENTER);
+        add(textField);
     }
 
-    private void drawColorPicker() {
-        drawColorText();
-        drawPicker();
-    }
-
-    private void drawColorText() {
+    // MODIFIES: this
+    // EFFECTS:  adds the color label
+    private void addColorLabel() {
         int width = 300;
         int height = 50;
         int centreX = CENTRE_WIDTH - width / 2;
@@ -81,50 +116,128 @@ public class NewGameScreen extends Screen {
         JLabel text = new JLabel("Pick a colour!", SwingConstants.CENTER);
         Font font = new Font(Font.SERIF, Font.BOLD, 30);
         text.setFont(font);
-        text.setBounds(centreX - X_OFFSET,centreY - offSetY,width,height);
+        text.setBounds(centreX - X_OFFSET_LEFT, centreY - offSetY, width, height);
         add(text);
     }
 
-    private void drawPicker() {
-        int width = 300;
+    // MODIFIES: this
+    // EFFECTS:  adds the color chooser
+    private void addColorChooser() {
+        int width = 500;
         int height = 300;
         int centreX = CENTRE_WIDTH - width / 2;
         int centreY = CENTRE_HEIGHT - height / 2;
         int offSetY = 100;
-        JColorChooser picker = new JColorChooser();
-        picker.setBounds(centreX - X_OFFSET,centreY + offSetY,width,height);
-        add(picker);
-        playerColor = picker.getColor();
+        colorChooser.setBounds(centreX - X_OFFSET_LEFT, centreY + offSetY, width, height);
+        add(colorChooser);
     }
 
-    private void blobMaker() {
+    // MODIFIES: this
+    // EFFECTS:  adds the blob name preview
+    private void addBlobLabel() {
+        if (blobNameLabel != null) {
+            remove(blobNameLabel);
+        }
+        String name = textField.getText();
+        int width = 300;
+        int height = 50;
+        int centreX = CENTRE_WIDTH - width / 2;
+        int centreY = CENTRE_HEIGHT - height / 2;
+        int offSetY = 200;
+        blobNameLabel = new JLabel(name, SwingConstants.CENTER);
+        Font font = new Font(Font.SERIF, Font.BOLD, 30);
+        blobNameLabel.setFont(font);
+        blobNameLabel.setBounds(centreX + X_OFFSET_RIGHT, centreY - offSetY, width, height);
+        add(blobNameLabel);
+    }
+
+    // MODIFIES: this
+    // EFFECTS:  adds the confirm button
+    private void addConfirmButton() {
+        int width = 125;
+        int height = 50;
+        int centreX = CENTRE_WIDTH - width / 2;
+        int centreY = CENTRE_HEIGHT - height / 2;
+        int offSetY = 175;
+        JButton confirmButton = new JButton(new ConfirmAction());
+        confirmButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        confirmButton.setBounds(centreX + X_OFFSET_RIGHT, centreY + offSetY, width, height);
+
+        add(confirmButton);
+    }
+
+    // Represents action taken when user clicks on the "Confirm" button
+    // sets ??? to textField.getText(), sets ??? to colorChooser.getColor()
+    // replaces current screen with MenuScreen
+    private class ConfirmAction extends AbstractAction {
+
+        ConfirmAction() {
+            super("Confirm");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            blobGameMaker();
+            beb.nextScreen(new MainMenuScreen(beb));
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS:  repaints the component
+    private void redraw() {
+        this.repaint();
+    }
+
+    // if detects change in picker, repaints the component
+    private class ChangeHandler implements ChangeListener {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            redraw();
+        }
+    }
+
+    // if detects change in text field, repaints the component
+    private class DocumentHandler implements SimpleDocumentListener {
+        @Override
+        public void update(DocumentEvent e) {
+            redraw();
+        }
+    }
+
+    // simplify DocumentLister
+    // source: https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
+    public interface SimpleDocumentListener extends DocumentListener {
+        void update(DocumentEvent e);
+
+        @Override
+        default void insertUpdate(DocumentEvent e) {
+            update(e);
+        }
+
+        @Override
+        default void removeUpdate(DocumentEvent e) {
+            update(e);
+        }
+
+        @Override
+        default void changedUpdate(DocumentEvent e) {
+            update(e);
+        }
+    }
+
+    // MODIFIES: beb
+    // EFFECTS:  creates a new blob game using playerName and playColor as entered by user
+    private void blobGameMaker() {
+        String playerName = textField.getText();
+        Color playerColor = colorChooser.getColor();
+
         BlobGame bg = null;
         try {
-            bg = new BlobGame(playerName,playerColor);
+            bg = new BlobGame(playerName, playerColor);
         } catch (InvalidInputException e) {
             e.printStackTrace();
         }
+
         beb.setBlobGame(bg);
-    }
-
-    private void drawBlobRenderer(Graphics g) {
-        drawBlobText();
-        drawBlob(g);
-       // drawBlobOutline(g);
-    }
-
-    private void drawBlobText() {
-    }
-
-    private void drawBlob(Graphics g) {
-        int width = 200;
-        int height = 200;
-        int centreX = CENTRE_WIDTH - width / 2;
-        int centreY = CENTRE_HEIGHT - height / 2;
-        int offSetY = 100;
-        g.setColor(this.blob.getColor());
-        g.fillRect(centreX,centreY,width,height);
-        g.setColor(Color.BLACK);
-        g.drawRect(centreX,centreY,width,height); // make thicker
     }
 }

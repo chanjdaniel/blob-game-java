@@ -20,8 +20,8 @@ class BlobTest {
 
     @BeforeEach
     void runBefore() {
-        testBlob1 = new Blob("test_blob1", 20, blue);
-        testBlob2 = new Blob("test_blob2", 10, red);
+        testBlob1 = new Blob("test_blob1", 20, 0, 0, blue);
+        testBlob2 = new Blob("test_blob2", 10, 0, 0, red);
         testAbility1 = new Ability("test_ability1", "test_description");
         testAbility2 = new Ability("test_ability2", "test_description");
     }

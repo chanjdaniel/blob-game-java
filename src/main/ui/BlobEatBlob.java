@@ -1,5 +1,6 @@
 package ui;
 
+import model.Blob;
 import model.BlobGame;
 
 import java.awt.*;
@@ -14,8 +15,6 @@ public class BlobEatBlob {
     private static final int INTERVAL = 10;
 
     private BlobGame bg;
-    private Screen currentScreen;
-    private Screen lastScreen;
     private GameFrame gameFrame;
 
     // Constructs main window
@@ -26,29 +25,24 @@ public class BlobEatBlob {
         run();
     }
 
-    public GameFrame getGameFrame() {
-        return gameFrame;
-    }
-
     public void setBlobGame(BlobGame bg) {
         this.bg = bg;
     }
 
-    private void run() {
-
-        init();
-
+    public BlobGame getBlobGame() {
+        return bg;
     }
 
-    private void init() {
+    public Blob getPlayerBlob() {
+        return bg.getPlayer();
+    }
+
+    private void run() {
         StartScreen startScreen = new StartScreen(this);
         nextScreen(startScreen);
-
     }
 
     public void nextScreen(Screen screen) {
-        lastScreen = currentScreen;
-        currentScreen = screen;
         gameFrame.nextScreen(screen);
     }
 

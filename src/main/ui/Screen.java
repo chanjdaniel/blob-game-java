@@ -18,13 +18,4 @@ public class Screen extends JPanel {
         setLayout(null);
         setVisible(true);
     }
-
-    protected void nextScreen() {
-        GameFrame gameFrame = new GameFrame(TITLE);
-        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        gameFrame.add(this);
-        gameFrame.pack();
-        gameFrame.setVisible(true);
-        gameFrame.setLocation((screen.width - Screen.WIDTH) / 2, (screen.height - Screen.HEIGHT) / 2);
-    }
 }

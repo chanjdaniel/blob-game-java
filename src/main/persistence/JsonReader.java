@@ -53,11 +53,13 @@ public class JsonReader {
     private Blob parseBlob(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int size = jsonObject.getInt("size");
+        double positionX = jsonObject.getDouble("positionX");
+        double positionY = jsonObject.getDouble("positionY");
         Color color = parseColor(jsonObject.getJSONObject("color"));
         Abilities abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
         Blobs victims = parseBlobs(jsonObject.getJSONObject("victims"));
 
-        return new Blob(name, size, color, abilities, victims);
+        return new Blob(name, size, positionX, positionY, color, abilities, victims);
     }
 
     // EFFECTS: parses color from JSON object and returns it

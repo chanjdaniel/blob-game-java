@@ -69,7 +69,7 @@ public class Blobs implements Writable {
     // EFFECTS: creates n = blobsToMake new blobs with random size [1, 50], random color,
     //          and name from blobNames, and adds them to this.blobs; does nothing if this.blobs is
     //          not empty, blobsToMake <= 0, or blobNames.size() >= blobsToMake
-    public void makeBlobs(int blobsToMake, ArrayList<String> blobNames) {
+    public void makeBlobs(int blobsToMake, ArrayList<String> blobNames) { // make only one blob at a time
 
         if (blobsToMake <= blobNames.size()) {
             int minSize = 1;
@@ -86,7 +86,7 @@ public class Blobs implements Writable {
                 Color color = new Color(r, g, b);
 
                 Blob newBlob;
-                newBlob = new Blob(name, size, color);
+                newBlob = new Blob(name, size, 0, 0, color);
                 this.addBlob(newBlob);
             }
         }

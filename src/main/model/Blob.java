@@ -7,12 +7,14 @@ import persistence.Writable;
 import java.awt.*;
 import java.util.ArrayList;
 
-// Represents a blob having a name, size (diameter of circle), color,
+// Represents a blob having a name, size (diameter of circle), x and y position, color,
 // list of abilities, and list of names of blobs eaten
 public class Blob implements Writable {
     private String name;
     private final int playerInitialSize = 15;
     private int size;
+    private double positionX;
+    private double positionY;
     private Color color;
     private Abilities abilities;
     private Blobs victims;
@@ -21,9 +23,11 @@ public class Blob implements Writable {
     // EFFECTS: name of blob is set to blobName;
     //          size of blob is set to initialSize; color of blob is set to blobColor;
     //          abilities is set to new Abilities; victims is set to new Victims.
-    public Blob(String name, int size, Color color) {
+    public Blob(String name, int size, double positionX, double positionY, Color color) {
         this.name = name;
         this.size = size;
+        this.positionX = positionX;
+        this.positionY = positionY;
         this.color = color;
         this.abilities = new Abilities();
         this.victims = new Blobs();
@@ -32,9 +36,12 @@ public class Blob implements Writable {
     // EFFECTS: name of blob is set to blobName;
     //          size of blob is set to initialSize; color of blob is set to blobColor;
     //          this.abilities is set to abilities; this.victims is set to victims.
-    public Blob(String name, int size, Color color, Abilities abilities, Blobs victims) {
+    public Blob(String name, int size, double positionX, double positionY,
+                Color color, Abilities abilities, Blobs victims) {
         this.name = name;
         this.size = size;
+        this.positionX = positionX;
+        this.positionY = positionY;
         this.color = color;
         this.abilities = abilities;
         this.victims = victims;
@@ -46,6 +53,14 @@ public class Blob implements Writable {
 
     public int getSize() {
         return size;
+    }
+
+    public double getPositionX() {
+        return positionX;
+    }
+
+    public double getPositionY() {
+        return positionY;
     }
 
     public Color getColor() {
@@ -98,6 +113,8 @@ public class Blob implements Writable {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("size", size);
+        json.put("positionX", positionX);
+        json.put("positionY", positionY);
         json.put("color", colorToJson());
         json.put("abilities", abilities.toJson());
         json.put("victims", victims.toJson());
