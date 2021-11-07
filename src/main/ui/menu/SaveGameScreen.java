@@ -1,25 +1,29 @@
-package ui;
+package ui.menu;
 
 import model.Blob;
-import model.BlobGame;
-import persistence.JsonReader;
+import persistence.JsonWriter;
+import ui.BlobEatBlob;
+import ui.BlobRenderer;
+import ui.Screen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Line2D;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 
 // Represents the load game screen
-public class LoadGameScreen extends Screen {
+public class SaveGameScreen extends Screen {
     private BlobEatBlob beb;
+    private String status;
     private JTextField textField;
     private JLabel label;
 
-    // Constructs a load screen
-    public LoadGameScreen(BlobEatBlob beb) {
+    // Constructs a save screen
+    public SaveGameScreen(BlobEatBlob beb, String status) {
         super();
         this.beb = beb;
+        this.status = status;
         drawScreen();
     }
 
@@ -38,6 +42,7 @@ public class LoadGameScreen extends Screen {
         int size = 100;
         int centreX = CENTRE_WIDTH - size / 2;
         int centreY = CENTRE_HEIGHT - size / 2;
+        int offSetY = 150;
         Color blobColor = Color.CYAN;
         Blob blob = new Blob("", size, centreX, centreY, blobColor);
         BlobRenderer renderer = new BlobRenderer();
@@ -45,8 +50,6 @@ public class LoadGameScreen extends Screen {
         renderer.renderBlob(g, blob);
     }
 
-    // MODIFIES: this
-    // EFFECTS:  adds blob speech lines
     private void addBlobSpeech(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         float offSetX = 20;
@@ -77,12 +80,13 @@ public class LoadGameScreen extends Screen {
     // MODIFIES: this
     // EFFECTS:  adds title label
     private void addTitleLabel() {
+        String message = (status == "quit") ? (message = "See you soon!") : (message = "Save your game!");
         int width = WIDTH;
         int height = 100;
         int centreX = CENTRE_WIDTH - width / 2;
         int centreY = CENTRE_HEIGHT - height / 2;
         int offSetY = 150;
-        JLabel text = new JLabel("Welcome back!", SwingConstants.CENTER);
+        JLabel text = new JLabel(message, SwingConstants.CENTER);
         Font font = new Font(Font.SERIF, Font.BOLD, 60);
         text.setFont(font);
         text.setBounds(centreX, centreY - offSetY, width, height);
@@ -97,7 +101,7 @@ public class LoadGameScreen extends Screen {
         int centreX = CENTRE_WIDTH - width / 2;
         int centreY = CENTRE_HEIGHT - height / 2;
         int offSetY = 170;
-        label = new JLabel("Enter your save name...", SwingConstants.CENTER);
+        label = new JLabel("Enter a save name...", SwingConstants.CENTER);
         Font font = new Font(Font.SERIF, Font.BOLD, 20);
         label.setFont(font);
         label.setBounds(centreX, centreY + offSetY, width, height);
@@ -135,7 +139,8 @@ public class LoadGameScreen extends Screen {
     }
 
     // Represents action taken when user clicks on the "Enter" button
-    // attempts to load save with entered save name; replaces current screen with MainGameScreen
+    // attempts to save to file with entered save name;
+    // exits program if status is "quit", else replaces current screen with MainGameScreen
     private class EnterAction extends AbstractAction {
 
         EnterAction() {
@@ -145,13 +150,15 @@ public class LoadGameScreen extends Screen {
         @Override
         public void actionPerformed(ActionEvent e) {
             String jsonStore = generateJsonStore(textField.getText());
-            BlobGame savedGame = null;
             try {
-                savedGame = loadBlobGame(jsonStore);
-                beb.setBlobGame(savedGame);
-                beb.nextScreen(new MainMenuScreen(beb));
-            } catch (IOException ex) {
-                label.setText("Save not found at " + jsonStore);
+                saveBlobGame(jsonStore);
+                if (status == "quit") {
+                    System.exit(0);
+                } else {
+                    beb.nextScreen(new MainMenuScreen(beb));
+                }
+            } catch (FileNotFoundException ex) {
+                label.setText("Unable to save...");
             }
         }
     }
@@ -161,10 +168,11 @@ public class LoadGameScreen extends Screen {
         return "./data/saves/" + jsonStoreName + ".json";
     }
 
-    // MODIFIES: this
-    // EFFECTS: loads blob game from file with jsonStore
-    private BlobGame loadBlobGame(String jsonStore) throws IOException {
-        JsonReader jsonReader = new JsonReader(jsonStore);
-        return jsonReader.read();
+    // EFFECTS: saves the blob game to file with jsonStore
+    private void saveBlobGame(String jsonStore) throws FileNotFoundException {
+        JsonWriter jsonWriter = new JsonWriter(jsonStore);
+        jsonWriter.open();
+        jsonWriter.write(beb.getBlobGame());
+        jsonWriter.close();
     }
 }

@@ -1,8 +1,12 @@
-package ui;
+package ui.init;
 
 import exceptions.InvalidInputException;
 import model.Blob;
 import model.BlobGame;
+import ui.BlobEatBlob;
+import ui.BlobRenderer;
+import ui.Screen;
+import ui.menu.MainMenuScreen;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

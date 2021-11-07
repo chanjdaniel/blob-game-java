@@ -1,6 +1,9 @@
-package ui;
+package ui.init;
 
 import model.Blob;
+import ui.BlobEatBlob;
+import ui.BlobRenderer;
+import ui.Screen;
 
 import javax.swing.*;
 import java.awt.*;

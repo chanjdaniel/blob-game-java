@@ -6,9 +6,6 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
-import static ui.Screen.CENTRE_HEIGHT;
-import static ui.Screen.CENTRE_WIDTH;
-
 public class BlobRenderer {
 
     public BlobRenderer() {

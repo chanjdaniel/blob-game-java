@@ -1,9 +1,9 @@
 package ui;
 
+import ui.Screen;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GameFrame extends JFrame {
 

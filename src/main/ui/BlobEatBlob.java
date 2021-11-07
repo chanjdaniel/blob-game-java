@@ -2,6 +2,7 @@ package ui;
 
 import model.Blob;
 import model.BlobGame;
+import ui.init.StartScreen;
 
 import java.awt.*;
 

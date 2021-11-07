@@ -1,6 +1,6 @@
-//package ui;
+//package ui.game;
 //
-//import model.BGame;
+//import model.BlobGame;
 //
 //import javax.swing.*;
 //import java.awt.*;
