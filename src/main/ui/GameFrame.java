@@ -15,11 +15,15 @@ public class GameFrame extends JFrame {
     }
 
     public void nextScreen(Screen screen) {
-        Container pane = getContentPane();
-        pane.removeAll();
-        pane.add(screen);
+//        Container pane = getContentPane();
+//        pane.removeAll();
+//        pane.add(screen);
+//        pack();
+//        pane.revalidate();
+//        setVisible(true);
+
+        setContentPane(screen);
         pack();
         setVisible(true);
-        pane.revalidate();
     }
 }

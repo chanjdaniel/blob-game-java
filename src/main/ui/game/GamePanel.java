@@ -1,116 +1,50 @@
-//package ui.game;
-//
-//import model.BlobGame;
-//
-//import javax.swing.*;
-//import java.awt.*;
-//
-///*
-// * The panel in which the game is rendered.
-// */
-//public class GamePanel extends JPanel {
-//
-//    private static final String OVER = "Game Over!";
-//    private static final String MENU = "Press M to return to the menu...";
-//    private static final Color BACKGROUND_COLOR = new Color(97, 217, 17);
-//    private BGame game;
-//
-//    // Constructs a game panel
-//    // effects:  sets size and background colour of panel,
-//    //           updates this with the game to be displayed
-//    public GamePanel(BGame g) {
-//        setPreferredSize(new Dimension(BGame.WIDTH, BGame.HEIGHT));
-//        setBackground(BACKGROUND_COLOR);
-//        this.game = g;
-//    }
-//
-//    @Override
-//    protected void paintComponent(Graphics g) {
-//        super.paintComponent(g);
-//
-//        drawGame(g);
-//
-//        if (game.isOver()) {
-//            gameOver(g);
-//        }
-//    }
-//
-//    // Draws the game
-//    // modifies: g
-//    // effects:  draws the game onto g
-//    private void drawGame(Graphics g) {
-//        drawPlayerBlob(g);
-//        drawEnemyBlobs(g);
-//        drawPowerUps(g);
-//    }
-//
-//    // Draw the tank
-//    // modifies: g
-//    // effects:  draws the tank onto g
-//    private void drawTank(Graphics g) {
-//        Tank t = game.getTank();
-//        Color savedCol = g.getColor();
-//        g.setColor(Tank.COLOR);
-//        g.fillRect(t.getX() - Tank.SIZE_X / 2, Tank.Y_POS - Tank.SIZE_Y / 2, Tank.SIZE_X, Tank.SIZE_Y);
-//        g.setColor(savedCol);
-//    }
-//
-//    // Draw the invaders
-//    // modifies: g
-//    // effects:  draws the invaders onto g
-//    private void drawInvaders(Graphics g) {
-//        for(Invader next : game.getInvaders()) {
-//            drawInvader(g, next);
-//        }
-//    }
-//
-//    // Draw an invader
-//    // modifies: g
-//    // effects:  draws the invader i onto g
-//    private void drawInvader(Graphics g, Invader i) {
-//        Color savedCol = g.getColor();
-//        g.setColor(Invader.COLOR);
-//        g.fillOval(i.getX() - Invader.SIZE_X / 2, i.getY() - Invader.SIZE_Y / 2, Invader.SIZE_X, Invader.SIZE_Y);
-//        g.setColor(savedCol);
-//    }
-//
-//    // Draws the missiles
-//    // modifies: g
-//    // effects:  draws the missiles onto g
-//    private void drawMissiles(Graphics g) {
-//        for(Missile next : game.getMissiles()) {
-//            drawMissile(g, next);
-//        }
-//    }
-//
-//    // Draws a missile
-//    // modifies: g
-//    // effects:  draws the missile m onto g
-//    private void drawMissile(Graphics g, Missile m) {
-//        Color savedCol = g.getColor();
-//        g.setColor(Missile.COLOR);
-//        g.fillOval(m.getX() - Missile.SIZE_X / 2, m.getY() - Missile.SIZE_Y / 2, Missile.SIZE_X, Missile.SIZE_Y);
-//        g.setColor(savedCol);
-//    }
-//
-//    // Draws the "game over" message and replay instructions
-//    // modifies: g
-//    // effects:  draws "game over" and replay instructions onto g
-//    private void gameOver(Graphics g) {
-//        Color saved = g.getColor();
-//        g.setColor(new Color( 0, 0, 0));
-//        g.setFont(new Font("Arial", 20, 20));
-//        FontMetrics fm = g.getFontMetrics();
-//        centreString(OVER, g, fm, SIGame.HEIGHT / 2);
-//        centreString(REPLAY, g, fm, SIGame.HEIGHT / 2 + 50);
-//        g.setColor(saved);
-//    }
-//
-//    // Centres a string on the screen
-//    // modifies: g
-//    // effects:  centres the string str horizontally onto g at vertical position yPos
-//    private void centreString(String str, Graphics g, FontMetrics fm, int yPos) {
-//        int width = fm.stringWidth(str);
-//        g.drawString(str, (SIGame.WIDTH - width) / 2, yPos);
-//    }
-//}
+package ui.game;
+
+import javafx.beans.value.WritableDoubleValue;
+import model.Blob;
+import model.BlobGame;
+import model.Blobs;
+import ui.BlobEatBlob;
+import ui.BlobRenderer;
+import ui.Screen;
+
+import javax.swing.*;
+import java.awt.*;
+
+import static ui.Screen.CENTRE_HEIGHT;
+import static ui.Screen.CENTRE_WIDTH;
+
+public class GamePanel extends JPanel {
+    private static final int WIDTH = GameScreen.RIGHT_WIDTH;
+    public static final int HEIGHT = 575;
+
+    BlobGame bg;
+
+    public GamePanel(BlobGame bg) {
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setBackground(Color.CYAN);
+        setVisible(true);
+        this.bg = bg;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // Blob
+        addBlob(g);
+    }
+
+    // MODIFIES: this
+    // EFFECTS:  adds the blob preview
+    private void addBlob(Graphics g) {
+        int size = 15;
+        int centreX = WIDTH / 2;
+        int centreY = HEIGHT / 2;
+        Color blobColor = Color.CYAN;
+        Blob blob = new Blob("", size, centreX, centreY, blobColor);
+        BlobRenderer renderer = new BlobRenderer();
+
+        renderer.renderBlob(g, blob);
+    }
+}

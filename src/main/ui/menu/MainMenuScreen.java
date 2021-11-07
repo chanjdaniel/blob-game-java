@@ -4,6 +4,8 @@ import model.Blob;
 import ui.BlobEatBlob;
 import ui.BlobRenderer;
 import ui.Screen;
+import ui.game.GamePanel;
+import ui.game.GameScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -168,7 +170,9 @@ public class MainMenuScreen extends Screen {
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            //
+            GameScreen game = new GameScreen(beb);
+            // game.add(new GamePanel(beb.getBlobGame()));
+            beb.nextScreen(game);
         }
     }
 
