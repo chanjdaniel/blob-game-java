@@ -41,8 +41,8 @@ public class BlobGameTest {
         } catch (InvalidInputException e) {
             e.printStackTrace();
         }
-        testPlayer = testBlobGame.getPlayer();
-        testBlob1 = new Blob("test_blob1", 20, 0, 0, blue);
+        testPlayer = testBlobGame.getPlayerBlob();
+        testBlob1 = new Blob("test_blob1", 20, 0, 0, 0, blue);
         testAbilities = testBlobGame.getAbilities();
         testEnemyBlobs = testBlobGame.getEnemyBlobs();
     }
@@ -63,20 +63,6 @@ public class BlobGameTest {
         String expect = abilityNames.get(0);
         String actual = testBlobGame.getAbilityByName(abilityNames.get(0)).getName();
         assertEquals(expect, actual);
-    }
-
-    @Test
-    void testMakeBlobs(){
-        Blobs actual = null;
-        actual = testBlobGame.makeBlobs();
-        assertEquals(initialEnemies, actual.getBlobs().size());
-    }
-
-    @Test
-    void testMakeAbilities(){
-        Abilities actual = null;
-        actual = testBlobGame.makeAbilities();
-        assertEquals(abilityNames.size(), actual.getAbilities().size());
     }
 
 //    @Test

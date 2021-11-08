@@ -60,38 +60,6 @@ public class Blobs implements Writable {
         return blobs.get(index);
     }
 
-    // EFFECTS: returns a random int between the values min and max (inclusive)
-    public int randIntBetweenValues(int min, int max) {
-        return ThreadLocalRandom.current().nextInt(min, max + 1);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: creates n = blobsToMake new blobs with random size [1, 50], random color,
-    //          and name from blobNames, and adds them to this.blobs; does nothing if this.blobs is
-    //          not empty, blobsToMake <= 0, or blobNames.size() >= blobsToMake
-    public void makeBlobs(int blobsToMake, ArrayList<String> blobNames) { // make only one blob at a time
-
-        if (blobsToMake <= blobNames.size()) {
-            int minSize = 1;
-            int maxSize = 50;
-            int minRGB = 0;
-            int maxRGB = 255;
-
-            for (int i = blobsToMake; i > 0; i--) {
-                String name = blobNames.get(i - 1);
-                int size = randIntBetweenValues(minSize, maxSize);
-                int r = randIntBetweenValues(minRGB, maxRGB);
-                int g = randIntBetweenValues(minRGB, maxRGB);
-                int b = randIntBetweenValues(minRGB, maxRGB);
-                Color color = new Color(r, g, b);
-
-                Blob newBlob;
-                newBlob = new Blob(name, size, 0, 0, color);
-                this.addBlob(newBlob);
-            }
-        }
-    }
-
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

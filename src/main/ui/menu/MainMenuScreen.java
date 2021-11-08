@@ -4,7 +4,6 @@ import model.Blob;
 import ui.BlobEatBlob;
 import ui.BlobRenderer;
 import ui.Screen;
-import ui.game.GamePanel;
 import ui.game.GameScreen;
 
 import javax.swing.*;
@@ -36,11 +35,10 @@ public class MainMenuScreen extends Screen {
 
     private void addBlob(Graphics g) {
         int size = 200;
-        int centreX = CENTRE_WIDTH - size / 2;
-        int centreY = CENTRE_HEIGHT - size / 2;
         int offSetY = 100;
         Color blobColor = playerBlob.getColor();
-        Blob blob = new Blob("", size, centreX - BLOB_ALIGN_X, centreY - offSetY, blobColor);
+        Blob blob = new Blob("", size, 0, CENTRE_WIDTH - BLOB_ALIGN_X,
+                CENTRE_HEIGHT - offSetY, blobColor);
         BlobRenderer renderer = new BlobRenderer();
 
         renderer.renderBlob(g, blob);
@@ -171,8 +169,8 @@ public class MainMenuScreen extends Screen {
         @Override
         public void actionPerformed(ActionEvent evt) {
             GameScreen game = new GameScreen(beb);
-            // game.add(new GamePanel(beb.getBlobGame()));
             beb.nextScreen(game);
+            game.requestFocusInWindow();
         }
     }
 

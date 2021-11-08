@@ -31,10 +31,8 @@ public class StartScreen extends Screen {
     // EFFECTS:  adds title art
     private void addTitleArt(Graphics g) {
         int size = 200;
-        int centreX = CENTRE_WIDTH - size / 2;
-        int centreY = CENTRE_HEIGHT - size / 2;
         Color blobColor = Color.CYAN;
-        Blob blob = new Blob("", size, centreX, centreY, blobColor);
+        Blob blob = new Blob("", size, 0, CENTRE_WIDTH, CENTRE_HEIGHT, blobColor);
         BlobRenderer renderer = new BlobRenderer();
 
         renderer.renderBlob(g, blob);

@@ -40,10 +40,8 @@ public class LoadGameScreen extends Screen {
     // EFFECTS:  adds the blob art
     private void addBlobArt(Graphics g) {
         int size = 100;
-        int centreX = CENTRE_WIDTH - size / 2;
-        int centreY = CENTRE_HEIGHT - size / 2;
         Color blobColor = Color.CYAN;
-        Blob blob = new Blob("", size, centreX, centreY, blobColor);
+        Blob blob = new Blob("", size, 0, CENTRE_WIDTH, CENTRE_HEIGHT, blobColor);
         BlobRenderer renderer = new BlobRenderer();
 
         renderer.renderBlob(g, blob);

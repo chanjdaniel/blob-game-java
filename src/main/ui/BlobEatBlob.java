@@ -13,7 +13,6 @@ import java.awt.*;
 public class BlobEatBlob {
 
     public static final String TITLE = "A Blob Eat Blob World";
-    private static final int INTERVAL = 10;
 
     private BlobGame bg;
     private GameFrame gameFrame;
@@ -35,7 +34,7 @@ public class BlobEatBlob {
     }
 
     public Blob getPlayerBlob() {
-        return bg.getPlayer();
+        return bg.getPlayerBlob();
     }
 
     private void run() {

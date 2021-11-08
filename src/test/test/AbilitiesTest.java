@@ -45,37 +45,6 @@ public class AbilitiesTest {
     }
 
     @Test
-    void testMakeAbilities() {
-
-        ArrayList<String> testAbilityNames = new ArrayList<>(Arrays.asList(
-                "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
-                "Acid", "Digest", "Grow", "Jump", "Dash"));
-        testAbilities.makeAbilities(testAbilityNames);
-        assertEquals(10, testAbilities.getAbilities().size());
-    }
-
-    @Test
-    void testMakeAbilitiesExceptionDuplicates() {
-
-        ArrayList<String> testAbilityNames = new ArrayList<>(Arrays.asList(
-                "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
-                "Acid", "Acid", "Digest", "Grow", "Jump", "Dash"));
-        testAbilities.makeAbilities(testAbilityNames);
-        assertEquals(10, testAbilities.getAbilities().size());
-    }
-
-    @Test
-    void testMakeAbilitiesNotEmpty() {
-
-        ArrayList<String> testAbilityNames = new ArrayList<>(Arrays.asList(
-                "Super Speed", "Physical Resistance", "Regeneration", "Sticky", "Heat Resistance",
-                "Acid", "Acid", "Digest", "Grow", "Jump", "Dash"));
-        testAbilities.addAbility(testAbility1);
-        testAbilities.makeAbilities(testAbilityNames);
-        assertEquals(1, testAbilities.getAbilities().size());
-    }
-
-    @Test
     void testAddNewAbilitySingle() {
 
         try {

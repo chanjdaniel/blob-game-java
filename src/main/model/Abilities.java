@@ -72,21 +72,6 @@ public class Abilities implements Writable {
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: for each name in list of names, creates a new ability with name and empty description and
-    //          adds to this.abilities; does nothing if abilities is not empty
-    public void makeAbilities(ArrayList<String> names) {
-        if (abilities.size() == 0) {
-            for (String next : names) {
-                try {
-                    this.addNewAbility(next);
-                } catch (InvalidInputException e) {
-                    // don't add duplicate
-                }
-            }
-        }
-    }
-
     // MODIFIES: this.abilities
     // EFFECTS: removes first ability in this.abilities with matching name
     public void removeByName(String name) {

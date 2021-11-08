@@ -11,6 +11,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Line2D;
 import java.io.FileNotFoundException;
+import java.util.Objects;
+
+import static javax.swing.SwingConstants.*;
 
 // Represents the load game screen
 public class SaveGameScreen extends Screen {
@@ -40,11 +43,8 @@ public class SaveGameScreen extends Screen {
     // EFFECTS:  adds the blob art
     private void addBlobArt(Graphics g) {
         int size = 100;
-        int centreX = CENTRE_WIDTH - size / 2;
-        int centreY = CENTRE_HEIGHT - size / 2;
-        int offSetY = 150;
         Color blobColor = Color.CYAN;
-        Blob blob = new Blob("", size, centreX, centreY, blobColor);
+        Blob blob = new Blob("", size, 0, CENTRE_WIDTH, CENTRE_HEIGHT, blobColor);
         BlobRenderer renderer = new BlobRenderer();
 
         renderer.renderBlob(g, blob);
@@ -80,13 +80,13 @@ public class SaveGameScreen extends Screen {
     // MODIFIES: this
     // EFFECTS:  adds title label
     private void addTitleLabel() {
-        String message = (status == "quit") ? (message = "See you soon!") : (message = "Save your game!");
+        String message = status.equals("quit") ? (message = "See you soon!") : (message = "Save your game!");
         int width = WIDTH;
         int height = 100;
         int centreX = CENTRE_WIDTH - width / 2;
         int centreY = CENTRE_HEIGHT - height / 2;
         int offSetY = 150;
-        JLabel text = new JLabel(message, SwingConstants.CENTER);
+        JLabel text = new JLabel(message, CENTER);
         Font font = new Font(Font.SERIF, Font.BOLD, 60);
         text.setFont(font);
         text.setBounds(centreX, centreY - offSetY, width, height);
@@ -101,7 +101,7 @@ public class SaveGameScreen extends Screen {
         int centreX = CENTRE_WIDTH - width / 2;
         int centreY = CENTRE_HEIGHT - height / 2;
         int offSetY = 170;
-        label = new JLabel("Enter a save name...", SwingConstants.CENTER);
+        label = new JLabel("Enter a save name...", CENTER);
         Font font = new Font(Font.SERIF, Font.BOLD, 20);
         label.setFont(font);
         label.setBounds(centreX, centreY + offSetY, width, height);
@@ -152,7 +152,7 @@ public class SaveGameScreen extends Screen {
             String jsonStore = generateJsonStore(textField.getText());
             try {
                 saveBlobGame(jsonStore);
-                if (status == "quit") {
+                if (status.equals("quit")) {
                     System.exit(0);
                 } else {
                     beb.nextScreen(new MainMenuScreen(beb));

@@ -1,7 +1,5 @@
 package ui;
 
-import ui.Screen;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,13 +13,6 @@ public class GameFrame extends JFrame {
     }
 
     public void nextScreen(Screen screen) {
-//        Container pane = getContentPane();
-//        pane.removeAll();
-//        pane.add(screen);
-//        pack();
-//        pane.revalidate();
-//        setVisible(true);
-
         setContentPane(screen);
         pack();
         setVisible(true);

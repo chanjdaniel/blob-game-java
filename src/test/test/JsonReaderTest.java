@@ -31,7 +31,7 @@ class JsonReaderTest extends JsonTest {
             BlobGame sbg = new BlobGame("George", Color.blue);
             BlobGame lbg = reader.read();
 
-            checkBlob(sbg.getPlayer(), lbg.getPlayer());
+            checkBlob(sbg.getPlayerBlob(), lbg.getPlayerBlob());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
         } catch (IOException | InvalidInputException e) {
             fail("Couldn't read from file");
@@ -45,11 +45,11 @@ class JsonReaderTest extends JsonTest {
             BlobGame sbg = new BlobGame("George", Color.blue);
 
             // adds an ability
-            sbg.getPlayer().addAbility(sbg.getAbilityByName("Jump"));
+            sbg.getPlayerBlob().addAbility(sbg.getAbilityByName("Jump"));
 
             BlobGame lbg = reader.read();
 
-            checkBlob(sbg.getPlayer(), lbg.getPlayer());
+            checkBlob(sbg.getPlayerBlob(), lbg.getPlayerBlob());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
         } catch (IOException | InvalidInputException e) {
             fail("Couldn't read from file");

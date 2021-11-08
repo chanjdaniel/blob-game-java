@@ -42,24 +42,27 @@ public class JsonReader {
 
     // EFFECTS: parses blob game from JSON object and returns it
     private BlobGame parseBlobGame(JSONObject jsonObject) {
-        Blob player = parseBlob(jsonObject.getJSONObject("player"));
+        Blob playerBlob = parseBlob(jsonObject.getJSONObject("playerBlob"));
         Abilities abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
         Blobs enemyBlobs = parseBlobs(jsonObject.getJSONObject("enemyBlobs"));
 
-        return new BlobGame(player, abilities, enemyBlobs);
+        return new BlobGame(playerBlob, abilities, enemyBlobs);
     }
 
     // EFFECTS: parses blob from JSON object and returns it
     private Blob parseBlob(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int size = jsonObject.getInt("size");
+        int speed = jsonObject.getInt("speed");
         double positionX = jsonObject.getDouble("positionX");
+        int movementX = jsonObject.getInt("movementX");
         double positionY = jsonObject.getDouble("positionY");
+        int movementY = jsonObject.getInt("movementY");
         Color color = parseColor(jsonObject.getJSONObject("color"));
         Abilities abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
         Blobs victims = parseBlobs(jsonObject.getJSONObject("victims"));
 
-        return new Blob(name, size, positionX, positionY, color, abilities, victims);
+        return new Blob(name, size, speed, positionX, movementX, positionY, movementY, color, abilities, victims);
     }
 
     // EFFECTS: parses color from JSON object and returns it

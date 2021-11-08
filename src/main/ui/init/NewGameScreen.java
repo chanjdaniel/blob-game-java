@@ -55,11 +55,10 @@ public class NewGameScreen extends Screen {
     // EFFECTS:  adds the blob preview
     private void addBlob(Graphics g) {
         int size = 200;
-        int centreX = CENTRE_WIDTH - size / 2;
-        int centreY = CENTRE_HEIGHT - size / 2;
         int offSetY = 50;
         Color blobColor = colorChooser.getColor();
-        Blob blob = new Blob("", size, centreX + X_OFFSET_RIGHT, centreY - offSetY, blobColor);
+        Blob blob = new Blob("", size, 0, CENTRE_WIDTH + X_OFFSET_RIGHT,
+                CENTRE_HEIGHT - offSetY, blobColor);
         BlobRenderer renderer = new BlobRenderer();
 
         renderer.renderBlob(g, blob);

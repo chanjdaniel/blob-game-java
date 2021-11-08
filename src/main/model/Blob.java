@@ -3,6 +3,9 @@ package model;
 import exceptions.InvalidInputException;
 import org.json.JSONObject;
 import persistence.Writable;
+import ui.Screen;
+import ui.game.GamePanel;
+import ui.game.GameScreen;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,8 +16,11 @@ public class Blob implements Writable {
     private String name;
     private final int playerInitialSize = 15;
     private int size;
+    private int speed;
     private double positionX;
+    private int movementX;
     private double positionY;
+    private int movementY;
     private Color color;
     private Abilities abilities;
     private Blobs victims;
@@ -23,11 +29,14 @@ public class Blob implements Writable {
     // EFFECTS: name of blob is set to blobName;
     //          size of blob is set to initialSize; color of blob is set to blobColor;
     //          abilities is set to new Abilities; victims is set to new Victims.
-    public Blob(String name, int size, double positionX, double positionY, Color color) {
+    public Blob(String name, int size, int speed, double positionX, double positionY, Color color) {
         this.name = name;
         this.size = size;
+        this.speed = speed;
         this.positionX = positionX;
+        this.movementX = 0;
         this.positionY = positionY;
+        this.movementY = 0;
         this.color = color;
         this.abilities = new Abilities();
         this.victims = new Blobs();
@@ -36,12 +45,15 @@ public class Blob implements Writable {
     // EFFECTS: name of blob is set to blobName;
     //          size of blob is set to initialSize; color of blob is set to blobColor;
     //          this.abilities is set to abilities; this.victims is set to victims.
-    public Blob(String name, int size, double positionX, double positionY,
-                Color color, Abilities abilities, Blobs victims) {
+    public Blob(String name, int size, int speed, double positionX, int movementX, double positionY,
+                int movementY, Color color, Abilities abilities, Blobs victims) {
         this.name = name;
         this.size = size;
+        this.speed = speed;
         this.positionX = positionX;
+        this.movementX = movementX;
         this.positionY = positionY;
+        this.movementY = movementY;
         this.color = color;
         this.abilities = abilities;
         this.victims = victims;
@@ -55,12 +67,24 @@ public class Blob implements Writable {
         return size;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
     public double getPositionX() {
         return positionX;
     }
 
+    public void setMovementX(int movementX) {
+        this.movementX = movementX;
+    }
+
     public double getPositionY() {
         return positionY;
+    }
+
+    public void setMovementY(int movementY) {
+        this.movementY = movementY;
     }
 
     public Color getColor() {
@@ -97,15 +121,43 @@ public class Blob implements Writable {
         abilities.removeByName(abilityName);
     }
 
+    // REQUIRES: this.getSize() > enemyBlob.getSize()
     // MODIFIES: this.victims
-    // EFFECTS: eats another blob; adds enemyBlob.getName() to victims; increases this.size by enemyBlob.getSize();
-    // throws InvalidInputException if this.getSize() < enemyBlob.getSize()
-    public void eatBlob(Blob enemyBlob) throws InvalidInputException {
-        if (this.getSize() < enemyBlob.getSize()) {
-            throw new InvalidInputException();
-        }
+    // EFFECTS: eats another blob; adds enemyBlob.getName() to victims;
+    // increases this.size by sqrt of enemyBlob.getSize();
+    public void eatBlob(Blob enemyBlob) {
         victims.addBlob(enemyBlob);
-        size += enemyBlob.getSize();
+        size += Math.sqrt(enemyBlob.getSize());
+    }
+
+    // Updates the blob on clock tick
+    // MODIFIES: this
+    // EFFECTS:  blob is moved movementX units in X-axis and movementY units in Y-axis;
+    //           blob is constrained to remain within boundaries of game;
+    //           adjusted so that positive Y moves the blob up, and positive X moves the blob right
+    public void move() {
+        positionX = positionX + movementX;
+        positionY = positionY - movementY;
+
+        handleBoundary();
+    }
+
+    // Constrains blob so that it doesn't travel off sides of screen
+    // MODIFIES: this
+    // EFFECTS: blob's centre is constrained to remain within boundaries of game
+    private void handleBoundary() {
+        if (positionX < 0) {
+            positionX = 0;
+        }
+        if (positionX > GameScreen.RIGHT_WIDTH) {
+            positionX = GameScreen.RIGHT_WIDTH;
+        }
+        if (positionY < 0) {
+            positionY = 0;
+        }
+        if (positionY > GamePanel.HEIGHT - 30) {
+            positionY = GamePanel.HEIGHT - 30;
+        }
     }
 
     @Override
@@ -113,8 +165,11 @@ public class Blob implements Writable {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("size", size);
+        json.put("speed", speed);
         json.put("positionX", positionX);
+        json.put("movementX", movementX);
         json.put("positionY", positionY);
+        json.put("movementY", movementY);
         json.put("color", colorToJson());
         json.put("abilities", abilities.toJson());
         json.put("victims", victims.toJson());

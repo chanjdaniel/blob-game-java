@@ -20,8 +20,8 @@ class BlobTest {
 
     @BeforeEach
     void runBefore() {
-        testBlob1 = new Blob("test_blob1", 20, 0, 0, blue);
-        testBlob2 = new Blob("test_blob2", 10, 0, 0, red);
+        testBlob1 = new Blob("test_blob1", 20, 0, 0, 0, blue);
+        testBlob2 = new Blob("test_blob2", 10, 0, 0, 0, red);
         testAbility1 = new Ability("test_ability1", "test_description");
         testAbility2 = new Ability("test_ability2", "test_description");
     }
@@ -105,41 +105,13 @@ class BlobTest {
     }
 
     @Test
-    void testEatBlobBigger() {
-
-        try {
-            testBlob1.eatBlob(testBlob2);
-            assertEquals(30, testBlob1.getSize());
-            assertEquals(1, testBlob1.getVictimNames().size());
-            assertEquals("test_blob2", testBlob1.getVictimNames().get(0));
-        } catch (InvalidInputException e) {
-            fail("caught InvalidInputException");
-        }
-    }
-
-    @Test
-    void testEatBlobSmaller() {
-
-        try {
-            testBlob2.eatBlob(testBlob1);
-            fail("expected InvalidInputException");
-        } catch (InvalidInputException e) {
-            // expected
-        }
-    }
-
-    @Test
     void testEatBlobMultiple() {
 
-        try {
-            testBlob1.eatBlob(testBlob2);
-            testBlob1.eatBlob(testBlob2);
-            assertEquals(40, testBlob1.getSize());
-            assertEquals(2, testBlob1.getVictimNames().size());
-            assertEquals("test_blob2", testBlob1.getVictimNames().get(0));
-            assertEquals("test_blob2", testBlob1.getVictimNames().get(1));
-        } catch (InvalidInputException e) {
-            fail("caught InvalidInputException");
-        }
+        testBlob1.eatBlob(testBlob2);
+        testBlob1.eatBlob(testBlob2);
+        assertEquals(40, testBlob1.getSize());
+        assertEquals(2, testBlob1.getVictimNames().size());
+        assertEquals("test_blob2", testBlob1.getVictimNames().get(0));
+        assertEquals("test_blob2", testBlob1.getVictimNames().get(1));
     }
 }

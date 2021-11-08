@@ -1,21 +1,22 @@
-package ui.menu;
+package ui.game;
 
 import model.Blob;
 import ui.BlobEatBlob;
 import ui.BlobRenderer;
 import ui.Screen;
+import ui.init.StartScreen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Line2D;
 
-// Represents the quit screen
-public class QuitScreen extends Screen {
+// Represents the game over screen
+public class GameOverScreen extends Screen {
     private BlobEatBlob beb;
 
     // Constructs a start screen
-    public QuitScreen(BlobEatBlob beb) {
+    public GameOverScreen(BlobEatBlob beb) {
         super();
         this.beb = beb;
         drawScreen();
@@ -75,7 +76,7 @@ public class QuitScreen extends Screen {
         int centreX = CENTRE_WIDTH - width / 2;
         int centreY = CENTRE_HEIGHT - height / 2;
         int offSetY = 150;
-        JLabel text = new JLabel("Save your game?", SwingConstants.CENTER);
+        JLabel text = new JLabel("You got eaten!", SwingConstants.CENTER);
         Font font = new Font(Font.SERIF, Font.BOLD, 60);
         text.setFont(font);
         text.setBounds(centreX, centreY - offSetY, width, height);
@@ -91,37 +92,37 @@ public class QuitScreen extends Screen {
         int centreY = CENTRE_HEIGHT - height / 2;
         int offSetX = 150;
         int offSetY = 200;
-        JButton yes = new JButton(new YesAction());
-        yes.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        yes.setBounds(centreX - offSetX,centreY + offSetY,width,height);
-        JButton no = new JButton(new NoAction());
-        no.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        no.setBounds(centreX + offSetX,centreY + offSetY,width,height);
+        JButton returnToMenu = new JButton(new ReturnAction());
+        returnToMenu.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        returnToMenu.setBounds(centreX - offSetX,centreY + offSetY,width,height);
+        JButton quit = new JButton(new QuitAction());
+        quit.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        quit.setBounds(centreX + offSetX,centreY + offSetY,width,height);
 
-        add(yes);
-        add(no);
+        add(returnToMenu);
+        add(quit);
     }
 
-    // Represents action taken when user clicks on the "Yes" button
-    // replaces current screen with SaveGameScreen with "quit" status
-    private class YesAction extends AbstractAction {
+    // Represents action taken when user clicks on the "Return to menu" button
+    // replaces current screen with MainMenuScreen
+    private class ReturnAction extends AbstractAction {
 
-        YesAction() {
-            super("Yes");
+        ReturnAction() {
+            super("Return to menu");
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            beb.nextScreen(new SaveGameScreen(beb, "quit"));
+            beb.nextScreen(new StartScreen(beb));
         }
     }
 
-    // Represents action taken when user clicks on the "No" button
+    // Represents action taken when user clicks on the "Quit game" button
     // exits the game
-    private class NoAction extends AbstractAction {
+    private class QuitAction extends AbstractAction {
 
-        NoAction() {
-            super("No");
+        QuitAction() {
+            super("Quit game");
         }
 
         @Override

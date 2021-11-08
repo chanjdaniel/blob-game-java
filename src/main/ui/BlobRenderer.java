@@ -13,8 +13,8 @@ public class BlobRenderer {
 
     public void renderBlob(Graphics g, Blob blob) {
         int size = blob.getSize();
-        double x = blob.getPositionX();
-        double y = blob.getPositionY();
+        double x = blob.getPositionX() - size / 2.0;
+        double y = blob.getPositionY() - size / 2.0;
         Color color = blob.getColor();
         renderBlobBody(g, size, x, y, color);
         renderBlobMouth(g, size, x, y);

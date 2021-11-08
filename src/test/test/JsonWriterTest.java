@@ -42,7 +42,7 @@ class JsonWriterTest extends JsonTest {
 
             JsonReader reader = new JsonReader("./data/testWriterNewBlobGame.json");
             BlobGame lbg = reader.read();
-            checkBlob(sbg.getPlayer(), lbg.getPlayer());
+            checkBlob(sbg.getPlayerBlob(), lbg.getPlayerBlob());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
             checkBlobs(sbg.getEnemyBlobs().getBlobs(), lbg.getEnemyBlobs().getBlobs());
         } catch (IOException | InvalidInputException e) {
@@ -54,7 +54,7 @@ class JsonWriterTest extends JsonTest {
     void testWriterGeneralBlobGame() {
         try {
             BlobGame sbg = new BlobGame("George", Color.blue);
-            Blob player = sbg.getPlayer();
+            Blob player = sbg.getPlayerBlob();
             Blobs enemyBlobs = sbg.getEnemyBlobs();
 
             // eats 3 blobs
@@ -65,7 +65,7 @@ class JsonWriterTest extends JsonTest {
             }
 
             // adds an ability
-            sbg.getPlayer().addAbility(sbg.getAbilityByName("Jump"));
+            sbg.getPlayerBlob().addAbility(sbg.getAbilityByName("Jump"));
 
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralBlobGame.json");
             writer.open();
@@ -74,7 +74,7 @@ class JsonWriterTest extends JsonTest {
 
             JsonReader reader = new JsonReader("./data/testWriterGeneralBlobGame.json");
             BlobGame lbg = reader.read();
-            checkBlob(sbg.getPlayer(), lbg.getPlayer());
+            checkBlob(sbg.getPlayerBlob(), lbg.getPlayerBlob());
             checkAbilities(sbg.getAbilities().getAbilities(), lbg.getAbilities().getAbilities());
             checkBlobs(sbg.getEnemyBlobs().getBlobs(), lbg.getEnemyBlobs().getBlobs());
         } catch (IOException | InvalidInputException e) {
