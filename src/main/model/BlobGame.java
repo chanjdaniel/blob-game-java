@@ -25,10 +25,11 @@ public class BlobGame implements Writable {
     private static final int PLAYER_INITIAL_SIZE = 15;
     private static final int PLAYER_INITIAL_SPEED = 2;
     private static final int MAX_ENEMIES = 10;
-    private static final int NEW_ENEMY_RATE = 2000;
+    private static final int NEW_ENEMY_RATE = 1000;
     private JSONArray jsonNames;
     private int newEnemyCounter;
     private boolean isGameOver;
+    private boolean isWin;
 
     private Blob playerBlob;
     private Abilities abilities;
@@ -81,6 +82,10 @@ public class BlobGame implements Writable {
         return isGameOver;
     }
 
+    public boolean isWin() {
+        return isWin;
+    }
+
     public Blobs getEnemyBlobs() {
         return enemyBlobs;
     }
@@ -131,6 +136,7 @@ public class BlobGame implements Writable {
         checkEnemyBlobsEat();
         checkPlayerEat();
         checkGameOver();
+        checkWin();
     }
 
     // Controls the blob
@@ -305,6 +311,12 @@ public class BlobGame implements Writable {
             if (checkCollision(next, playerBlob) && next.getSize() > playerBlob.getSize()) {
                 isGameOver = true;
             }
+        }
+    }
+
+    private void checkWin() {
+        if (playerBlob.getSize() >= GameScreen.RIGHT_WIDTH) {
+            isWin = true;
         }
     }
 

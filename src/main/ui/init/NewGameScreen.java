@@ -170,7 +170,7 @@ public class NewGameScreen extends Screen {
     }
 
     // Represents action taken when user clicks on the "Confirm" button
-    // sets ??? to textField.getText(), sets ??? to colorChooser.getColor()
+    // creates blobGame with textField.getText() and colorChooser.getColor()
     // replaces current screen with MenuScreen
     private class ConfirmAction extends AbstractAction {
 

@@ -14,7 +14,7 @@ import java.awt.geom.Line2D;
 public class QuitScreen extends Screen {
     private BlobEatBlob beb;
 
-    // Constructs a start screen
+    // Constructs a quit screen
     public QuitScreen(BlobEatBlob beb) {
         super();
         this.beb = beb;

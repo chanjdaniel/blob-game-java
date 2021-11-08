@@ -127,7 +127,7 @@ public class Blob implements Writable {
     // increases this.size by sqrt of enemyBlob.getSize();
     public void eatBlob(Blob enemyBlob) {
         victims.addBlob(enemyBlob);
-        size += Math.sqrt(enemyBlob.getSize());
+        size += enemyBlob.getSize() / 2;
     }
 
     // Updates the blob on clock tick

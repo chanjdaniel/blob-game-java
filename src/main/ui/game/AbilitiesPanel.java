@@ -14,7 +14,7 @@ public class AbilitiesPanel extends JPanel {
 
     public AbilitiesPanel(BlobGame bg) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setBackground(Color.GREEN);
+        setBackground(Color.WHITE);
         setVisible(true);
         this.bg = bg;
     }

@@ -11,11 +11,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Line2D;
 import java.io.FileNotFoundException;
-import java.util.Objects;
 
 import static javax.swing.SwingConstants.*;
 
-// Represents the load game screen
+// Represents the save game screen
 public class SaveGameScreen extends Screen {
     private BlobEatBlob beb;
     private String status;
@@ -50,6 +49,8 @@ public class SaveGameScreen extends Screen {
         renderer.renderBlob(g, blob);
     }
 
+    // MODIFIES: this
+    // EFFECTS:  adds blob speech art
     private void addBlobSpeech(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         float offSetX = 20;

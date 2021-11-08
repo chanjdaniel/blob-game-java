@@ -5,18 +5,19 @@ import ui.BlobEatBlob;
 import ui.BlobRenderer;
 import ui.Screen;
 import ui.init.StartScreen;
+import ui.menu.MainMenuScreen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.geom.Line2D;
 
-// Represents the game over screen
-public class GameOverScreen extends Screen {
+// Represents the victory screen
+public class VictoryScreen extends Screen {
     private BlobEatBlob beb;
 
-    // Constructs a game over screen
-    public GameOverScreen(BlobEatBlob beb) {
+    // Constructs a victory screen
+    public VictoryScreen(BlobEatBlob beb) {
         super();
         this.beb = beb;
         drawScreen();
@@ -76,7 +77,7 @@ public class GameOverScreen extends Screen {
         int centreX = CENTRE_WIDTH - width / 2;
         int centreY = CENTRE_HEIGHT - height / 2;
         int offSetY = 150;
-        JLabel text = new JLabel("You got eaten!", SwingConstants.CENTER);
+        JLabel text = new JLabel("You won!", SwingConstants.CENTER);
         Font font = new Font(Font.SERIF, Font.BOLD, 60);
         text.setFont(font);
         text.setBounds(centreX, centreY - offSetY, width, height);
@@ -113,7 +114,7 @@ public class GameOverScreen extends Screen {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            beb.nextScreen(new StartScreen(beb));
+            beb.nextScreen(new MainMenuScreen(beb));
         }
     }
 

@@ -4,19 +4,22 @@ import model.Blob;
 import model.BlobGame;
 import model.Blobs;
 import ui.BlobRenderer;
+import ui.Screen;
 
 import javax.swing.*;
 import java.awt.*;
 
+// Represents a game panel where the game is played
 public class GamePanel extends JPanel {
     private static final int WIDTH = GameScreen.RIGHT_WIDTH;
-    public static final int HEIGHT = 575;
+    public static final int HEIGHT = Screen.HEIGHT;
 
     BlobGame bg;
 
+    // Constructs a game panel
     public GamePanel(BlobGame bg) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setBackground(Color.CYAN);
+        setBackground(Color.WHITE);
         setVisible(true);
         this.bg = bg;
     }

@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+// Represents the main menu screen
 public class MainMenuScreen extends Screen {
     private static final int MENU_ALIGN_X = 150;
     private static final int BLOB_ALIGN_X = 300;
@@ -17,7 +18,7 @@ public class MainMenuScreen extends Screen {
     private BlobEatBlob beb;
     private Blob playerBlob;
 
-    // Represents the main menu screen
+    // Constructs a main menu screen
     public MainMenuScreen(BlobEatBlob beb) {
         super();
         this.beb = beb;
@@ -33,6 +34,8 @@ public class MainMenuScreen extends Screen {
         addBlob(g);
     }
 
+    // MODIFIES: this
+    // EFFECTS:  adds blob art
     private void addBlob(Graphics g) {
         int size = 200;
         int offSetY = 100;
@@ -56,6 +59,8 @@ public class MainMenuScreen extends Screen {
         addButtonPanel();
     }
 
+    // MODIFIES: this
+    // EFFECTS:  adds name label
     private void addNameLabel() {
         String name = playerBlob.getName();
         int width = 300;
@@ -70,6 +75,8 @@ public class MainMenuScreen extends Screen {
         add(label);
     }
 
+    // MODIFIES: this
+    // EFFECTS:  adds size label
     private void addSizeLabel() {
         String text = "Size: " + playerBlob.getSize();
         int width = 200;
@@ -84,6 +91,8 @@ public class MainMenuScreen extends Screen {
         add(label);
     }
 
+    // MODIFIES: this
+    // EFFECTS:  adds kills label
     private void addKillsLabel() {
         String text = "Kills: " + playerBlob.getVictims().size();
         int width = 200;
@@ -98,6 +107,8 @@ public class MainMenuScreen extends Screen {
         add(label);
     }
 
+    // MODIFIES: this
+    // EFFECTS:  adds main menu label
     private void addMainMenuLabel() {
         int width = 300;
         int height = 50;
@@ -111,6 +122,8 @@ public class MainMenuScreen extends Screen {
         add(label);
     }
 
+    // MODIFIES: this
+    // EFFECTS:  adds victims button
     private void addVictimsButton() {
         int width = 200;
         int height = 50;
@@ -124,6 +137,8 @@ public class MainMenuScreen extends Screen {
         add(victimsButton);
     }
 
+    // MODIFIES: this
+    // EFFECTS:  adds button panel
     private void addButtonPanel() {
         int width = 300;
         int height = 400;
@@ -133,14 +148,12 @@ public class MainMenuScreen extends Screen {
 
         JButton continueButton = new JButton(new ContinueAction());
         JButton saveButton = new JButton(new SaveAction());
-        JButton helpButton = new JButton(new HelpAction());
         JButton quitButton = new JButton(new QuitAction());
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(4,2));
+        buttonPanel.setLayout(new GridLayout(3,2));
         buttonPanel.add(continueButton);
         buttonPanel.add(saveButton);
-        buttonPanel.add(helpButton);
         buttonPanel.add(quitButton);
         buttonPanel.setBounds(centreX + MENU_ALIGN_X, centreY - offSetY, width, height);
         buttonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
@@ -148,6 +161,8 @@ public class MainMenuScreen extends Screen {
         add(buttonPanel);
     }
 
+    // Represents action taken when user clicks on the "Victims" button
+    // replaces current screen with VictimsScreen
     private class VictimsAction extends AbstractAction {
 
         VictimsAction() {
@@ -156,10 +171,12 @@ public class MainMenuScreen extends Screen {
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            //
+            beb.nextScreen(new VictimsScreen(beb));
         }
     }
 
+    // Represents action taken when user clicks on the "Continue" button
+    // replaces current screen with GameScreen
     private class ContinueAction extends AbstractAction {
 
         ContinueAction() {
@@ -174,6 +191,8 @@ public class MainMenuScreen extends Screen {
         }
     }
 
+    // Represents action taken when user clicks on the "Save" button
+    // replaces current screen with SaveGameScreen
     private class SaveAction extends AbstractAction {
 
         SaveAction() {
@@ -186,18 +205,8 @@ public class MainMenuScreen extends Screen {
         }
     }
 
-    private class HelpAction extends AbstractAction {
-
-        HelpAction() {
-            super("Help");
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-            //
-        }
-    }
-
+    // Represents action taken when user clicks on the "Quit" button
+    // replaces current screen with QuitScreen
     private class QuitAction extends AbstractAction {
 
         QuitAction() {

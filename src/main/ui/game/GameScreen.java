@@ -7,11 +7,10 @@ import ui.menu.MainMenuScreen;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+// Represents the game screen
 public class GameScreen extends Screen {
     public static final int RIGHT_WIDTH = 800;
     public static final int LEFT_WIDTH = Screen.WIDTH - RIGHT_WIDTH;
@@ -21,6 +20,7 @@ public class GameScreen extends Screen {
     BlobGame bg;
     JPanel mainInfoPanel;
     JPanel mainGamePanel;
+    PlayerInfoPanel pip;
     Timer timer;
 
     // Constructs a game screen
@@ -36,6 +36,8 @@ public class GameScreen extends Screen {
         addTimer();
     }
 
+    // MODIFIES: this
+    // EFFECTS:  draws the game
     private void drawGame() {
         addMainInfoPanel();
         addMainGamePanel();
@@ -48,6 +50,7 @@ public class GameScreen extends Screen {
     private void addTimer() {
         timer = new Timer(INTERVAL, ae -> {
             bg.update();
+            pip.update();
             mainGamePanel.repaint();
             mainInfoPanel.repaint();
 
@@ -55,11 +58,18 @@ public class GameScreen extends Screen {
                 timer.stop();
                 beb.nextScreen(new GameOverScreen(beb));
             }
+
+            if (bg.isWin()) {
+                timer.stop();
+                beb.nextScreen(new VictoryScreen(beb));
+            }
         });
 
         timer.start();
     }
 
+    // MODIFIES: this
+    // EFFECTS:  adds main info panel
     private void addMainInfoPanel() {
         mainInfoPanel.setPreferredSize(new Dimension(LEFT_WIDTH, Screen.HEIGHT));
         mainInfoPanel.setBackground(BACKGROUND_COLOR);
@@ -67,7 +77,7 @@ public class GameScreen extends Screen {
         mainInfoPanel.setVisible(true);
         add(mainInfoPanel, BorderLayout.WEST);
 
-        PlayerInfoPanel pip = new PlayerInfoPanel(bg);
+        pip = new PlayerInfoPanel(bg);
         pip.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         mainInfoPanel.add(pip);
 
@@ -76,16 +86,14 @@ public class GameScreen extends Screen {
         mainInfoPanel.add(ap);
     }
 
+    // MODIFIES: this
+    // EFFECTS:  adds main game panel
     private void addMainGamePanel() {
         mainGamePanel.setPreferredSize(new Dimension(RIGHT_WIDTH, Screen.HEIGHT));
         mainGamePanel.setBackground(BACKGROUND_COLOR);
         mainGamePanel.setLayout(new BoxLayout(mainGamePanel, BoxLayout.PAGE_AXIS));
         mainGamePanel.setVisible(true);
         add(mainGamePanel, BorderLayout.EAST);
-
-        InfoBar ib = new InfoBar(bg);
-        ib.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        mainGamePanel.add(ib);
 
         GamePanel gp = new GamePanel(bg);
         gp.setBorder(BorderFactory.createLineBorder(Color.BLACK));
