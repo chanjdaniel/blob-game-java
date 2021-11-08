@@ -3,6 +3,7 @@ package model;
 import exceptions.InvalidInputException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import persistence.JsonReader;
 import persistence.Writable;
 import ui.Screen;
 import ui.game.GamePanel;
@@ -11,6 +12,7 @@ import ui.game.GameScreen;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -31,8 +33,8 @@ public class BlobGame implements Writable {
     private boolean isGameOver;
     private boolean isWin;
 
-    private Blob playerBlob;
-    private Abilities abilities;
+    private final Blob playerBlob;
+    private ArrayList<Ability> abilities;
     private Blobs enemyBlobs;
 
     // Creates an initial blob game with player with name and color;
@@ -41,11 +43,15 @@ public class BlobGame implements Writable {
         // Creates player with name and color
         playerBlob = makePlayerBlob(playerName, playerColor);
 
-        // Creates initial available abilities
-        abilities = new Abilities();
-
         // Creates empty blobs
         enemyBlobs = new Blobs();
+
+        // Reads abilities from file
+        try {
+            readAbilities();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Reads blobNames from file
         try {
@@ -56,12 +62,20 @@ public class BlobGame implements Writable {
     }
 
     // Creates a blob game with all fields given as parameters; for loading a saved game
-    public BlobGame(Blob player, Abilities abilities, Blobs enemyBlobs) {
+    public BlobGame(Blob player, ArrayList<Ability> abilities, Blobs enemyBlobs) {
 
         this.playerBlob = player;
         this.enemyBlobs = enemyBlobs;
         this.abilities = abilities;
         this.isGameOver = false;
+
+        // Reads abilities from file
+        try {
+            readAbilities();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // Reads blobNames from file
         try {
             readBlobNames();
@@ -74,7 +88,7 @@ public class BlobGame implements Writable {
         return playerBlob;
     }
 
-    public Abilities getAbilities() {
+    public ArrayList<Ability> getAbilities() {
         return abilities;
     }
 
@@ -90,29 +104,26 @@ public class BlobGame implements Writable {
         return enemyBlobs;
     }
 
-    // EFFECTS: returns ability in abilities with matching name; throws IndexOutOfBoundsException if none found
-    public Ability getAbilityByName(String name) throws IndexOutOfBoundsException {
-        return abilities.getByName(name);
+
+    // MODIFIES: this
+    // EFFECTS: reads abilities from file and returns abilities
+    private void readAbilities() throws IOException {
+        String abilitiesSource = "./data/abilities.json";
+        JsonReader reader = new JsonReader(abilitiesSource);
+        String jsonData = reader.readFile(abilitiesSource);
+        JSONObject jsonObject = new JSONObject(jsonData);
+
+        abilities = reader.parseAbilities(jsonObject);
     }
 
     // MODIFIES: this
     // EFFECTS: reads blobNames from file and returns list of names
     private void readBlobNames() throws IOException {
         String nameSource = "./data/blobNames.json";
+        JsonReader reader = new JsonReader(nameSource);
+        String jsonData = reader.readFile(nameSource);
 
-        String jsonData = readFile(nameSource);
         jsonNames = new JSONArray(jsonData);
-    }
-
-    // EFFECTS: reads source file as string and returns it
-    private String readFile(String source) throws IOException {
-        StringBuilder contentBuilder = new StringBuilder();
-
-        try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s));
-        }
-
-        return contentBuilder.toString();
     }
 
     // MODIFIES: this
@@ -324,8 +335,21 @@ public class BlobGame implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("playerBlob", playerBlob.toJson());
-        json.put("abilities", abilities.toJson());
+        json.put("abilities", abilitiesToJson());
         json.put("enemyBlobs", enemyBlobs.toJson());
         return json;
+    }
+
+    // EFFECTS: returns abilities as a JSON array
+    private JSONObject abilitiesToJson() {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
+        for (Ability a : abilities) {
+            jsonArray.put(a.toJson());
+        }
+
+        jsonObject.put("abilities", jsonArray);
+        return jsonObject;
     }
 }

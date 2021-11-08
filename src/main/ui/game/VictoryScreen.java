@@ -4,7 +4,6 @@ import model.Blob;
 import ui.BlobEatBlob;
 import ui.BlobRenderer;
 import ui.Screen;
-import ui.init.StartScreen;
 import ui.menu.MainMenuScreen;
 
 import javax.swing.*;

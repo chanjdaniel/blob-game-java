@@ -1,13 +1,10 @@
 package model;
 
-import exceptions.InvalidInputException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 // Represents a list of blob
 public class Blobs implements Writable {

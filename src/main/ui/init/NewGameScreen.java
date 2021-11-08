@@ -22,21 +22,19 @@ public class NewGameScreen extends Screen {
     private static final int X_OFFSET_RIGHT = 280;
 
     private BlobEatBlob beb;
-    private JTextField textField;
+    private final JTextField textField;
     private JLabel blobNameLabel;
-    private JColorChooser colorChooser;
-    private ChangeHandler changeHandler;
-    private DocumentHandler documentHandler;
+    private final JColorChooser colorChooser;
 
     // Constructs a new game screen
     public NewGameScreen(BlobEatBlob beb) {
         super();
         this.beb = beb;
-        documentHandler = new DocumentHandler();
+        DocumentHandler documentHandler = new DocumentHandler();
         textField = new JTextField("", 20);
         textField.getDocument().addDocumentListener(documentHandler);
 
-        changeHandler = new ChangeHandler();
+        ChangeHandler changeHandler = new ChangeHandler();
         colorChooser = new JColorChooser(Color.CYAN);
         colorChooser.getSelectionModel().addChangeListener(changeHandler);
         drawScreen();

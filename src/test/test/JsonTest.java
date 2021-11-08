@@ -1,9 +1,7 @@
 package test;
 
-import model.Abilities;
 import model.Ability;
 import model.Blob;
-import model.Blobs;
 
 import java.awt.*;
 import java.util.ArrayList;

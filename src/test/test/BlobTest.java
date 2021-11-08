@@ -22,8 +22,8 @@ class BlobTest {
     void runBefore() {
         testBlob1 = new Blob("test_blob1", 20, 0, 0, 0, blue);
         testBlob2 = new Blob("test_blob2", 10, 0, 0, 0, red);
-        testAbility1 = new Ability("test_ability1", "test_description");
-        testAbility2 = new Ability("test_ability2", "test_description");
+        testAbility1 = new Ability("test_ability1", "test_description", "stat", 0);
+        testAbility2 = new Ability("test_ability2", "test_description", "stat", 0);
     }
 
     @Test
@@ -33,24 +33,6 @@ class BlobTest {
         assertEquals(20, testBlob1.getSize());
         assertEquals(0, testBlob1.getAbilities().size());
         assertEquals(0, testBlob1.getVictims().size());
-    }
-
-    @Test
-    void testGetLowerCaseAbilityNames() {
-
-        testBlob1.addAbility(testAbility1);
-        testBlob1.addAbility(testAbility2);
-        assertEquals(testAbility1.getName().toLowerCase(), testBlob1.getLowerCaseAbilityNames().get(0));
-        assertEquals(testAbility2.getName().toLowerCase(), testBlob1.getLowerCaseAbilityNames().get(1));
-    }
-
-    @Test
-    void testGetAbilityNames() {
-
-        testBlob1.addAbility(testAbility1);
-        testBlob1.addAbility(testAbility2);
-        assertEquals(testAbility1.getName(), testBlob1.getAbilityNames().get(0));
-        assertEquals(testAbility2.getName(), testBlob1.getAbilityNames().get(1));
     }
 
     @Test
@@ -71,37 +53,6 @@ class BlobTest {
         assertEquals(2, testBlob1.getAbilities().size());
         assertEquals(testAbility1, testBlob1.getAbilities().get(0));
         assertEquals(testAbility2, testBlob1.getAbilities().get(1));
-    }
-
-    @Test
-    void testRemoveAbility() {
-
-        testBlob1.addAbility(testAbility1);
-        assertEquals(1, testBlob1.getAbilities().size());
-        testBlob1.removeAbility(testAbility1.getName());
-        assertEquals(0, testBlob1.getAbilities().size());
-    }
-
-    @Test
-    void testRemove1AbilityWithOther() {
-
-        testBlob1.addAbility(testAbility1);
-        testBlob1.addAbility(testAbility2);
-        assertEquals(2, testBlob1.getAbilities().size());
-        testBlob1.removeAbility(testAbility1.getName());
-        assertEquals(1, testBlob1.getAbilities().size());
-        assertEquals(testAbility2, testBlob1.getAbilities().get(0));
-    }
-
-    @Test
-    void testRemoveAbilityMultiple() {
-
-        testBlob1.addAbility(testAbility1);
-        testBlob1.addAbility(testAbility2);
-        assertEquals(2, testBlob1.getAbilities().size());
-        testBlob1.removeAbility(testAbility1.getName());
-        testBlob1.removeAbility(testAbility2.getName());
-        assertEquals(0, testBlob1.getAbilities().size());
     }
 
     @Test

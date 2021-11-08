@@ -44,8 +44,8 @@ public class PlayerInfoPanel extends JPanel {
         int size = 100;
         int offSetY = 50;
         Color blobColor = playerBlob.getColor();
-        Blob blob = new Blob("", size, 0, WIDTH / 2,
-                HEIGHT / 2 - offSetY, blobColor);
+        Blob blob = new Blob("", size, 0, WIDTH / 2.0,
+                HEIGHT / 2.0 - offSetY, blobColor);
         BlobRenderer renderer = new BlobRenderer();
 
         renderer.renderBlob(g, blob);

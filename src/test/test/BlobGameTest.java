@@ -11,7 +11,6 @@ import java.util.Arrays;
 
 import static java.awt.Color.blue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class BlobGameTest {
     private int playerInitialSize;
@@ -26,14 +25,14 @@ public class BlobGameTest {
     private BlobGame testBlobGame;
     private Blob testPlayer;
     private Blob testBlob1;
-    private Abilities testAbilities;
+    private ArrayList<Ability> testAbilities;
     private Ability testAbility1;
     private Blobs testEnemyBlobs;
 
 
     @BeforeEach
     void runBefore() {
-        testAbility1 = new Ability("Test_Ability1", "");
+        testAbility1 = new Ability("Test_Ability1", "description", "stat", 0);
         initialEnemies = enemyBlobNames.size();
         playerInitialSize = 15;
         try {
@@ -54,15 +53,8 @@ public class BlobGameTest {
         assertEquals(playerInitialSize, testPlayer.getSize());
         assertEquals(playerInitialSize, testPlayer.getSize());
         assertEquals(Color.cyan, testPlayer.getColor());
-        assertEquals(abilityNames.size(), testAbilities.getAbilities().size());
+        assertEquals(abilityNames.size(), testAbilities.size());
         assertEquals(initialEnemies, testEnemyBlobs.getBlobs().size());
-    }
-
-    @Test
-    void testGetAbilityByName(){
-        String expect = abilityNames.get(0);
-        String actual = testBlobGame.getAbilityByName(abilityNames.get(0)).getName();
-        assertEquals(expect, actual);
     }
 
 //    @Test

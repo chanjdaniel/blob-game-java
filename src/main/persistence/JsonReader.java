@@ -9,12 +9,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 // CITATION: code modeled after code provided in JsonSerializationDemo
 // Represents a reader that reads blob game from JSON data stored in file
 public class JsonReader {
-    private String source;
+    private final String source;
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
@@ -30,7 +31,7 @@ public class JsonReader {
     }
 
     // EFFECTS: reads source file as string and returns it
-    private String readFile(String source) throws IOException {
+    public String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
@@ -43,7 +44,7 @@ public class JsonReader {
     // EFFECTS: parses blob game from JSON object and returns it
     private BlobGame parseBlobGame(JSONObject jsonObject) {
         Blob playerBlob = parseBlob(jsonObject.getJSONObject("playerBlob"));
-        Abilities abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
+        ArrayList<Ability> abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
         Blobs enemyBlobs = parseBlobs(jsonObject.getJSONObject("enemyBlobs"));
 
         return new BlobGame(playerBlob, abilities, enemyBlobs);
@@ -59,7 +60,7 @@ public class JsonReader {
         double positionY = jsonObject.getDouble("positionY");
         int movementY = jsonObject.getInt("movementY");
         Color color = parseColor(jsonObject.getJSONObject("color"));
-        Abilities abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
+        ArrayList<Ability> abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
         Blobs victims = parseBlobs(jsonObject.getJSONObject("victims"));
 
         return new Blob(name, size, speed, positionX, movementX, positionY, movementY, color, abilities, victims);
@@ -75,15 +76,15 @@ public class JsonReader {
     }
 
     // EFFECTS: parses abilities from JSON object and returns it
-    private Abilities parseAbilities(JSONObject jsonObject) {
-        Abilities ab = new Abilities();
+    public ArrayList<Ability> parseAbilities(JSONObject jsonObject) {
+        ArrayList<Ability> ab = new ArrayList<>();
         addAbilities(ab, jsonObject);
         return ab;
     }
 
     // MODIFIES: ab
     // EFFECTS: parses abilities from JSON object and adds them to abilities
-    private void addAbilities(Abilities ab, JSONObject jsonObject) {
+    public void addAbilities(ArrayList<Ability> ab, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("abilities");
         for (Object json : jsonArray) {
             JSONObject nextAbility = (JSONObject) json;
@@ -93,11 +94,13 @@ public class JsonReader {
 
     // MODIFIES: ab
     // EFFECTS: parses ability from JSON object and adds it to abilities
-    private void addAbility(Abilities ab, JSONObject jsonObject) {
+    private void addAbility(ArrayList<Ability> ab, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         String description = jsonObject.getString("description");
-        Ability ability = new Ability(name, description);
-        ab.addAbility(ability);
+        String stat = jsonObject.getString("stat");
+        int value = jsonObject.getInt("value");
+        Ability ability = new Ability(name, description, stat, value);
+        ab.add(ability);
     }
 
     // EFFECTS: parses blobs from JSON object and returns it

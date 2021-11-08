@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.InvalidInputException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 import ui.Screen;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 // Represents a blob having a name, size (diameter of circle), x and y position, color,
 // list of abilities, and list of names of blobs eaten
 public class Blob implements Writable {
-    private String name;
+    private final String name;
     private final int playerInitialSize = 15;
     private int size;
     private int speed;
@@ -21,14 +22,14 @@ public class Blob implements Writable {
     private int movementX;
     private double positionY;
     private int movementY;
-    private Color color;
-    private Abilities abilities;
+    private final Color color;
+    private ArrayList<Ability> abilities;
     private Blobs victims;
 
-    // REQUIRES: blobName has length > 0; initialSize > 0
-    // EFFECTS: name of blob is set to blobName;
-    //          size of blob is set to initialSize; color of blob is set to blobColor;
-    //          abilities is set to new Abilities; victims is set to new Victims.
+    // For creating a new blob
+    // REQUIRES: initialSize > 0
+    // EFFECTS: constructs a blob;
+    // movement is 0, abilities is new arraylist, victims is new blobs; others are given as parameters
     public Blob(String name, int size, int speed, double positionX, double positionY, Color color) {
         this.name = name;
         this.size = size;
@@ -38,15 +39,15 @@ public class Blob implements Writable {
         this.positionY = positionY;
         this.movementY = 0;
         this.color = color;
-        this.abilities = new Abilities();
+        this.abilities = new ArrayList<>();
         this.victims = new Blobs();
     }
 
-    // EFFECTS: name of blob is set to blobName;
-    //          size of blob is set to initialSize; color of blob is set to blobColor;
-    //          this.abilities is set to abilities; this.victims is set to victims.
+    // For loading a blob
+    // REQUIRES: initialSize > 0
+    // EFFECTS: constructs a blob; all fields given as parameters
     public Blob(String name, int size, int speed, double positionX, int movementX, double positionY,
-                int movementY, Color color, Abilities abilities, Blobs victims) {
+                int movementY, Color color, ArrayList<Ability> abilities, Blobs victims) {
         this.name = name;
         this.size = size;
         this.speed = speed;
@@ -92,15 +93,7 @@ public class Blob implements Writable {
     }
 
     public ArrayList<Ability> getAbilities() {
-        return abilities.getAbilities();
-    }
-
-    public ArrayList<String> getAbilityNames() {
-        return abilities.getNames();
-    }
-
-    public ArrayList<String> getLowerCaseAbilityNames() {
-        return abilities.getLowerCaseNames();
+        return abilities;
     }
 
     public ArrayList<Blob> getVictims() {
@@ -112,13 +105,7 @@ public class Blob implements Writable {
     }
 
     public void addAbility(Ability ability) {
-        abilities.addAbility(ability);
-    }
-
-    // MODIFIES: this.abilities
-    // EFFECTS: removes first ability with name abilityName in this.abilities
-    public void removeAbility(String abilityName) {
-        abilities.removeByName(abilityName);
+        abilities.add(ability);
     }
 
     // REQUIRES: this.getSize() > enemyBlob.getSize()
@@ -171,16 +158,30 @@ public class Blob implements Writable {
         json.put("positionY", positionY);
         json.put("movementY", movementY);
         json.put("color", colorToJson());
-        json.put("abilities", abilities.toJson());
+        json.put("abilities", abilitiesToJson());
         json.put("victims", victims.toJson());
         return json;
     }
 
+    // EFFECTS: returns color as a JSONobject
     private JSONObject colorToJson() {
         JSONObject json = new JSONObject();
         json.put("r", color.getRed());
         json.put("g", color.getGreen());
         json.put("b", color.getBlue());
         return json;
+    }
+
+    // EFFECTS: returns abilities as a JSON array
+    private JSONObject abilitiesToJson() {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
+        for (Ability a : abilities) {
+            jsonArray.put(a.toJson());
+        }
+
+        jsonObject.put("abilities", jsonArray);
+        return jsonObject;
     }
 }
