@@ -22,7 +22,7 @@ public class PlayerInfoPanel extends JPanel {
     // Constructs a player info panel
     public PlayerInfoPanel(BlobGame bg) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setBackground(Color.WHITE);
+        setBackground(Color.LIGHT_GRAY);
         setLayout(null);
         this.bg = bg;
         this.playerBlob = bg.getPlayerBlob();

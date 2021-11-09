@@ -21,6 +21,7 @@ public class GameScreen extends Screen {
     JPanel mainInfoPanel;
     JPanel mainGamePanel;
     PlayerInfoPanel pip;
+    AbilitiesPanel ap;
     Timer timer;
 
     // Constructs a game screen
@@ -51,6 +52,7 @@ public class GameScreen extends Screen {
         timer = new Timer(INTERVAL, ae -> {
             bg.update();
             pip.update();
+            ap.update();
             mainGamePanel.repaint();
             mainInfoPanel.repaint();
 
@@ -81,7 +83,7 @@ public class GameScreen extends Screen {
         pip.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         mainInfoPanel.add(pip);
 
-        AbilitiesPanel ap = new AbilitiesPanel(bg);
+        ap = new AbilitiesPanel(bg);
         ap.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         mainInfoPanel.add(ap);
     }

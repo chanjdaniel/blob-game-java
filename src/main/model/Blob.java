@@ -1,10 +1,8 @@
 package model;
 
-import exceptions.InvalidInputException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
-import ui.Screen;
 import ui.game.GamePanel;
 import ui.game.GameScreen;
 

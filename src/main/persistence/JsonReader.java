@@ -99,7 +99,9 @@ public class JsonReader {
         String description = jsonObject.getString("description");
         String stat = jsonObject.getString("stat");
         int value = jsonObject.getInt("value");
-        Ability ability = new Ability(name, description, stat, value);
+        double positionX = jsonObject.getDouble("positionX");
+        double positionY = jsonObject.getDouble("positionY");
+        Ability ability = new Ability(name, description, stat, value, positionX, positionY);
         ab.add(ability);
     }
 

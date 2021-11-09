@@ -4,13 +4,17 @@
       "name": "Consume stimulants",
       "description": "Doubles your speed for 5 seconds",
       "stat": "speed",
-      "value": 2
+      "value": 2,
+      "positionX": 0,
+      "positionY": 0
     },
     {
       "name": "Consume protein",
       "description": "Doubles your size for 5 seconds",
       "stat": "size",
-      "value": 2
+      "value": 2,
+      "positionX": 0,
+      "positionY": 0
     }
   ]
 }

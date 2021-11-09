@@ -9,15 +9,19 @@ public class Ability implements Writable {
     private final String description;
     private final String stat;
     private final int value;
+    private double positionX;
+    private double positionY;
 
     // EFFECTS: name of ability is set to abilityName;
     // description of ability is set to abilityDescription;
     // stat to alter is set to stat; value to add is set to value
-    public Ability(String name, String description, String stat, int value) {
+    public Ability(String name, String description, String stat, int value, double positionX, double positionY) {
         this.name = name;
         this.description = description;
         this.stat = stat;
         this.value = value;
+        this.positionX = positionX;
+        this.positionY = positionY;
     }
 
     public String getName() {
@@ -36,6 +40,22 @@ public class Ability implements Writable {
         return value;
     }
 
+    public double getPositionX() {
+        return positionX;
+    }
+
+    public void setPositionX(double positionX) {
+        this.positionX = positionX;
+    }
+
+    public double getPositionY() {
+        return positionY;
+    }
+
+    public void setPositionY(double positionY) {
+        this.positionY = positionY;
+    }
+
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -43,6 +63,8 @@ public class Ability implements Writable {
         json.put("description", description);
         json.put("stat", stat);
         json.put("value", value);
+        json.put("positionX", positionX);
+        json.put("positionY", positionY);
         return json;
     }
 }

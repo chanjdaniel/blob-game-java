@@ -1,13 +1,16 @@
 package ui.game;
 
+import model.Ability;
 import model.Blob;
 import model.BlobGame;
 import model.Blobs;
+import ui.AbilityRenderer;
 import ui.BlobRenderer;
 import ui.Screen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 // Represents a game panel where the game is played
 public class GamePanel extends JPanel {
@@ -30,6 +33,7 @@ public class GamePanel extends JPanel {
 
         addPlayerBlob(g);
         addEnemyBlobs(g);
+        addAbilities(g);
     }
 
     // MODIFIES: this
@@ -49,6 +53,17 @@ public class GamePanel extends JPanel {
 
         for (Blob next : blobs.getBlobs()) {
             renderer.renderBlob(g, next);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS:  adds abilities
+    private void addAbilities(Graphics g) {
+        ArrayList<Ability> abilities = bg.getAbilities();
+        AbilityRenderer renderer = new AbilityRenderer();
+
+        for (Ability next : abilities) {
+            renderer.renderAbility(g, next);
         }
     }
 }

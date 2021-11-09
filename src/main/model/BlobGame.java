@@ -12,13 +12,8 @@ import ui.game.GameScreen;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
 
 import static ui.game.GameScreen.INTERVAL;
 
@@ -28,13 +23,17 @@ public class BlobGame implements Writable {
     private static final int PLAYER_INITIAL_SPEED = 2;
     private static final int MAX_ENEMIES = 10;
     private static final int NEW_ENEMY_RATE = 1000;
+    private static final int MAX_ABILITIES = 3;
+    private static final int NEW_ABILITY_RATE = 5000;
     private JSONArray jsonNames;
     private int newEnemyCounter;
+    private int newAbilityCounter;
     private boolean isGameOver;
     private boolean isWin;
 
     private final Blob playerBlob;
     private ArrayList<Ability> abilities;
+    private ArrayList<Ability> jsonAbilities;
     private Blobs enemyBlobs;
 
     // Creates an initial blob game with player with name and color;
@@ -42,6 +41,9 @@ public class BlobGame implements Writable {
 
         // Creates player with name and color
         playerBlob = makePlayerBlob(playerName, playerColor);
+
+        // Creates empty array list of ability
+        abilities = new ArrayList<>();
 
         // Creates empty blobs
         enemyBlobs = new Blobs();
@@ -113,7 +115,7 @@ public class BlobGame implements Writable {
         String jsonData = reader.readFile(abilitiesSource);
         JSONObject jsonObject = new JSONObject(jsonData);
 
-        abilities = reader.parseAbilities(jsonObject);
+        jsonAbilities = reader.parseAbilities(jsonObject);
     }
 
     // MODIFIES: this
@@ -144,8 +146,10 @@ public class BlobGame implements Writable {
         playerBlob.move();
 
         addEnemyBlob();
+        addAbility();
         checkEnemyBlobsEat();
         checkPlayerEat();
+        checkPlayerGainAbility();
         checkGameOver();
         checkWin();
     }
@@ -207,38 +211,65 @@ public class BlobGame implements Writable {
 
     // MODIFIES: this
     // EFFECTS: generates a new random blob every NEW_ENEMY_RATE if number of enemy blobs is less than MAX_ENEMIES
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void addEnemyBlob() {
-        if (enemyBlobs.getBlobs().size() < MAX_ENEMIES && newEnemyCounter >= NEW_ENEMY_RATE) {
-            String name = getRandomName();
+        if (newEnemyCounter >= NEW_ENEMY_RATE) {
+            if (enemyBlobs.getBlobs().size() < MAX_ENEMIES) {
+                String name = getRandomName();
 
-            int minSize = 10;
-            int maxSize = 50;
-            int size = randIntBetweenValues(minSize, maxSize);
+                int minSize = 10;
+                int maxSize = 50;
+                int size = randIntBetweenValues(minSize, maxSize);
 
-            int minSpeed = 1;
-            int maxSpeed = 5;
-            int speed = randIntBetweenValues(minSpeed, maxSpeed);
+                int minSpeed = 1;
+                int maxSpeed = 5;
+                int speed = randIntBetweenValues(minSpeed, maxSpeed);
 
-            ArrayList<Double> randomBoundaryXY = makeRandomBoundaryPositionXY();
-            double positionX = randomBoundaryXY.get(0);
-            double positionY = randomBoundaryXY.get(1);
+                ArrayList<Double> randomBoundaryXY = makeRandomBoundaryPositionXY();
+                double positionX = randomBoundaryXY.get(0);
+                double positionY = randomBoundaryXY.get(1);
 
-            int minRGB = 0;
-            int maxRGB = 255;
-            int r = randIntBetweenValues(minRGB, maxRGB);
-            int g = randIntBetweenValues(minRGB, maxRGB);
-            int b = randIntBetweenValues(minRGB, maxRGB);
-            Color color = new Color(r, g, b);
+                int minRGB = 0;
+                int maxRGB = 255;
+                int r = randIntBetweenValues(minRGB, maxRGB);
+                int g = randIntBetweenValues(minRGB, maxRGB);
+                int b = randIntBetweenValues(minRGB, maxRGB);
+                Color color = new Color(r, g, b);
 
-            Blob blob = new Blob(name, size, speed, positionX, positionY, color);
-            enemyBlobs.addBlob(blob);
+                Blob blob = new Blob(name, size, speed, positionX, positionY, color);
+                enemyBlobs.addBlob(blob);
+            }
             newEnemyCounter = 0;
         }
         newEnemyCounter += INTERVAL;
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a random ability every NEW_ABILITY_RATE if number of abilities is less than MAX_ABILITIES
+    public void addAbility() {
+        if (newAbilityCounter >= NEW_ABILITY_RATE) {
+            if (abilities.size() < MAX_ABILITIES) {
+                double randX = randIntBetweenValues(50, GameScreen.RIGHT_WIDTH - 50);
+                double randY = randIntBetweenValues(50, GamePanel.HEIGHT - 50);
+                int index = randIntBetweenValues(0, jsonAbilities.size() - 1);
+                Ability jsonAbility = jsonAbilities.get(index);
+                Ability newAbility = new Ability(
+                        jsonAbility.getName(),
+                        jsonAbility.getDescription(),
+                        jsonAbility.getStat(),
+                        jsonAbility.getValue(),
+                        randX,
+                        randY);
+
+                abilities.add(newAbility);
+            }
+            newAbilityCounter = 0;
+        }
+        newAbilityCounter += INTERVAL;
+    }
+
     private String getRandomName() {
-        int index = randIntBetweenValues(0, 1000);
+        int index = randIntBetweenValues(0, jsonNames.length() - 1);
         return jsonNames.getString(index);
     }
 
@@ -276,24 +307,7 @@ public class BlobGame implements Writable {
         return positionXY;
     }
 
-    private void checkEnemyBlobsEat() {
-        Blobs tempEnemyBlobs = new Blobs();
-        for (Blob next : enemyBlobs.getBlobs()) {
-            tempEnemyBlobs.addBlob(next);
-        }
-        for (Blob predator : tempEnemyBlobs.getBlobs()) {
-            for (Blob prey : tempEnemyBlobs.getBlobs()) {
-                if (!predator.equals(prey)) {
-                    if (checkCollision(predator, prey) && predator.getSize() > prey.getSize()) {
-                        predator.eatBlob(prey);
-                        enemyBlobs.removeBlob(prey);
-                    }
-                }
-            }
-        }
-    }
-
-    private boolean checkCollision(Blob predator, Blob prey) {
+    private boolean checkBlobCollision(Blob predator, Blob prey) {
         double predatorHalfSize = predator.getSize() / 2.0;
         double predatorBlobLeftBound = predator.getPositionX() - predatorHalfSize;
         double predatorBlobRightBound = predator.getPositionX() + predatorHalfSize;
@@ -304,22 +318,63 @@ public class BlobGame implements Writable {
                 && prey.getPositionY() > predatorBlobUpperBound && prey.getPositionY() < predatorBlobLowerBound);
     }
 
+    private void checkEnemyBlobsEat() {
+        Blobs tempEnemyBlobs = new Blobs();
+        for (Blob next : enemyBlobs.getBlobs()) {
+            tempEnemyBlobs.addBlob(next);
+        }
+        for (Blob predator : tempEnemyBlobs.getBlobs()) {
+            for (Blob prey : tempEnemyBlobs.getBlobs()) {
+                if (!predator.equals(prey)) {
+                    if (checkBlobCollision(predator, prey) && predator.getSize() > prey.getSize()) {
+                        predator.eatBlob(prey);
+                        enemyBlobs.removeBlob(prey);
+                    }
+                }
+            }
+        }
+    }
+
     private void checkPlayerEat() {
         Blobs tempEnemyBlobs = new Blobs();
         for (Blob next : enemyBlobs.getBlobs()) {
             tempEnemyBlobs.addBlob(next);
         }
         for (Blob next : tempEnemyBlobs.getBlobs()) {
-            if (checkCollision(playerBlob, next) && playerBlob.getSize() > next.getSize()) {
+            if (checkBlobCollision(playerBlob, next) && playerBlob.getSize() > next.getSize()) {
                 playerBlob.eatBlob(next);
                 enemyBlobs.removeBlob(next);
             }
         }
     }
 
+    private boolean checkAbilityCollision(Blob player, Ability ability) {
+        double playerHalfSize = player.getSize() / 2.0;
+        double playerBlobLeftBound = player.getPositionX() - playerHalfSize;
+        double playerBlobRightBound = player.getPositionX() + playerHalfSize;
+        double playerBlobUpperBound = player.getPositionY() - playerHalfSize;
+        double playerBlobLowerBound = player.getPositionY() + playerHalfSize;
+
+        return (ability.getPositionX() > playerBlobLeftBound && ability.getPositionX() < playerBlobRightBound
+                && ability.getPositionY() > playerBlobUpperBound && ability.getPositionY() < playerBlobLowerBound);
+    }
+
+    private void checkPlayerGainAbility() {
+        ArrayList<Ability> tempAbilities = new ArrayList<>();
+        for (Ability next : abilities) {
+            tempAbilities.add(next);
+        }
+        for (Ability next : tempAbilities) {
+            if (checkAbilityCollision(playerBlob, next) && playerBlob.getAbilities().size() < 5) {
+                playerBlob.addAbility(next);
+                abilities.remove(next);
+            }
+        }
+    }
+
     private void checkGameOver() {
         for (Blob next : enemyBlobs.getBlobs()) {
-            if (checkCollision(next, playerBlob) && next.getSize() > playerBlob.getSize()) {
+            if (checkBlobCollision(next, playerBlob) && next.getSize() > playerBlob.getSize()) {
                 isGameOver = true;
             }
         }
