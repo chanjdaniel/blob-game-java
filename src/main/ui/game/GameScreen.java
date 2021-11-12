@@ -110,7 +110,7 @@ public class GameScreen extends Screen {
         public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
             if (keyCode == KeyEvent.VK_SPACE) {
-                // useAbility();
+                bg.useAbility();
             } else if (keyCode == KeyEvent.VK_M) {
                 timer.stop();
                 beb.nextScreen(new MainMenuScreen(beb));

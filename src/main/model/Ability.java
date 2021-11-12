@@ -9,8 +9,8 @@ public class Ability implements Writable {
     private final String description;
     private final String stat;
     private final int value;
-    private double positionX;
-    private double positionY;
+    private final double positionX;
+    private final double positionY;
 
     // EFFECTS: name of ability is set to abilityName;
     // description of ability is set to abilityDescription;
@@ -44,16 +44,8 @@ public class Ability implements Writable {
         return positionX;
     }
 
-    public void setPositionX(double positionX) {
-        this.positionX = positionX;
-    }
-
     public double getPositionY() {
         return positionY;
-    }
-
-    public void setPositionY(double positionY) {
-        this.positionY = positionY;
     }
 
     @Override

@@ -2,15 +2,15 @@
   "abilities": [
     {
       "name": "Consume stimulants",
-      "description": "Doubles your speed for 5 seconds",
+      "description": "+1 speed",
       "stat": "speed",
-      "value": 2,
+      "value": 1,
       "positionX": 0,
       "positionY": 0
     },
     {
       "name": "Consume protein",
-      "description": "Doubles your size for 5 seconds",
+      "description": "Doubles your size",
       "stat": "size",
       "value": 2,
       "positionX": 0,

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 // list of abilities, and list of names of blobs eaten
 public class Blob implements Writable {
     private final String name;
-    private final int playerInitialSize = 15;
     private int size;
     private int speed;
     private double positionX;
@@ -66,20 +65,44 @@ public class Blob implements Writable {
         return size;
     }
 
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public int getSpeed() {
         return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     public double getPositionX() {
         return positionX;
     }
 
+    public void setPositionX(double positionX) {
+        this.positionX = positionX;
+    }
+
     public void setMovementX(int movementX) {
         this.movementX = movementX;
     }
 
+    public int getMovementX() {
+        return movementX;
+    }
+
     public double getPositionY() {
         return positionY;
+    }
+
+    public void setPositionY(double positionY) {
+        this.positionY = positionY;
+    }
+
+    public int getMovementY() {
+        return movementY;
     }
 
     public void setMovementY(int movementY) {
@@ -96,10 +119,6 @@ public class Blob implements Writable {
 
     public ArrayList<Blob> getVictims() {
         return victims.getBlobs();
-    }
-
-    public ArrayList<String> getVictimNames() {
-        return victims.getNames();
     }
 
     public void addAbility(Ability ability) {
