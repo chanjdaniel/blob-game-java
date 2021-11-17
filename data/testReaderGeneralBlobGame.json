@@ -20,7 +20,14 @@
     "enemyBlobs": {"blobs": [
         {
             "positionY": 0,
-            "abilities": {"abilities": []},
+            "abilities": {"abilities": [{
+                "positionY": 0,
+                "stat": "size",
+                "name": "Consume protein",
+                "description": "Doubles your size",
+                "value": 2,
+                "positionX": 0
+            }]},
             "size": 10,
             "movementY": 0,
             "color": {
@@ -36,7 +43,14 @@
         },
         {
             "positionY": 0,
-            "abilities": {"abilities": []},
+            "abilities": {"abilities": [{
+                "positionY": 0,
+                "stat": "speed",
+                "name": "Consume stimulants",
+                "description": "+1 speed",
+                "value": 1,
+                "positionX": 0
+            }]},
             "size": 15,
             "movementY": 0,
             "color": {

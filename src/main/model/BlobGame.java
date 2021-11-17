@@ -286,21 +286,8 @@ public class BlobGame implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("playerBlob", playerBlob.toJson());
-        json.put("abilities", abilitiesToJson());
+        json.put("abilities", abilities.toJson());
         json.put("enemyBlobs", enemyBlobs.toJson());
         return json;
-    }
-
-    // EFFECTS: returns abilities as a JSON array
-    private JSONObject abilitiesToJson() {
-        JSONObject jsonObject = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-
-        for (Ability a : abilities.getAbilities()) {
-            jsonArray.put(a.toJson());
-        }
-
-        jsonObject.put("abilities", jsonArray);
-        return jsonObject;
     }
 }

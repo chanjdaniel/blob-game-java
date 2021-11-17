@@ -23,11 +23,7 @@ public class Blobs implements Writable {
         blobs = new ArrayList<>();
 
         // Reads blobNames from file
-        try {
-            readBlobNames();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        readBlobNames();
     }
 
     // EFFECTS: blobs is set to lob
@@ -35,11 +31,7 @@ public class Blobs implements Writable {
         blobs = new ArrayList<>(lob);
 
         // Reads blobNames from file
-        try {
-            readBlobNames();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        readBlobNames();
     }
 
     public ArrayList<Blob> getBlobs() {
@@ -64,10 +56,15 @@ public class Blobs implements Writable {
 
     // MODIFIES: this
     // EFFECTS: reads blobNames from file and returns list of names
-    private void readBlobNames() throws IOException {
+    public void readBlobNames() {
         String nameSource = "./data/blobNames.json";
         JsonReader reader = new JsonReader(nameSource);
-        String jsonData = reader.readFile(nameSource);
+        String jsonData = null;
+        try {
+            jsonData = reader.readFile(nameSource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         jsonNames = new JSONArray(jsonData);
     }

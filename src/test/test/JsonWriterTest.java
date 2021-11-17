@@ -51,6 +51,9 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterGeneralBlobGame() {
         try {
+            ArrayList<Ability> jsonAbilities = new Abilities().getJsonAbilities();
+            Ability speed = jsonAbilities.get(0);
+            Ability size = jsonAbilities.get(1);
             BlobGame sbg = new BlobGame("George", Color.blue);
             Blob player = sbg.getPlayerBlob();
             ArrayList<Blob> enemyBlobs = sbg.getEnemyBlobs();
@@ -66,13 +69,12 @@ class JsonWriterTest extends JsonTest {
             // add 2 blobs to game
             Blob blob1 = new Blob("testName1", 10, 1, 0, 0, Color.BLUE);
             Blob blob2 = new Blob("testName2", 15, 2, 0, 0,Color.RED);
+            blob1.addAbility(size);
+            blob2.addAbility(speed);
             enemyBlobs.add(blob1);
             enemyBlobs.add(blob2);
 
             // add 2 abilities to game
-            ArrayList<Ability> jsonAbilities = new Abilities().getJsonAbilities();
-            Ability speed = jsonAbilities.get(0);
-            Ability size = jsonAbilities.get(1);
             sbg.getAbilities().add(speed);
             sbg.getAbilities().add(size);
 

@@ -368,6 +368,40 @@ public class BlobGameTest {
     }
 
     @Test
+    void testUpdateCheckPlayerGainAbilityNoCollisionDownRight() {
+        testBlobGame.setNewAbilityCounter(NEW_ABILITY_RATE);
+        testBlobGame.addRandomAbility();
+        Ability ability = testBlobGame.getAbilities().get(0);
+        testPlayerBlob.setPositionY(ability.getPositionY() + 50);
+        testPlayerBlob.setPositionY(ability.getPositionY() + 50);
+
+        assertEquals(0, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+
+        testBlobGame.update();
+
+        assertEquals(0, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+    }
+
+    @Test
+    void testUpdateCheckPlayerGainAbilityNoCollisionUpLeft() {
+        testBlobGame.setNewAbilityCounter(NEW_ABILITY_RATE);
+        testBlobGame.addRandomAbility();
+        Ability ability = testBlobGame.getAbilities().get(0);
+        testPlayerBlob.setPositionY(ability.getPositionY() - 50);
+        testPlayerBlob.setPositionY(ability.getPositionY() - 50);
+
+        assertEquals(0, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+
+        testBlobGame.update();
+
+        assertEquals(0, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+    }
+
+    @Test
     void testUpdateCheckGameOverTrue() {
         testPlayerBlob.setSize(10);
         testEnemyBlob1.setSize(15);

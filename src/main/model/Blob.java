@@ -175,7 +175,7 @@ public class Blob implements Writable {
         json.put("positionY", positionY);
         json.put("movementY", movementY);
         json.put("color", colorToJson());
-        json.put("abilities", abilitiesToJson());
+        json.put("abilities", abilities.toJson());
         json.put("victims", victims.toJson());
         return json;
     }
@@ -187,18 +187,5 @@ public class Blob implements Writable {
         json.put("g", color.getGreen());
         json.put("b", color.getBlue());
         return json;
-    }
-
-    // EFFECTS: returns abilities as a JSON array
-    private JSONObject abilitiesToJson() {
-        JSONObject jsonObject = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-
-        for (Ability a : abilities.getAbilities()) {
-            jsonArray.put(a.toJson());
-        }
-
-        jsonObject.put("abilities", jsonArray);
-        return jsonObject;
     }
 }
