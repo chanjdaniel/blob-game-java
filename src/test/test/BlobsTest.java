@@ -97,4 +97,13 @@ public class BlobsTest {
             assertEquals(0, blob.getVictims().size());
         }
     }
+
+    @Test
+    void testBoundaryChooserDefault() {
+        ArrayList<Double> posXY = testBlobs1.boundaryChooser(5,0,0);
+        double posX = posXY.get(0);
+        double posY = posXY.get(1);
+        assertEquals(0,posX);
+        assertEquals(0,posY);
+    }
 }

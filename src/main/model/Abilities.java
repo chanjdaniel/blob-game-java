@@ -22,11 +22,7 @@ public class Abilities implements Writable {
         abilities = new ArrayList<>();
 
         // Reads abilities from file
-        try {
-            readAbilities();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        readAbilities();
     }
 
     // EFFECTS: abilities is set to loa
@@ -34,11 +30,7 @@ public class Abilities implements Writable {
         abilities = new ArrayList<>(loa);
 
         // Reads abilities from file
-        try {
-            readAbilities();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        readAbilities();
     }
 
     public ArrayList<Ability> getAbilities() {
@@ -59,10 +51,15 @@ public class Abilities implements Writable {
 
     // MODIFIES: this
     // EFFECTS: reads abilities from file and returns abilities
-    private void readAbilities() throws IOException {
+    private void readAbilities() {
         String abilitiesSource = "./data/abilities.json";
         JsonReader reader = new JsonReader(abilitiesSource);
-        String jsonData = reader.readFile(abilitiesSource);
+        String jsonData = null;
+        try {
+            jsonData = reader.readFile(abilitiesSource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         JSONObject jsonObject = new JSONObject(jsonData);
 
         jsonAbilities = reader.parseArrayListAbility(jsonObject);

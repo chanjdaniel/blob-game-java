@@ -309,6 +309,7 @@ public class BlobGameTest {
         testBlobGame.addRandomAbility();
         Ability ability = testBlobGame.getAbilities().get(0);
         testPlayerBlob.setPositionX(ability.getPositionX() - 50);
+        testPlayerBlob.setPositionY(ability.getPositionY());
 
         assertEquals(0, testPlayerBlob.getAbilities().size());
         assertEquals(1, testBlobGame.getAbilities().size());
@@ -325,6 +326,7 @@ public class BlobGameTest {
         testBlobGame.addRandomAbility();
         Ability ability = testBlobGame.getAbilities().get(0);
         testPlayerBlob.setPositionX(ability.getPositionX() + 50);
+        testPlayerBlob.setPositionY(ability.getPositionY());
 
         assertEquals(0, testPlayerBlob.getAbilities().size());
         assertEquals(1, testBlobGame.getAbilities().size());
@@ -340,6 +342,7 @@ public class BlobGameTest {
         testBlobGame.setNewAbilityCounter(NEW_ABILITY_RATE);
         testBlobGame.addRandomAbility();
         Ability ability = testBlobGame.getAbilities().get(0);
+        testPlayerBlob.setPositionX(ability.getPositionX());
         testPlayerBlob.setPositionY(ability.getPositionY() - 50);
 
         assertEquals(0, testPlayerBlob.getAbilities().size());
@@ -356,6 +359,7 @@ public class BlobGameTest {
         testBlobGame.setNewAbilityCounter(NEW_ABILITY_RATE);
         testBlobGame.addRandomAbility();
         Ability ability = testBlobGame.getAbilities().get(0);
+        testPlayerBlob.setPositionX(ability.getPositionX());
         testPlayerBlob.setPositionY(ability.getPositionY() + 50);
 
         assertEquals(0, testPlayerBlob.getAbilities().size());
