@@ -6,7 +6,6 @@ import model.Blob;
 import model.Blobs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.Screen;
 import ui.game.GamePanel;
 import ui.game.GameScreen;
 

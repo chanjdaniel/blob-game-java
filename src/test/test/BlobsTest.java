@@ -8,6 +8,7 @@ import ui.game.GamePanel;
 import ui.game.GameScreen;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +23,7 @@ public class BlobsTest {
     private ArrayList<String> names;
 
     @BeforeEach
-    void runBefore() {
+    void runBefore() throws IOException {
         testBlobs1 = new Blobs();
         testBlob1 = new Blob("test_blob1", 20, 0, 0, 0, blue);
         testBlob2 = new Blob("test_blob2", 10, 0, 0, 0, red);
@@ -37,7 +38,8 @@ public class BlobsTest {
 
     @Test
     void testArrayListConstructor() {
-        Blobs testBlobs2 = new Blobs(testBlobs1.getBlobs());
+        Blobs testBlobs2 = null;
+        testBlobs2 = new Blobs(testBlobs1.getBlobs());
         assertEquals(0, testBlobs2.getBlobs().size());
         assertNotNull(testBlobs2.getJsonNames());
     }

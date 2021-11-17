@@ -9,6 +9,7 @@ import ui.game.GameScreen;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static model.BlobGame.*;
@@ -25,7 +26,7 @@ public class BlobGameTest {
     private Blob testEnemyBlob2;
 
     @BeforeEach
-    void runBefore() {
+    void runBefore() throws IOException {
         testEnemyBlob1 = new Blob(
                 "testEnemyBlob1",
                 15, 0,
@@ -95,6 +96,7 @@ public class BlobGameTest {
             double blob1y = testEnemyBlob1.getPositionY();
             double blob2x = testEnemyBlob2.getPositionX();
             double blob2y = testEnemyBlob2.getPositionY();
+
             testBlobGame.update();
 
             assertTrue(testEnemyBlob1.getSpeed() * -1 <= testEnemyBlob1.getMovementX() &&
@@ -280,11 +282,80 @@ public class BlobGameTest {
     }
 
     @Test
-    void testUpdateCheckPlayerGainAbilityNoCollision() {
+    void testUpdateCheckPlayerGainAbilityCollisionMaxAbilities() {
+        testBlobGame.setNewAbilityCounter(NEW_ABILITY_RATE);
+        testBlobGame.addRandomAbility();
+        Ability ability = testBlobGame.getAbilities().get(0);
+        testPlayerBlob.addAbility(ability);
+        testPlayerBlob.addAbility(ability);
+        testPlayerBlob.addAbility(ability);
+        testPlayerBlob.addAbility(ability);
+        testPlayerBlob.addAbility(ability);
+        testPlayerBlob.setPositionX(ability.getPositionX());
+        testPlayerBlob.setPositionY(ability.getPositionY());
+
+        assertEquals(5, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+
+        testBlobGame.update();
+
+        assertEquals(5, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+    }
+
+    @Test
+    void testUpdateCheckPlayerGainAbilityNoCollisionLeft() {
+        testBlobGame.setNewAbilityCounter(NEW_ABILITY_RATE);
+        testBlobGame.addRandomAbility();
+        Ability ability = testBlobGame.getAbilities().get(0);
+        testPlayerBlob.setPositionX(ability.getPositionX() - 50);
+
+        assertEquals(0, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+
+        testBlobGame.update();
+
+        assertEquals(0, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+    }
+
+    @Test
+    void testUpdateCheckPlayerGainAbilityNoCollisionRight() {
         testBlobGame.setNewAbilityCounter(NEW_ABILITY_RATE);
         testBlobGame.addRandomAbility();
         Ability ability = testBlobGame.getAbilities().get(0);
         testPlayerBlob.setPositionX(ability.getPositionX() + 50);
+
+        assertEquals(0, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+
+        testBlobGame.update();
+
+        assertEquals(0, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+    }
+
+    @Test
+    void testUpdateCheckPlayerGainAbilityNoCollisionUp() {
+        testBlobGame.setNewAbilityCounter(NEW_ABILITY_RATE);
+        testBlobGame.addRandomAbility();
+        Ability ability = testBlobGame.getAbilities().get(0);
+        testPlayerBlob.setPositionY(ability.getPositionY() - 50);
+
+        assertEquals(0, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+
+        testBlobGame.update();
+
+        assertEquals(0, testPlayerBlob.getAbilities().size());
+        assertEquals(1, testBlobGame.getAbilities().size());
+    }
+
+    @Test
+    void testUpdateCheckPlayerGainAbilityNoCollisionDown() {
+        testBlobGame.setNewAbilityCounter(NEW_ABILITY_RATE);
+        testBlobGame.addRandomAbility();
+        Ability ability = testBlobGame.getAbilities().get(0);
         testPlayerBlob.setPositionY(ability.getPositionY() + 50);
 
         assertEquals(0, testPlayerBlob.getAbilities().size());

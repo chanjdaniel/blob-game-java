@@ -1,9 +1,10 @@
 package test;
 
 import exceptions.InvalidInputException;
+import model.Abilities;
+import model.Ability;
 import model.Blob;
 import model.BlobGame;
-import model.Blobs;
 import org.junit.jupiter.api.Test;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -15,9 +16,6 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class JsonWriterTest extends JsonTest {
-    //NOTE TO CPSC 210 STUDENTS: the strategy in designing tests for the JsonWriter is to
-    //write data to a file and then use the reader to read it back in and check that we
-    //read in a copy of what was written out.
 
     @Test
     void testWriterInvalidFile() {
@@ -64,6 +62,19 @@ class JsonWriterTest extends JsonTest {
                 player.getVictims().add(victim);
                 enemyBlobs.remove(0);
             }
+
+            // add 2 blobs to game
+            Blob blob1 = new Blob("testName1", 10, 1, 0, 0, Color.BLUE);
+            Blob blob2 = new Blob("testName2", 15, 2, 0, 0,Color.RED);
+            enemyBlobs.add(blob1);
+            enemyBlobs.add(blob2);
+
+            // add 2 abilities to game
+            ArrayList<Ability> jsonAbilities = new Abilities().getJsonAbilities();
+            Ability speed = jsonAbilities.get(0);
+            Ability size = jsonAbilities.get(1);
+            sbg.getAbilities().add(speed);
+            sbg.getAbilities().add(size);
 
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralBlobGame.json");
             writer.open();

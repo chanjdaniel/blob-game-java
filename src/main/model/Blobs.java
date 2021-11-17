@@ -9,7 +9,6 @@ import ui.game.GameScreen;
 
 import java.awt.*;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static model.BlobGame.randIntBetweenValues;
@@ -108,16 +107,20 @@ public class Blobs implements Writable {
 
     // EFFECTS: creates an ArrayList of Double with a random XY position on the boundary of the screen
     //          positionX at index 0; positionY at index 1
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"}) // long method due to switch
     private ArrayList<Double> makeRandomBoundaryPositionXY() {
-        ArrayList<Double> positionXY = new ArrayList<>();
-        double randX = randIntBetweenValues(0, GameScreen.RIGHT_WIDTH);
-        double randY = randIntBetweenValues(0, GamePanel.HEIGHT);
-        double positionX = 0.0;
-        double positionY = 0.0;
 
         // (yes, this coin has 4 sides)
+        double randX = randIntBetweenValues(0, GameScreen.RIGHT_WIDTH);
+        double randY = randIntBetweenValues(0, GamePanel.HEIGHT);
         int coinFlip = randIntBetweenValues(0, 3);
+
+        return boundaryChooser(coinFlip, randX, randY);
+    }
+
+    private ArrayList<Double> boundaryChooser(int coinFlip, double randX, double randY) {
+        ArrayList<Double> positionXY = new ArrayList<>();
+        double positionX = 0.0;
+        double positionY = 0.0;
         switch (coinFlip) {
             case 0: // north
                 positionX = randX;
@@ -134,7 +137,6 @@ public class Blobs implements Writable {
                 positionY = randY;
                 break;
         }
-
         positionXY.add(positionX);
         positionXY.add(positionY);
         return positionXY;

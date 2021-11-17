@@ -1,6 +1,56 @@
 {
-    "abilities": {"abilities": []},
-    "enemyBlobs": {"blobs": []},
+    "abilities": {"abilities": [
+        {
+            "positionY": 0,
+            "stat": "speed",
+            "name": "Consume stimulants",
+            "description": "+1 speed",
+            "value": 1,
+            "positionX": 0
+        },
+        {
+            "positionY": 0,
+            "stat": "size",
+            "name": "Consume protein",
+            "description": "Doubles your size",
+            "value": 2,
+            "positionX": 0
+        }
+    ]},
+    "enemyBlobs": {"blobs": [
+        {
+            "positionY": 0,
+            "abilities": {"abilities": []},
+            "size": 10,
+            "movementY": 0,
+            "color": {
+                "r": 0,
+                "b": 255,
+                "g": 0
+            },
+            "movementX": 0,
+            "name": "testName1",
+            "speed": 1,
+            "victims": {"blobs": []},
+            "positionX": 0
+        },
+        {
+            "positionY": 0,
+            "abilities": {"abilities": []},
+            "size": 15,
+            "movementY": 0,
+            "color": {
+                "r": 255,
+                "b": 0,
+                "g": 0
+            },
+            "movementX": 0,
+            "name": "testName2",
+            "speed": 2,
+            "victims": {"blobs": []},
+            "positionX": 0
+        }
+    ]},
     "playerBlob": {
         "positionY": 293,
         "abilities": {"abilities": []},
