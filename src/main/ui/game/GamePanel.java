@@ -10,6 +10,7 @@ import ui.Screen;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 // Represents a game panel where the game is played
@@ -48,10 +49,10 @@ public class GamePanel extends JPanel {
     // MODIFIES: this
     // EFFECTS:  adds enemy blobs
     private void addEnemyBlobs(Graphics g) {
-        Blobs blobs = bg.getEnemyBlobs();
+        ArrayList<Blob> blobs = bg.getEnemyBlobs();
         BlobRenderer renderer = new BlobRenderer();
 
-        for (Blob next : blobs.getBlobs()) {
+        for (Blob next : blobs) {
             renderer.renderBlob(g, next);
         }
     }

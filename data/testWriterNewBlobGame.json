@@ -1,18 +1,5 @@
 {
-    "abilities": {"abilities": [
-        {
-            "stat": "speed",
-            "name": "Consume stimulants",
-            "description": "Doubles your speed for 5 seconds",
-            "value": 2
-        },
-        {
-            "stat": "size",
-            "name": "Consume protein",
-            "description": "Doubles your size for 5 seconds",
-            "value": 2
-        }
-    ]},
+    "abilities": {"abilities": []},
     "enemyBlobs": {"blobs": []},
     "playerBlob": {
         "positionY": 293,

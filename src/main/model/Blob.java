@@ -20,7 +20,7 @@ public class Blob implements Writable {
     private double positionY;
     private int movementY;
     private final Color color;
-    private ArrayList<Ability> abilities;
+    private Abilities abilities;
     private Blobs victims;
 
     // For creating a new blob
@@ -36,7 +36,7 @@ public class Blob implements Writable {
         this.positionY = positionY;
         this.movementY = 0;
         this.color = color;
-        this.abilities = new ArrayList<>();
+        this.abilities = new Abilities();
         this.victims = new Blobs();
     }
 
@@ -44,7 +44,7 @@ public class Blob implements Writable {
     // REQUIRES: initialSize > 0
     // EFFECTS: constructs a blob; all fields given as parameters
     public Blob(String name, int size, int speed, double positionX, int movementX, double positionY,
-                int movementY, Color color, ArrayList<Ability> abilities, Blobs victims) {
+                int movementY, Color color, Abilities abilities, Blobs victims) {
         this.name = name;
         this.size = size;
         this.speed = speed;
@@ -114,7 +114,7 @@ public class Blob implements Writable {
     }
 
     public ArrayList<Ability> getAbilities() {
-        return abilities;
+        return abilities.getAbilities();
     }
 
     public ArrayList<Blob> getVictims() {
@@ -122,7 +122,7 @@ public class Blob implements Writable {
     }
 
     public void addAbility(Ability ability) {
-        abilities.add(ability);
+        abilities.getAbilities().add(ability);
     }
 
     // REQUIRES: this.getSize() > enemyBlob.getSize()
@@ -194,7 +194,7 @@ public class Blob implements Writable {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
 
-        for (Ability a : abilities) {
+        for (Ability a : abilities.getAbilities()) {
             jsonArray.put(a.toJson());
         }
 

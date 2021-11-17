@@ -44,7 +44,7 @@ public class JsonReader {
     // EFFECTS: parses blob game from JSON object and returns it
     private BlobGame parseBlobGame(JSONObject jsonObject) {
         Blob playerBlob = parseBlob(jsonObject.getJSONObject("playerBlob"));
-        ArrayList<Ability> abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
+        Abilities abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
         Blobs enemyBlobs = parseBlobs(jsonObject.getJSONObject("enemyBlobs"));
 
         return new BlobGame(playerBlob, abilities, enemyBlobs);
@@ -60,7 +60,7 @@ public class JsonReader {
         double positionY = jsonObject.getDouble("positionY");
         int movementY = jsonObject.getInt("movementY");
         Color color = parseColor(jsonObject.getJSONObject("color"));
-        ArrayList<Ability> abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
+        Abilities abilities = parseAbilities(jsonObject.getJSONObject("abilities"));
         Blobs victims = parseBlobs(jsonObject.getJSONObject("victims"));
 
         return new Blob(name, size, speed, positionX, movementX, positionY, movementY, color, abilities, victims);
@@ -75,11 +75,18 @@ public class JsonReader {
         return new Color(r,g,b);
     }
 
-    // EFFECTS: parses abilities from JSON object and returns it
-    public ArrayList<Ability> parseAbilities(JSONObject jsonObject) {
+    // EFFECTS: parses arraylist of ability and returns it
+    public ArrayList<Ability> parseArrayListAbility(JSONObject jsonObject) {
         ArrayList<Ability> ab = new ArrayList<>();
         addAbilities(ab, jsonObject);
         return ab;
+    }
+
+    // EFFECTS: parses abilities and returns it
+    public Abilities parseAbilities(JSONObject jsonObject) {
+        ArrayList<Ability> ab = new ArrayList<>();
+        addAbilities(ab, jsonObject);
+        return new Abilities(ab);
     }
 
     // MODIFIES: ab

@@ -10,8 +10,8 @@ import persistence.JsonWriter;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class JsonWriterTest extends JsonTest {
@@ -44,7 +44,7 @@ class JsonWriterTest extends JsonTest {
             BlobGame lbg = reader.read();
             checkBlob(sbg.getPlayerBlob(), lbg.getPlayerBlob());
             checkAbilities(sbg.getAbilities(), lbg.getAbilities());
-            checkBlobs(sbg.getEnemyBlobs().getBlobs(), lbg.getEnemyBlobs().getBlobs());
+            checkBlobs(sbg.getEnemyBlobs(), lbg.getEnemyBlobs());
         } catch (IOException | InvalidInputException e) {
             fail("Exception should not have been thrown");
         }
@@ -55,17 +55,15 @@ class JsonWriterTest extends JsonTest {
         try {
             BlobGame sbg = new BlobGame("George", Color.blue);
             Blob player = sbg.getPlayerBlob();
-            Blobs enemyBlobs = sbg.getEnemyBlobs();
+            ArrayList<Blob> enemyBlobs = sbg.getEnemyBlobs();
 
             // eats 3 blobs
-            for (int i = 3; i > 0; i--) {
-                Blob victim = enemyBlobs.getBlobs().get(0);
+            for (int i = 0; i > 3; i++) {
+                sbg.addEnemyBlob();
+                Blob victim = enemyBlobs.get(0);
                 player.getVictims().add(victim);
-                enemyBlobs.getBlobs().remove(0);
+                enemyBlobs.remove(0);
             }
-
-            // adds an ability
-            sbg.getPlayerBlob().addAbility(sbg.getAbilities().get(0));
 
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralBlobGame.json");
             writer.open();
@@ -76,7 +74,7 @@ class JsonWriterTest extends JsonTest {
             BlobGame lbg = reader.read();
             checkBlob(sbg.getPlayerBlob(), lbg.getPlayerBlob());
             checkAbilities(sbg.getAbilities(), lbg.getAbilities());
-            checkBlobs(sbg.getEnemyBlobs().getBlobs(), lbg.getEnemyBlobs().getBlobs());
+            checkBlobs(sbg.getEnemyBlobs(), lbg.getEnemyBlobs());
         } catch (IOException | InvalidInputException e) {
             fail("Exception should not have been thrown");
         }

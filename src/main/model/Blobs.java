@@ -9,8 +9,10 @@ import ui.game.GameScreen;
 
 import java.awt.*;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
+
+import static model.BlobGame.randIntBetweenValues;
 
 // Represents a list of blob
 public class Blobs implements Writable {
@@ -20,6 +22,18 @@ public class Blobs implements Writable {
     // EFFECTS: blobs is set to empty ArrayList<Blob>
     public Blobs() {
         blobs = new ArrayList<>();
+
+        // Reads blobNames from file
+        try {
+            readBlobNames();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // EFFECTS: blobs is set to lob
+    public Blobs(ArrayList<Blob> lob) {
+        blobs = new ArrayList<>(lob);
 
         // Reads blobNames from file
         try {
@@ -90,11 +104,6 @@ public class Blobs implements Writable {
     private String getRandomName() {
         int index = randIntBetweenValues(0, jsonNames.length() - 1);
         return jsonNames.getString(index);
-    }
-
-    // EFFECTS: returns a random int between the values min and max (inclusive)
-    public static int randIntBetweenValues(int min, int max) {
-        return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
     // EFFECTS: creates an ArrayList of Double with a random XY position on the boundary of the screen

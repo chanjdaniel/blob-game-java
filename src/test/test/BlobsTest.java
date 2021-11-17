@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BlobsTest {
-    private Blobs testBlobs;
+    private Blobs testBlobs1;
     private Blob testBlob1;
     private Blob testBlob2;
     private Color blue = Color.blue;
@@ -23,7 +23,7 @@ public class BlobsTest {
 
     @BeforeEach
     void runBefore() {
-        testBlobs = new Blobs();
+        testBlobs1 = new Blobs();
         testBlob1 = new Blob("test_blob1", 20, 0, 0, 0, blue);
         testBlob2 = new Blob("test_blob2", 10, 0, 0, 0, red);
     }
@@ -31,30 +31,37 @@ public class BlobsTest {
     @Test
     void testConstructor() {
 
-        assertEquals(0, testBlobs.getBlobs().size());
-        assertTrue(testBlobs.getJsonNames().length() != 0);
+        assertEquals(0, testBlobs1.getBlobs().size());
+        assertNotNull(testBlobs1.getJsonNames());
+    }
+
+    @Test
+    void testArrayListConstructor() {
+        Blobs testBlobs2 = new Blobs(testBlobs1.getBlobs());
+        assertEquals(0, testBlobs2.getBlobs().size());
+        assertNotNull(testBlobs2.getJsonNames());
     }
 
     @Test
     void testAddRemoveBlobSingle() {
 
-        testBlobs.addBlob(testBlob1);
-        assertEquals(1, testBlobs.getBlobs().size());
-        testBlobs.removeBlob(testBlob1);
-        assertEquals(0, testBlobs.getBlobs().size());
+        testBlobs1.addBlob(testBlob1);
+        assertEquals(1, testBlobs1.getBlobs().size());
+        testBlobs1.removeBlob(testBlob1);
+        assertEquals(0, testBlobs1.getBlobs().size());
     }
 
     @Test
     void testAddRemoveBlobMultiple() {
 
-        testBlobs.addBlob(testBlob1);
-        assertEquals(1, testBlobs.getBlobs().size());
-        testBlobs.addBlob(testBlob2);
-        assertEquals(2, testBlobs.getBlobs().size());
-        testBlobs.removeBlob(testBlob2);
-        assertEquals(1, testBlobs.getBlobs().size());
-        testBlobs.removeBlob(testBlob1);
-        assertEquals(0, testBlobs.getBlobs().size());
+        testBlobs1.addBlob(testBlob1);
+        assertEquals(1, testBlobs1.getBlobs().size());
+        testBlobs1.addBlob(testBlob2);
+        assertEquals(2, testBlobs1.getBlobs().size());
+        testBlobs1.removeBlob(testBlob2);
+        assertEquals(1, testBlobs1.getBlobs().size());
+        testBlobs1.removeBlob(testBlob1);
+        assertEquals(0, testBlobs1.getBlobs().size());
     }
 
     @Test
@@ -62,12 +69,12 @@ public class BlobsTest {
         double maxX = GameScreen.RIGHT_WIDTH;
         double maxY = GamePanel.HEIGHT;
 
-        for (int i = 0; i < 10; i++) {
-            testBlobs.addRandomBlob();
-            assertEquals(i + 1, testBlobs.getBlobs().size());
+        for (int i = 0; i < 100; i++) {
+            testBlobs1.addRandomBlob();
+            assertEquals(i + 1, testBlobs1.getBlobs().size());
         }
 
-        for (Blob blob : testBlobs.getBlobs()) {
+        for (Blob blob : testBlobs1.getBlobs()) {
             assertTrue(blob.getSize() >= 10);
             assertTrue(blob.getSize() <= 50);
             assertTrue(blob.getSpeed() >= 1);

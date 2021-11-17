@@ -3,15 +3,12 @@ package model;
 import exceptions.InvalidInputException;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import persistence.JsonReader;
 import persistence.Writable;
 import ui.Screen;
-import ui.game.GamePanel;
 import ui.game.GameScreen;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -19,20 +16,19 @@ import static ui.game.GameScreen.INTERVAL;
 
 // Represents the game state of the blob game
 public class BlobGame implements Writable {
-    private static final int PLAYER_INITIAL_SIZE = 15;
-    private static final int PLAYER_INITIAL_SPEED = 2;
-    private static final int MAX_ENEMIES = 10;
-    private static final int NEW_ENEMY_RATE = 1000;
-    private static final int MAX_ABILITIES = 3;
-    private static final int NEW_ABILITY_RATE = 10000;
-    private int newEnemyCounter;
-    private int newAbilityCounter;
-    private boolean isGameOver;
-    private boolean isWin;
+    public static final int PLAYER_INITIAL_SIZE = 15;
+    public static final int PLAYER_INITIAL_SPEED = 2;
+    public static final int MAX_ENEMIES = 10;
+    public static final int NEW_ENEMY_RATE = 1000;
+    public static final int MAX_ABILITIES = 3;
+    public static final int NEW_ABILITY_RATE = 10000;
+    private int newEnemyCounter = 0;
+    private int newAbilityCounter = 0;
+    private boolean isGameOver = false;
+    private boolean isWin = false;
 
     private final Blob playerBlob;
-    private ArrayList<Ability> abilities;
-    private ArrayList<Ability> jsonAbilities;
+    private Abilities abilities;
     private Blobs enemyBlobs;
 
     // Creates an initial blob game with player with name and color;
@@ -42,33 +38,18 @@ public class BlobGame implements Writable {
         playerBlob = makePlayerBlob(playerName, playerColor);
 
         // Creates empty array list of ability
-        abilities = new ArrayList<>();
+        abilities = new Abilities();
 
         // Creates empty blobs
         enemyBlobs = new Blobs();
-
-        // Reads abilities from file
-        try {
-            readAbilities();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     // Creates a blob game with all fields given as parameters; for loading a saved game
-    public BlobGame(Blob player, ArrayList<Ability> abilities, Blobs enemyBlobs) {
+    public BlobGame(Blob player, Abilities abilities, Blobs enemyBlobs) {
 
         this.playerBlob = player;
         this.enemyBlobs = enemyBlobs;
         this.abilities = abilities;
-        this.isGameOver = false;
-
-        // Reads abilities from file
-        try {
-            readAbilities();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public Blob getPlayerBlob() {
@@ -76,7 +57,7 @@ public class BlobGame implements Writable {
     }
 
     public ArrayList<Ability> getAbilities() {
-        return abilities;
+        return abilities.getAbilities();
     }
 
     public boolean isGameOver() {
@@ -87,26 +68,27 @@ public class BlobGame implements Writable {
         return isWin;
     }
 
-    public Blobs getEnemyBlobs() {
-        return enemyBlobs;
+    public ArrayList<Blob> getEnemyBlobs() {
+        return enemyBlobs.getBlobs();
     }
 
+    public void setNewEnemyCounter(int newEnemyCounter) {
+        this.newEnemyCounter = newEnemyCounter;
+    }
 
-    // MODIFIES: this
-    // EFFECTS: reads abilities from file and returns abilities
-    private void readAbilities() throws IOException {
-        String abilitiesSource = "./data/abilities.json";
-        JsonReader reader = new JsonReader(abilitiesSource);
-        String jsonData = reader.readFile(abilitiesSource);
-        JSONObject jsonObject = new JSONObject(jsonData);
+    public void setNewAbilityCounter(int newAbilityCounter) {
+        this.newAbilityCounter = newAbilityCounter;
+    }
 
-        jsonAbilities = reader.parseAbilities(jsonObject);
+    // EFFECTS: returns a random int between the values min and max (inclusive)
+    public static int randIntBetweenValues(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
     // MODIFIES: this
     // EFFECTS: makes player blob with name playerName, size as playerInitialSize,
     // and color playerColor at centre of screen
-    public Blob makePlayerBlob(String playerName, Color playerColor) {
+    public static Blob makePlayerBlob(String playerName, Color playerColor) {
         int centreX = Screen.CENTRE_WIDTH - PLAYER_INITIAL_SIZE / 2;
         int centreY = Screen.CENTRE_HEIGHT - PLAYER_INITIAL_SIZE / 2;
 
@@ -121,7 +103,7 @@ public class BlobGame implements Writable {
         playerBlob.move();
 
         addEnemyBlob();
-        addAbility();
+        addRandomAbility();
         checkEnemyBlobsEat();
         checkPlayerEat();
         checkPlayerGainAbility();
@@ -130,6 +112,7 @@ public class BlobGame implements Writable {
     }
 
     // Controls the blob
+    // REQUIRES: keyCode is a valid keyCode for WASD or arrow keys
     // MODIFIES: this
     // EFFECTS: moves the blob in response to key code
     public void blobControl(int keyCode) {
@@ -149,6 +132,7 @@ public class BlobGame implements Writable {
     }
 
     // Stops the blob
+    // REQUIRES: keyCode is a valid keyCode for WASD or arrow keys
     // MODIFIES: this
     // EFFECTS: stops the blob in response to key code
     public void blobStop(int keyCode) {
@@ -198,29 +182,12 @@ public class BlobGame implements Writable {
         }
     }
 
-    // EFFECTS: returns a random int between the values min and max (inclusive)
-    public int randIntBetweenValues(int min, int max) {
-        return ThreadLocalRandom.current().nextInt(min, max + 1);
-    }
-
     // MODIFIES: this
     // EFFECTS: adds a random ability every NEW_ABILITY_RATE if number of abilities is less than MAX_ABILITIES
-    public void addAbility() {
+    public void addRandomAbility() {
         if (newAbilityCounter >= NEW_ABILITY_RATE) {
-            if (abilities.size() < MAX_ABILITIES) {
-                double randX = randIntBetweenValues(50, GameScreen.RIGHT_WIDTH - 50);
-                double randY = randIntBetweenValues(50, GamePanel.HEIGHT - 50);
-                int index = randIntBetweenValues(0, jsonAbilities.size() - 1);
-                Ability jsonAbility = jsonAbilities.get(index);
-                Ability newAbility = new Ability(
-                        jsonAbility.getName(),
-                        jsonAbility.getDescription(),
-                        jsonAbility.getStat(),
-                        jsonAbility.getValue(),
-                        randX,
-                        randY);
-
-                abilities.add(newAbility);
+            if (abilities.getAbilities().size() < MAX_ABILITIES) {
+                abilities.addRandomAbility();
             }
             newAbilityCounter = 0;
         }
@@ -230,7 +197,6 @@ public class BlobGame implements Writable {
     // MODIFIES: this
     // EFFECTS: generates a new random blob and add it to enemyBlobs
     // every NEW_ENEMY_RATE if number of enemy blobs is less than MAX_ENEMIES
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void addEnemyBlob() {
         if (newEnemyCounter >= NEW_ENEMY_RATE) {
             if (enemyBlobs.getBlobs().size() < MAX_ENEMIES) {
@@ -292,11 +258,11 @@ public class BlobGame implements Writable {
     }
 
     private void checkPlayerGainAbility() {
-        ArrayList<Ability> tempAbilities = new ArrayList<>(abilities);
-        for (Ability next : tempAbilities) {
+        Abilities tempAbilities = new Abilities(abilities.getAbilities());
+        for (Ability next : tempAbilities.getAbilities()) {
             if (checkAbilityCollision(playerBlob, next) && playerBlob.getAbilities().size() < 5) {
                 playerBlob.addAbility(next);
-                abilities.remove(next);
+                abilities.removeAbility(next);
             }
         }
     }
@@ -329,7 +295,7 @@ public class BlobGame implements Writable {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
 
-        for (Ability a : abilities) {
+        for (Ability a : abilities.getAbilities()) {
             jsonArray.put(a.toJson());
         }
 

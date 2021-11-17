@@ -1,7 +1,9 @@
 package test;
 
+import model.Abilities;
 import model.Ability;
 import model.Blob;
+import model.Blobs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ui.Screen;
@@ -38,6 +40,34 @@ public class BlobTest {
         assertEquals(Color.CYAN, testBlob.getColor());
         assertEquals(0, testBlob.getAbilities().size());
         assertEquals(0, testBlob.getVictims().size());
+    }
+
+    @Test
+    void testLoadConstructor() {
+
+        Blob testBlob2 = new Blob(
+                testBlob.getName(),
+                testBlob.getSize(),
+                testBlob.getSpeed(),
+                testBlob.getPositionX(),
+                testBlob.getMovementX(),
+                testBlob.getPositionY(),
+                testBlob.getMovementY(),
+                testBlob.getColor(),
+                new Abilities(testBlob.getAbilities()),
+                new Blobs(testBlob.getVictims())
+        );
+
+        assertEquals(testBlob.getName(), testBlob2.getName());
+        assertEquals(testBlob.getSize(), testBlob2.getSize());
+        assertEquals(testBlob.getSpeed(), testBlob2.getSpeed());
+        assertEquals(testBlob.getPositionX(), testBlob2.getPositionX());
+        assertEquals(testBlob.getMovementX(), testBlob2.getMovementX());
+        assertEquals(testBlob.getPositionY(), testBlob2.getPositionY());
+        assertEquals(testBlob.getMovementY(), testBlob2.getMovementY());
+        assertEquals(testBlob.getColor(), testBlob2.getColor());
+        assertEquals(testBlob.getAbilities().size(), testBlob2.getAbilities().size());
+        assertEquals(testBlob.getVictims().size(), testBlob2.getVictims().size());
     }
 
     @Test
