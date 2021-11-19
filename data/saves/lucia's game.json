@@ -1,0 +1,20 @@
+{
+    "abilities": {"abilities": []},
+    "enemyBlobs": {"blobs": []},
+    "playerBlob": {
+        "positionY": 293,
+        "abilities": {"abilities": []},
+        "size": 15,
+        "movementY": 0,
+        "color": {
+            "r": 255,
+            "b": 255,
+            "g": 153
+        },
+        "movementX": 0,
+        "name": "pinky",
+        "speed": 2,
+        "victims": {"blobs": []},
+        "positionX": 493
+    }
+}

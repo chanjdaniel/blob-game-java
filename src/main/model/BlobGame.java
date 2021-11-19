@@ -165,7 +165,8 @@ public class BlobGame implements Writable {
                 int newSpeed = playerBlob.getSpeed() + ability.getValue();
                 playerBlob.setSpeed(newSpeed);
             }
-
+            EventLog.getInstance().logEvent(
+                    new Event(playerBlob.getName() + " used " + ability.getName()));
             playerAbilities.remove(ability);
         }
     }
@@ -241,6 +242,7 @@ public class BlobGame implements Writable {
         tempEnemyBlobs.setBlobs(new ArrayList<>(enemyBlobs.getBlobs()));
         for (Blob next : tempEnemyBlobs.getBlobs()) {
             if (checkBlobCollision(playerBlob, next) && playerBlob.getSize() > next.getSize()) {
+                EventLog.getInstance().logEvent(new Event(playerBlob.getName() + " ate " + next.getName()));
                 playerBlob.eatBlob(next);
                 enemyBlobs.removeBlob(next);
             }
@@ -262,6 +264,8 @@ public class BlobGame implements Writable {
         Abilities tempAbilities = new Abilities(abilities.getAbilities());
         for (Ability next : tempAbilities.getAbilities()) {
             if (checkAbilityCollision(playerBlob, next) && playerBlob.getAbilities().size() < 5) {
+                EventLog.getInstance().logEvent(
+                        new Event(playerBlob.getName() + " gained " + next.getName()));
                 playerBlob.addAbility(next);
                 abilities.removeAbility(next);
             }
@@ -271,6 +275,7 @@ public class BlobGame implements Writable {
     private void checkGameOver() {
         for (Blob next : enemyBlobs.getBlobs()) {
             if (checkBlobCollision(next, playerBlob) && next.getSize() > playerBlob.getSize()) {
+                EventLog.getInstance().logEvent(new Event(next.getName() + " ate " + playerBlob.getName()));
                 isGameOver = true;
             }
         }
@@ -278,6 +283,8 @@ public class BlobGame implements Writable {
 
     private void checkWin() {
         if (playerBlob.getSize() >= GameScreen.RIGHT_WIDTH) {
+            EventLog.getInstance().logEvent(
+                    new Event(playerBlob.getName() + " won!"));
             isWin = true;
         }
     }

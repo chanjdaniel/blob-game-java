@@ -1,0 +1,69 @@
+{
+    "abilities": {"abilities": []},
+    "enemyBlobs": {"blobs": [
+        {
+            "positionY": 186,
+            "abilities": {"abilities": []},
+            "size": 43,
+            "movementY": 4,
+            "color": {
+                "r": 118,
+                "b": 102,
+                "g": 228
+            },
+            "movementX": -1,
+            "name": "Dulcea",
+            "speed": 4,
+            "victims": {"blobs": []},
+            "positionX": 10
+        },
+        {
+            "positionY": 23,
+            "abilities": {"abilities": []},
+            "size": 24,
+            "movementY": 5,
+            "color": {
+                "r": 22,
+                "b": 212,
+                "g": 166
+            },
+            "movementX": 3,
+            "name": "Trix",
+            "speed": 5,
+            "victims": {"blobs": []},
+            "positionX": 562
+        },
+        {
+            "positionY": 562,
+            "abilities": {"abilities": []},
+            "size": 33,
+            "movementY": 1,
+            "color": {
+                "r": 124,
+                "b": 217,
+                "g": 123
+            },
+            "movementX": 2,
+            "name": "Marena",
+            "speed": 2,
+            "victims": {"blobs": []},
+            "positionX": 546
+        }
+    ]},
+    "playerBlob": {
+        "positionY": 303,
+        "abilities": {"abilities": []},
+        "size": 15,
+        "movementY": 0,
+        "color": {
+            "r": 255,
+            "b": 255,
+            "g": 153
+        },
+        "movementX": 0,
+        "name": "pinky",
+        "speed": 2,
+        "victims": {"blobs": []},
+        "positionX": 541
+    }
+}
