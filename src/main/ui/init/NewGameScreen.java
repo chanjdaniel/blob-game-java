@@ -3,6 +3,8 @@ package ui.init;
 import exceptions.InvalidInputException;
 import model.Blob;
 import model.BlobGame;
+import model.Event;
+import model.EventLog;
 import ui.BlobEatBlob;
 import ui.BlobRenderer;
 import ui.Screen;
@@ -179,6 +181,7 @@ public class NewGameScreen extends Screen {
         @Override
         public void actionPerformed(ActionEvent e) {
             blobGameMaker();
+            EventLog.getInstance().logEvent(new Event("Started New Game"));
             beb.nextScreen(new MainMenuScreen(beb));
         }
     }

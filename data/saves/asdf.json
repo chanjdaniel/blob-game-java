@@ -1,0 +1,211 @@
+{
+    "abilities": {"abilities": []},
+    "enemyBlobs": {"blobs": [
+        {
+            "positionY": 59,
+            "abilities": {"abilities": []},
+            "size": 35,
+            "movementY": 1,
+            "color": {
+                "r": 109,
+                "b": 89,
+                "g": 147
+            },
+            "movementX": 1,
+            "name": "Cacilia",
+            "speed": 2,
+            "victims": {"blobs": []},
+            "positionX": 299
+        },
+        {
+            "positionY": 85,
+            "abilities": {"abilities": []},
+            "size": 37,
+            "movementY": 2,
+            "color": {
+                "r": 30,
+                "b": 92,
+                "g": 4
+            },
+            "movementX": -2,
+            "name": "Raynell",
+            "speed": 5,
+            "victims": {"blobs": []},
+            "positionX": 55
+        },
+        {
+            "positionY": 561,
+            "abilities": {"abilities": []},
+            "size": 32,
+            "movementY": 2,
+            "color": {
+                "r": 162,
+                "b": 142,
+                "g": 13
+            },
+            "movementX": -2,
+            "name": "Cody",
+            "speed": 2,
+            "victims": {"blobs": []},
+            "positionX": 686
+        },
+        {
+            "positionY": 486,
+            "abilities": {"abilities": []},
+            "size": 65,
+            "movementY": -1,
+            "color": {
+                "r": 115,
+                "b": 7,
+                "g": 161
+            },
+            "movementX": 3,
+            "name": "Stace",
+            "speed": 4,
+            "victims": {"blobs": [{
+                "positionY": 465,
+                "abilities": {"abilities": []},
+                "size": 31,
+                "movementY": -1,
+                "color": {
+                    "r": 87,
+                    "b": 181,
+                    "g": 139
+                },
+                "movementX": 3,
+                "name": "Vannie",
+                "speed": 3,
+                "victims": {"blobs": []},
+                "positionX": 785
+            }]},
+            "positionX": 779
+        },
+        {
+            "positionY": 85,
+            "abilities": {"abilities": []},
+            "size": 30,
+            "movementY": 5,
+            "color": {
+                "r": 242,
+                "b": 112,
+                "g": 160
+            },
+            "movementX": 5,
+            "name": "Sherrie",
+            "speed": 5,
+            "victims": {"blobs": []},
+            "positionX": 769
+        },
+        {
+            "positionY": 264,
+            "abilities": {"abilities": []},
+            "size": 45,
+            "movementY": 5,
+            "color": {
+                "r": 197,
+                "b": 196,
+                "g": 92
+            },
+            "movementX": -3,
+            "name": "Kaila",
+            "speed": 5,
+            "victims": {"blobs": []},
+            "positionX": 21
+        },
+        {
+            "positionY": 135,
+            "abilities": {"abilities": []},
+            "size": 32,
+            "movementY": -2,
+            "color": {
+                "r": 169,
+                "b": 161,
+                "g": 140
+            },
+            "movementX": 0,
+            "name": "Sile",
+            "speed": 5,
+            "victims": {"blobs": []},
+            "positionX": 167
+        },
+        {
+            "positionY": 472,
+            "abilities": {"abilities": []},
+            "size": 26,
+            "movementY": 3,
+            "color": {
+                "r": 138,
+                "b": 250,
+                "g": 163
+            },
+            "movementX": -2,
+            "name": "Shae",
+            "speed": 4,
+            "victims": {"blobs": []},
+            "positionX": 218
+        },
+        {
+            "positionY": 557,
+            "abilities": {"abilities": []},
+            "size": 20,
+            "movementY": 1,
+            "color": {
+                "r": 77,
+                "b": 108,
+                "g": 120
+            },
+            "movementX": 2,
+            "name": "Grace",
+            "speed": 2,
+            "victims": {"blobs": []},
+            "positionX": 61
+        },
+        {
+            "positionY": 5,
+            "abilities": {"abilities": []},
+            "size": 10,
+            "movementY": -3,
+            "color": {
+                "r": 16,
+                "b": 140,
+                "g": 106
+            },
+            "movementX": 2,
+            "name": "Viv",
+            "speed": 5,
+            "victims": {"blobs": []},
+            "positionX": 12
+        }
+    ]},
+    "playerBlob": {
+        "positionY": 303,
+        "abilities": {"abilities": []},
+        "size": 42,
+        "movementY": 0,
+        "color": {
+            "r": 51,
+            "b": 51,
+            "g": 255
+        },
+        "movementX": 0,
+        "name": "asdfasdf",
+        "speed": 2,
+        "victims": {"blobs": [{
+            "positionY": 549,
+            "abilities": {"abilities": []},
+            "size": 12,
+            "movementY": 1,
+            "color": {
+                "r": 96,
+                "b": 28,
+                "g": 82
+            },
+            "movementX": 0,
+            "name": "Danette",
+            "speed": 1,
+            "victims": {"blobs": []},
+            "positionX": 228
+        }]},
+        "positionX": 401
+    }
+}

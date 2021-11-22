@@ -1,6 +1,8 @@
 package ui.menu;
 
 import model.Blob;
+import model.Event;
+import model.EventLog;
 import persistence.JsonWriter;
 import ui.BlobEatBlob;
 import ui.BlobRenderer;
@@ -156,6 +158,7 @@ public class SaveGameScreen extends Screen {
                 if (status.equals("quit")) {
                     System.exit(0);
                 } else {
+                    EventLog.getInstance().logEvent(new Event("Saved game at " + jsonStore));
                     beb.nextScreen(new MainMenuScreen(beb));
                 }
             } catch (FileNotFoundException ex) {

@@ -2,6 +2,8 @@ package ui.init;
 
 import model.Blob;
 import model.BlobGame;
+import model.Event;
+import model.EventLog;
 import persistence.JsonReader;
 import ui.BlobEatBlob;
 import ui.BlobRenderer;
@@ -151,6 +153,7 @@ public class LoadGameScreen extends Screen {
             try {
                 savedGame = loadBlobGame(jsonStore);
                 beb.setBlobGame(savedGame);
+                EventLog.getInstance().logEvent(new Event("Loaded game from " + jsonStore));
                 beb.nextScreen(new MainMenuScreen(beb));
             } catch (IOException ex) {
                 label.setText("Save not found at " + jsonStore);

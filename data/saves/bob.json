@@ -1,0 +1,342 @@
+{
+    "abilities": {"abilities": []},
+    "enemyBlobs": {"blobs": [
+        {
+            "positionY": 560,
+            "abilities": {"abilities": []},
+            "size": 51,
+            "movementY": 1,
+            "color": {
+                "r": 131,
+                "b": 221,
+                "g": 27
+            },
+            "movementX": 0,
+            "name": "Tilly",
+            "speed": 1,
+            "victims": {"blobs": [{
+                "positionY": 539,
+                "abilities": {"abilities": []},
+                "size": 21,
+                "movementY": -5,
+                "color": {
+                    "r": 250,
+                    "b": 151,
+                    "g": 108
+                },
+                "movementX": -3,
+                "name": "Madonna",
+                "speed": 5,
+                "victims": {"blobs": []},
+                "positionX": 694
+            }]},
+            "positionX": 724
+        },
+        {
+            "positionY": 429,
+            "abilities": {"abilities": []},
+            "size": 86,
+            "movementY": 1,
+            "color": {
+                "r": 85,
+                "b": 186,
+                "g": 44
+            },
+            "movementX": -1,
+            "name": "Jemmy",
+            "speed": 2,
+            "victims": {"blobs": [
+                {
+                    "positionY": 473,
+                    "abilities": {"abilities": []},
+                    "size": 16,
+                    "movementY": 0,
+                    "color": {
+                        "r": 148,
+                        "b": 87,
+                        "g": 60
+                    },
+                    "movementX": -2,
+                    "name": "Marcella",
+                    "speed": 4,
+                    "victims": {"blobs": []},
+                    "positionX": 0
+                },
+                {
+                    "positionY": 439,
+                    "abilities": {"abilities": []},
+                    "size": 14,
+                    "movementY": 0,
+                    "color": {
+                        "r": 27,
+                        "b": 83,
+                        "g": 204
+                    },
+                    "movementX": 0,
+                    "name": "Adrea",
+                    "speed": 3,
+                    "victims": {"blobs": []},
+                    "positionX": 0
+                },
+                {
+                    "positionY": 460,
+                    "abilities": {"abilities": []},
+                    "size": 11,
+                    "movementY": 4,
+                    "color": {
+                        "r": 7,
+                        "b": 60,
+                        "g": 243
+                    },
+                    "movementX": 2,
+                    "name": "Constantine",
+                    "speed": 4,
+                    "victims": {"blobs": []},
+                    "positionX": 18
+                },
+                {
+                    "positionY": 514,
+                    "abilities": {"abilities": []},
+                    "size": 38,
+                    "movementY": 0,
+                    "color": {
+                        "r": 223,
+                        "b": 240,
+                        "g": 150
+                    },
+                    "movementX": -1,
+                    "name": "Robinette",
+                    "speed": 3,
+                    "victims": {"blobs": []},
+                    "positionX": 29
+                }
+            ]},
+            "positionX": 37
+        },
+        {
+            "positionY": 90,
+            "abilities": {"abilities": []},
+            "size": 46,
+            "movementY": 3,
+            "color": {
+                "r": 165,
+                "b": 33,
+                "g": 211
+            },
+            "movementX": 2,
+            "name": "Gizela",
+            "speed": 3,
+            "victims": {"blobs": []},
+            "positionX": 377
+        },
+        {
+            "positionY": 526,
+            "abilities": {"abilities": []},
+            "size": 49,
+            "movementY": -3,
+            "color": {
+                "r": 55,
+                "b": 97,
+                "g": 61
+            },
+            "movementX": -2,
+            "name": "Alfi",
+            "speed": 4,
+            "victims": {"blobs": []},
+            "positionX": 692
+        },
+        {
+            "positionY": 207,
+            "abilities": {"abilities": []},
+            "size": 84,
+            "movementY": -2,
+            "color": {
+                "r": 201,
+                "b": 205,
+                "g": 113
+            },
+            "movementX": -2,
+            "name": "Anita",
+            "speed": 3,
+            "victims": {"blobs": [
+                {
+                    "positionY": 302,
+                    "abilities": {"abilities": []},
+                    "size": 35,
+                    "movementY": 0,
+                    "color": {
+                        "r": 88,
+                        "b": 125,
+                        "g": 225
+                    },
+                    "movementX": -1,
+                    "name": "Maddie",
+                    "speed": 1,
+                    "victims": {"blobs": []},
+                    "positionX": 794
+                },
+                {
+                    "positionY": 223,
+                    "abilities": {"abilities": []},
+                    "size": 38,
+                    "movementY": -1,
+                    "color": {
+                        "r": 255,
+                        "b": 171,
+                        "g": 89
+                    },
+                    "movementX": -2,
+                    "name": "Bridget",
+                    "speed": 3,
+                    "victims": {"blobs": []},
+                    "positionX": 790
+                }
+            ]},
+            "positionX": 788
+        },
+        {
+            "positionY": 246,
+            "abilities": {"abilities": []},
+            "size": 61,
+            "movementY": -1,
+            "color": {
+                "r": 255,
+                "b": 202,
+                "g": 26
+            },
+            "movementX": -5,
+            "name": "Ellyn",
+            "speed": 5,
+            "victims": {"blobs": [{
+                "positionY": 110,
+                "abilities": {"abilities": []},
+                "size": 22,
+                "movementY": -1,
+                "color": {
+                    "r": 56,
+                    "b": 216,
+                    "g": 126
+                },
+                "movementX": -4,
+                "name": "Agata",
+                "speed": 4,
+                "victims": {"blobs": []},
+                "positionX": 70
+            }]},
+            "positionX": 223
+        },
+        {
+            "positionY": 38,
+            "abilities": {"abilities": []},
+            "size": 10,
+            "movementY": 1,
+            "color": {
+                "r": 98,
+                "b": 64,
+                "g": 201
+            },
+            "movementX": -1,
+            "name": "Inga",
+            "speed": 1,
+            "victims": {"blobs": []},
+            "positionX": 167
+        },
+        {
+            "positionY": 532,
+            "abilities": {"abilities": []},
+            "size": 11,
+            "movementY": 0,
+            "color": {
+                "r": 167,
+                "b": 243,
+                "g": 13
+            },
+            "movementX": 0,
+            "name": "Jillie",
+            "speed": 1,
+            "victims": {"blobs": []},
+            "positionX": 607
+        },
+        {
+            "positionY": 72,
+            "abilities": {"abilities": []},
+            "size": 19,
+            "movementY": 3,
+            "color": {
+                "r": 7,
+                "b": 110,
+                "g": 230
+            },
+            "movementX": 3,
+            "name": "Odetta",
+            "speed": 5,
+            "victims": {"blobs": []},
+            "positionX": 736
+        },
+        {
+            "positionY": 46,
+            "abilities": {"abilities": []},
+            "size": 16,
+            "movementY": 1,
+            "color": {
+                "r": 112,
+                "b": 165,
+                "g": 51
+            },
+            "movementX": 3,
+            "name": "Tarra",
+            "speed": 3,
+            "victims": {"blobs": []},
+            "positionX": 49
+        }
+    ]},
+    "playerBlob": {
+        "positionY": 213,
+        "abilities": {"abilities": []},
+        "size": 56,
+        "movementY": 0,
+        "color": {
+            "r": 204,
+            "b": 204,
+            "g": 255
+        },
+        "movementX": 0,
+        "name": "bob the blob",
+        "speed": 3,
+        "victims": {"blobs": [
+            {
+                "positionY": 344,
+                "abilities": {"abilities": []},
+                "size": 23,
+                "movementY": -1,
+                "color": {
+                    "r": 132,
+                    "b": 113,
+                    "g": 232
+                },
+                "movementX": -2,
+                "name": "Myrle",
+                "speed": 4,
+                "victims": {"blobs": []},
+                "positionX": 631
+            },
+            {
+                "positionY": 280,
+                "abilities": {"abilities": []},
+                "size": 31,
+                "movementY": -4,
+                "color": {
+                    "r": 238,
+                    "b": 161,
+                    "g": 39
+                },
+                "movementX": 4,
+                "name": "Cherie",
+                "speed": 5,
+                "victims": {"blobs": []},
+                "positionX": 474
+            }
+        ]},
+        "positionX": 515
+    }
+}

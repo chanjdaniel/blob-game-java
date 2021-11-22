@@ -2,6 +2,8 @@ package ui;
 
 import model.Blob;
 import model.BlobGame;
+import model.Event;
+import model.EventLog;
 import ui.init.StartScreen;
 
 import java.awt.*;
@@ -38,6 +40,7 @@ public class BlobEatBlob {
     }
 
     private void run() {
+        EventLog.getInstance().logEvent(new Event("Game Started"));
         StartScreen startScreen = new StartScreen(this);
         nextScreen(startScreen);
     }
