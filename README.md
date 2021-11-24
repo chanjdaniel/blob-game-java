@@ -46,32 +46,47 @@ add additional functionality.*
 - As a user, I want to be able to name save files and load save files using their names
 
 ## Phase 4: Task 2
-**New Game**
-- Mon Nov 22 12:41:55 PST 2021  
+**New Game**  
+- Tue Nov 23 19:30:39 PST 2021  
 Game Started
-- Mon Nov 22 12:42:05 PST 2021  
+- Tue Nov 23 19:30:47 PST 2021  
 Started New Game
-- Mon Nov 22 12:42:21 PST 2021  
-bob the blob gained Consume protein
-- Mon Nov 22 12:42:23 PST 2021  
-bob the blob used Consume protein
-- Mon Nov 22 12:42:25 PST 2021  
-bob the blob ate Myrle
-- Mon Nov 22 12:42:37 PST 2021  
+- Tue Nov 23 19:31:02 PST 2021  
+bob the blob gained Consume stimulants
+- Tue Nov 23 19:31:03 PST 2021  
+bob the blob used Consume stimulants - speed: 3
+- Tue Nov 23 19:31:15 PST 2021  
+bob the blob gained Consume stimulants
+- Tue Nov 23 19:31:16 PST 2021  
+bob the blob used Consume stimulants - speed: 4
+- Tue Nov 23 19:31:18 PST 2021  
+bob the blob ate Jocelin - size: 20
+- Tue Nov 23 19:31:24 PST 2021  
 Saved game at ./data/saves/bob.json
-- Mon Nov 22 12:42:44 PST 2021  
+- Tue Nov 23 19:31:24 PST 2021  
 Quit Game
 
-**Load Game**
-- Mon Nov 22 12:48:07 PST 2021  
+**Load Game**  
+- Tue Nov 23 19:32:23 PST 2021  
 Game Started
-- Mon Nov 22 12:48:12 PST 2021  
+- Tue Nov 23 19:32:28 PST 2021  
 Loaded game from ./data/saves/bob.json
-- Mon Nov 22 12:48:16 PST 2021  
-bob the blob ate Cherie
-- Mon Nov 22 12:48:29 PST 2021  
-bob the blob gained Consume stimulants
-- Mon Nov 22 12:48:30 PST 2021  
-bob the blob used Consume stimulants
-- Mon Nov 22 12:48:39 PST 2021  
+- Tue Nov 23 19:32:33 PST 2021  
+bob the blob ate Pam - size: 29
+- Tue Nov 23 19:32:39 PST 2021  
+bob the blob was eaten by Adaline - Game over!
+- Tue Nov 23 19:32:42 PST 2021  
 Quit Game
+
+## Phase 4: Task 3
+
+If I had more time, I would have liked to find a way to reduce the number of classes
+used to represent each "screen" of the game. The UML class diagram is so messy mainly 
+because I had decided to use one class for each of the game screens. I made this decision 
+because I knew that each screen was going to look very different and have different elements. 
+I honestly do not know how I could do this better, as having all the data for all the screens in one
+class seems unreasonable. I would have also liked to implement the singleton design pattern for classes 
+where there should only be one instance; for example, GameFrame and BlobEatBlob. 
+
+Otherwise, I was happy with the design decisions I made and 
+putting everything together was quite smooth.

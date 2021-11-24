@@ -279,7 +279,8 @@ public class BlobGame implements Writable {
     private void checkGameOver() {
         for (Blob next : enemyBlobs.getBlobs()) {
             if (checkBlobCollision(next, playerBlob) && next.getSize() > playerBlob.getSize()) {
-                EventLog.getInstance().logEvent(new Event(next.getName() + " ate " + playerBlob.getName()));
+                EventLog.getInstance().logEvent(new Event(
+                        playerBlob.getName() + " was eaten by " + next.getName() + " - Game over!"));
                 isGameOver = true;
             }
         }

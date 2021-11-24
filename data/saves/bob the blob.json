@@ -1,0 +1,293 @@
+{
+    "abilities": {"abilities": []},
+    "enemyBlobs": {"blobs": [
+        {
+            "positionY": 80,
+            "abilities": {"abilities": []},
+            "size": 30,
+            "movementY": 1,
+            "color": {
+                "r": 63,
+                "b": 108,
+                "g": 186
+            },
+            "movementX": -1,
+            "name": "Ola",
+            "speed": 1,
+            "victims": {"blobs": []},
+            "positionX": 372
+        },
+        {
+            "positionY": 284,
+            "abilities": {"abilities": []},
+            "size": 28,
+            "movementY": 5,
+            "color": {
+                "r": 119,
+                "b": 69,
+                "g": 0
+            },
+            "movementX": -4,
+            "name": "Colene",
+            "speed": 5,
+            "victims": {"blobs": []},
+            "positionX": 781
+        },
+        {
+            "positionY": 278,
+            "abilities": {"abilities": []},
+            "size": 88,
+            "movementY": 0,
+            "color": {
+                "r": 195,
+                "b": 115,
+                "g": 144
+            },
+            "movementX": 0,
+            "name": "Isabelita",
+            "speed": 1,
+            "victims": {"blobs": [
+                {
+                    "positionY": 299,
+                    "abilities": {"abilities": []},
+                    "size": 41,
+                    "movementY": -4,
+                    "color": {
+                        "r": 236,
+                        "b": 114,
+                        "g": 214
+                    },
+                    "movementX": -1,
+                    "name": "Denna",
+                    "speed": 4,
+                    "victims": {"blobs": []},
+                    "positionX": 28
+                },
+                {
+                    "positionY": 345,
+                    "abilities": {"abilities": []},
+                    "size": 15,
+                    "movementY": 3,
+                    "color": {
+                        "r": 67,
+                        "b": 83,
+                        "g": 166
+                    },
+                    "movementX": 3,
+                    "name": "Penny",
+                    "speed": 4,
+                    "victims": {"blobs": []},
+                    "positionX": 23
+                },
+                {
+                    "positionY": 334,
+                    "abilities": {"abilities": []},
+                    "size": 37,
+                    "movementY": 0,
+                    "color": {
+                        "r": 238,
+                        "b": 29,
+                        "g": 114
+                    },
+                    "movementX": 0,
+                    "name": "Gratia",
+                    "speed": 3,
+                    "victims": {"blobs": []},
+                    "positionX": 0
+                }
+            ]},
+            "positionX": 42
+        },
+        {
+            "positionY": 547,
+            "abilities": {"abilities": []},
+            "size": 32,
+            "movementY": -1,
+            "color": {
+                "r": 190,
+                "b": 149,
+                "g": 137
+            },
+            "movementX": -1,
+            "name": "Roseanna",
+            "speed": 1,
+            "victims": {"blobs": [{
+                "positionY": 556,
+                "abilities": {"abilities": []},
+                "size": 11,
+                "movementY": -5,
+                "color": {
+                    "r": 116,
+                    "b": 33,
+                    "g": 22
+                },
+                "movementX": 5,
+                "name": "Jessa",
+                "speed": 5,
+                "victims": {"blobs": []},
+                "positionX": 785
+            }]},
+            "positionX": 770
+        },
+        {
+            "positionY": 502,
+            "abilities": {"abilities": []},
+            "size": 38,
+            "movementY": 0,
+            "color": {
+                "r": 249,
+                "b": 149,
+                "g": 78
+            },
+            "movementX": -1,
+            "name": "Dela",
+            "speed": 1,
+            "victims": {"blobs": []},
+            "positionX": 584
+        },
+        {
+            "positionY": 555,
+            "abilities": {"abilities": []},
+            "size": 34,
+            "movementY": -1,
+            "color": {
+                "r": 75,
+                "b": 98,
+                "g": 150
+            },
+            "movementX": 1,
+            "name": "Jeannie",
+            "speed": 1,
+            "victims": {"blobs": []},
+            "positionX": 703
+        },
+        {
+            "positionY": 44,
+            "abilities": {"abilities": []},
+            "size": 23,
+            "movementY": 1,
+            "color": {
+                "r": 190,
+                "b": 74,
+                "g": 111
+            },
+            "movementX": 0,
+            "name": "Lura",
+            "speed": 1,
+            "victims": {"blobs": []},
+            "positionX": 192
+        },
+        {
+            "positionY": 235,
+            "abilities": {"abilities": []},
+            "size": 40,
+            "movementY": -3,
+            "color": {
+                "r": 15,
+                "b": 196,
+                "g": 200
+            },
+            "movementX": -1,
+            "name": "Maryanne",
+            "speed": 5,
+            "victims": {"blobs": [{
+                "positionY": 235,
+                "abilities": {"abilities": []},
+                "size": 12,
+                "movementY": 1,
+                "color": {
+                    "r": 150,
+                    "b": 3,
+                    "g": 144
+                },
+                "movementX": 1,
+                "name": "Coretta",
+                "speed": 5,
+                "victims": {"blobs": []},
+                "positionX": 263
+            }]},
+            "positionX": 297
+        },
+        {
+            "positionY": 566,
+            "abilities": {"abilities": []},
+            "size": 31,
+            "movementY": -1,
+            "color": {
+                "r": 239,
+                "b": 23,
+                "g": 52
+            },
+            "movementX": 1,
+            "name": "Karleen",
+            "speed": 1,
+            "victims": {"blobs": []},
+            "positionX": 99
+        },
+        {
+            "positionY": 74,
+            "abilities": {"abilities": []},
+            "size": 12,
+            "movementY": 2,
+            "color": {
+                "r": 255,
+                "b": 57,
+                "g": 207
+            },
+            "movementX": 2,
+            "name": "Zaria",
+            "speed": 4,
+            "victims": {"blobs": []},
+            "positionX": 796
+        }
+    ]},
+    "playerBlob": {
+        "positionY": 393,
+        "abilities": {"abilities": []},
+        "size": 92,
+        "movementY": 0,
+        "color": {
+            "r": 0,
+            "b": 255,
+            "g": 255
+        },
+        "movementX": 0,
+        "name": "bob the blob",
+        "speed": 3,
+        "victims": {"blobs": [
+            {
+                "positionY": 551,
+                "abilities": {"abilities": []},
+                "size": 14,
+                "movementY": 4,
+                "color": {
+                    "r": 168,
+                    "b": 30,
+                    "g": 60
+                },
+                "movementX": -4,
+                "name": "Eddi",
+                "speed": 5,
+                "victims": {"blobs": []},
+                "positionX": 488
+            },
+            {
+                "positionY": 189,
+                "abilities": {"abilities": []},
+                "size": 18,
+                "movementY": 3,
+                "color": {
+                    "r": 235,
+                    "b": 192,
+                    "g": 222
+                },
+                "movementX": -2,
+                "name": "Fleur",
+                "speed": 3,
+                "victims": {"blobs": []},
+                "positionX": 798
+            }
+        ]},
+        "positionX": 432
+    }
+}
