@@ -1,8 +1,6 @@
 package ui.init;
 
 import model.Blob;
-import model.Event;
-import model.EventLog;
 import ui.BlobEatBlob;
 import ui.BlobRenderer;
 import ui.Screen;

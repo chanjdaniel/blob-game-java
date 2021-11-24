@@ -45,13 +45,15 @@ public class BlobEatBlob {
         nextScreen(startScreen);
     }
 
+    // MODIFIES: gameFrame
+    // EFFECTS: sets the content pane to screen
     public void nextScreen(Screen screen) {
         gameFrame.nextScreen(screen);
     }
 
     // Centres frame on desktop
-    // modifies: this
-    // effects:  location of frame is set so frame is centred on desktop
+    // MODIFIES: this
+    // EFFECTS:  location of frame is set so frame is centred on desktop
     private void centreOnScreen() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         gameFrame.setLocation((screen.width - Screen.WIDTH) / 2, (screen.height - Screen.HEIGHT) / 2);

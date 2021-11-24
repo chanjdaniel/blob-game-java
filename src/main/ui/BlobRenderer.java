@@ -6,11 +6,14 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
+// Renderer for blobs
 public class BlobRenderer {
 
     public BlobRenderer() {
     }
 
+    // MODIFIES: g
+    // EFFECTS: draws blob onto g
     public void renderBlob(Graphics g, Blob blob) {
         int size = blob.getSize();
         double x = blob.getPositionX() - size / 2.0;
@@ -21,6 +24,8 @@ public class BlobRenderer {
         renderBlobEyes(g, size, x, y);
     }
 
+    // MODIFIES: g
+    // EFFECTS: draws blob body onto g
     private void renderBlobBody(Graphics g, int size, double x, double y, Color color) {
         Graphics2D g2 = (Graphics2D) g;
         Rectangle2D.Double body = new Rectangle2D.Double(x,y,size,size);
@@ -33,6 +38,8 @@ public class BlobRenderer {
         g2.draw(body);
     }
 
+    // MODIFIES: g
+    // EFFECTS: draws blob mouth onto g
     private void renderBlobMouth(Graphics g, int size, double x, double y) {
         double width = size / 3.0;
         double height = width / 2.0;
@@ -47,6 +54,8 @@ public class BlobRenderer {
         g2.draw(mouth);
     }
 
+    // MODIFIES: g
+    // EFFECTS: draws blob eyes onto g
     private void renderBlobEyes(Graphics g, int size, double x, double y) {
         float eyeLevel = (float) (y + (size / (float) 4));
         float blobCentreX = (float) (x + size / (float) 2);

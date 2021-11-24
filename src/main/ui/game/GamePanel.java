@@ -3,14 +3,12 @@ package ui.game;
 import model.Ability;
 import model.Blob;
 import model.BlobGame;
-import model.Blobs;
 import ui.AbilityRenderer;
 import ui.BlobRenderer;
 import ui.Screen;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 // Represents a game panel where the game is played
@@ -19,6 +17,7 @@ public class GamePanel extends JPanel {
     public static final int HEIGHT = Screen.HEIGHT;
 
     BlobGame bg;
+    BlobRenderer renderer;
 
     // Constructs a game panel
     public GamePanel(BlobGame bg) {
@@ -26,6 +25,7 @@ public class GamePanel extends JPanel {
         setBackground(Color.WHITE);
         setVisible(true);
         this.bg = bg;
+        this.renderer = new BlobRenderer();
     }
 
     @Override
@@ -41,7 +41,6 @@ public class GamePanel extends JPanel {
     // EFFECTS:  adds the player blob
     private void addPlayerBlob(Graphics g) {
         Blob blob = bg.getPlayerBlob();
-        BlobRenderer renderer = new BlobRenderer();
 
         renderer.renderBlob(g, blob);
     }
@@ -50,7 +49,6 @@ public class GamePanel extends JPanel {
     // EFFECTS:  adds enemy blobs
     private void addEnemyBlobs(Graphics g) {
         ArrayList<Blob> blobs = bg.getEnemyBlobs();
-        BlobRenderer renderer = new BlobRenderer();
 
         for (Blob next : blobs) {
             renderer.renderBlob(g, next);

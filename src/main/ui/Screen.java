@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
+// Represents the default screen
 public class Screen extends JPanel {
     public static final Color BACKGROUND_COLOR = Color.WHITE;
     public static final int WIDTH = 1000;

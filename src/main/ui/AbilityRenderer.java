@@ -5,11 +5,15 @@ import model.Ability;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+
+// Renderer for abilities
 public class AbilityRenderer {
 
     public AbilityRenderer() {
     }
 
+    // MODIFIES: g
+    // EFFECTS: draws ability square onto g
     public void renderAbility(Graphics g, Ability ability) {
         int size = 10;
         double x = ability.getPositionX() - size / 2.0;
@@ -18,6 +22,8 @@ public class AbilityRenderer {
         renderAbility(g, size, x, y, color);
     }
 
+    // MODIFIES: g
+    // EFFECTS: draws ability outline onto g
     private void renderAbility(Graphics g, int size, double x, double y, Color color) {
         Graphics2D g2 = (Graphics2D) g;
         Rectangle2D.Double square = new Rectangle2D.Double(x,y,size,size);
