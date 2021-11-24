@@ -153,18 +153,23 @@ public class BlobGame implements Writable {
         ArrayList<Ability> playerAbilities = playerBlob.getAbilities();
         if (playerAbilities.size() > 0) {
             Ability ability = playerAbilities.get(0);
+            int stat = 0;
 
             if (ability.getStat().equals("size")) {
                 int newSize = playerBlob.getSize() * ability.getValue();
                 playerBlob.setSize(newSize);
+                stat = playerBlob.getSize();
             }
 
             if (ability.getStat().equals("speed")) {
                 int newSpeed = playerBlob.getSpeed() + ability.getValue();
                 playerBlob.setSpeed(newSpeed);
+                stat = playerBlob.getSpeed();
             }
             EventLog.getInstance().logEvent(
-                    new Event(playerBlob.getName() + " used " + ability.getName()));
+                    new Event(
+                            playerBlob.getName() + " used " + ability.getName() + " - " + ability.getStat()
+                    + ": " + stat));
             playerAbilities.remove(ability);
         }
     }
@@ -240,8 +245,9 @@ public class BlobGame implements Writable {
         tempEnemyBlobs.setBlobs(new ArrayList<>(enemyBlobs.getBlobs()));
         for (Blob next : tempEnemyBlobs.getBlobs()) {
             if (checkBlobCollision(playerBlob, next) && playerBlob.getSize() > next.getSize()) {
-                EventLog.getInstance().logEvent(new Event(playerBlob.getName() + " ate " + next.getName()));
                 playerBlob.eatBlob(next);
+                EventLog.getInstance().logEvent(new Event(
+                        playerBlob.getName() + " ate " + next.getName() + " - size: " + playerBlob.getSize()));
                 enemyBlobs.removeBlob(next);
             }
         }
