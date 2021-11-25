@@ -15,10 +15,10 @@ import static ui.game.GameScreen.INTERVAL;
 
 // Represents the game state of the blob game
 public class BlobGame implements Writable {
-    public static final int PLAYER_INITIAL_SIZE = 15;
+    public static final int PLAYER_INITIAL_SIZE = 30;
     public static final int PLAYER_INITIAL_SPEED = 2;
-    public static final int MAX_ENEMIES = 10;
-    public static final int NEW_ENEMY_RATE = 1000;
+    public static final int MAX_ENEMIES = 20;
+    public static final int NEW_ENEMY_RATE = 500;
     public static final int MAX_ABILITIES = 3;
     public static final int NEW_ABILITY_RATE = 10000;
     private int newEnemyCounter = 0;
@@ -179,8 +179,8 @@ public class BlobGame implements Writable {
     private void moveEnemyBlobs() {
         for (Blob next : enemyBlobs.getBlobs()) {
             int speed = next.getSpeed();
-            int randX = randIntBetweenValues(speed * -1, speed);
-            int randY = randIntBetweenValues(speed * -1, speed);
+            int randX = randIntBetweenValues(speed * -2, speed * 2);
+            int randY = randIntBetweenValues(speed * -2, speed * 2);
             next.setMovementX(randX);
             next.setMovementY(randY);
             next.move();

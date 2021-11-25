@@ -75,7 +75,7 @@ public class Blobs implements Writable {
         String name = getRandomName();
 
         int minSize = 10;
-        int maxSize = 50;
+        int maxSize = 80;
         int size = randIntBetweenValues(minSize, maxSize);
 
         int minSpeed = 1;
