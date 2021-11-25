@@ -41,6 +41,8 @@ public class BlobGame implements Writable {
 
         // Creates empty blobs
         enemyBlobs = new Blobs();
+
+        EventLog.getInstance().logEvent(new Event("Started New Game"));
     }
 
     // Creates a blob game with all fields given as parameters; for loading a saved game
@@ -49,6 +51,8 @@ public class BlobGame implements Writable {
         this.playerBlob = player;
         this.enemyBlobs = enemyBlobs;
         this.abilities = abilities;
+
+        EventLog.getInstance().logEvent(new Event("Loaded Game"));
     }
 
     public Blob getPlayerBlob() {

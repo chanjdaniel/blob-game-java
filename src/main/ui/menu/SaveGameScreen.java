@@ -155,7 +155,6 @@ public class SaveGameScreen extends Screen {
             String jsonStore = generateJsonStore(textField.getText());
             try {
                 saveBlobGame(jsonStore);
-                EventLog.getInstance().logEvent(new Event("Saved game at " + jsonStore));
                 if (status.equals("quit")) {
                     System.exit(0);
                 } else {

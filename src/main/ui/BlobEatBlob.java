@@ -40,7 +40,6 @@ public class BlobEatBlob {
     }
 
     private void run() {
-        EventLog.getInstance().logEvent(new Event("Game Started"));
         StartScreen startScreen = new StartScreen(this);
         nextScreen(startScreen);
     }

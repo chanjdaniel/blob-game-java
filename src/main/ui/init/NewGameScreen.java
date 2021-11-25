@@ -181,7 +181,6 @@ public class NewGameScreen extends Screen {
         @Override
         public void actionPerformed(ActionEvent e) {
             blobGameMaker();
-            EventLog.getInstance().logEvent(new Event("Started New Game"));
             beb.nextScreen(new MainMenuScreen(beb));
         }
     }
