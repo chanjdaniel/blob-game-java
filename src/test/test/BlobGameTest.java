@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static model.BlobGame.*;
+import static model.Blobs.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BlobGameTest {
@@ -29,7 +30,7 @@ public class BlobGameTest {
     void runBefore() throws IOException {
         testEnemyBlob1 = new Blob(
                 "testEnemyBlob1",
-                15, 0,
+                15, 2,
                 centreX,
                 centreY,
                 Color.CYAN
@@ -38,7 +39,7 @@ public class BlobGameTest {
         testEnemyBlob2 = new Blob(
                 "testEnemyBlob2",
                 15,
-                0,
+                2,
                 centreX,
                 centreY,
                 Color.CYAN
@@ -91,7 +92,7 @@ public class BlobGameTest {
         testEnemyBlob2.setSpeed(5);
         testBlobGame.getEnemyBlobs().add(testEnemyBlob1);
         testBlobGame.getEnemyBlobs().add(testEnemyBlob2);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5; i++) {
             double blob1x = testEnemyBlob1.getPositionX();
             double blob1y = testEnemyBlob1.getPositionY();
             double blob2x = testEnemyBlob2.getPositionX();
@@ -128,10 +129,10 @@ public class BlobGameTest {
 
             Blob blob =
                     testBlobGame.getEnemyBlobs().get(testBlobGame.getEnemyBlobs().size() - 1);
-            assertTrue(blob.getSize() >= 10);
-            assertTrue(blob.getSize() <= 50);
-            assertTrue(blob.getSpeed() >= 1);
-            assertTrue(blob.getSpeed() <= 5);
+            assertTrue(blob.getSize() >= MIN_SIZE);
+            assertTrue(blob.getSize() <= MAX_SIZE);
+            assertTrue(blob.getSpeed() >= MIN_SPEED);
+            assertTrue(blob.getSpeed() <= MAX_SPEED);
             assertEquals(0, blob.getMovementX());
             assertEquals(0, blob.getMovementY());
 
@@ -183,7 +184,9 @@ public class BlobGameTest {
     @Test
     void testUpdateCheckEnemyBlobsEatEqual() {
         testEnemyBlob1.setSize(15);
+        testEnemyBlob1.setPositionX(testEnemyBlob1.getPositionX() + 50);
         testEnemyBlob2.setSize(15);
+        testEnemyBlob2.setPositionX(testEnemyBlob2.getPositionX() + 50);
         testBlobGame.getEnemyBlobs().add(testEnemyBlob1);
         testBlobGame.getEnemyBlobs().add(testEnemyBlob2);
 
@@ -199,6 +202,7 @@ public class BlobGameTest {
         testEnemyBlob1.setSize(10);
         testEnemyBlob1.setPositionX(testEnemyBlob1.getPositionX() + 50);
         testEnemyBlob2.setSize(15);
+        testEnemyBlob2.setPositionX(testEnemyBlob2.getPositionX() - 50);
         testBlobGame.getEnemyBlobs().add(testEnemyBlob1);
         testBlobGame.getEnemyBlobs().add(testEnemyBlob2);
 
@@ -212,7 +216,9 @@ public class BlobGameTest {
     @Test
     void testUpdateCheckEnemyBlobsEatLarger() {
         testEnemyBlob1.setSize(10);
+        testEnemyBlob1.setPositionX(testEnemyBlob1.getPositionX() + 50);
         testEnemyBlob2.setSize(15);
+        testEnemyBlob2.setPositionX(testEnemyBlob2.getPositionX() + 50);
         int prevSize2 = testEnemyBlob2.getSize();
         testBlobGame.getEnemyBlobs().add(testEnemyBlob1);
         testBlobGame.getEnemyBlobs().add(testEnemyBlob2);

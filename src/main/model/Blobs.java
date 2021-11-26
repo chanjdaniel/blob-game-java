@@ -17,6 +17,10 @@ import static model.BlobGame.randIntBetweenValues;
 public class Blobs implements Writable {
     private ArrayList<Blob> blobs;
     private JSONArray jsonNames;
+    public static final int MIN_SIZE = 10;
+    public static final int MAX_SIZE = 50;
+    public static final int MIN_SPEED = 1;
+    public static final int MAX_SPEED = 8;
 
     // EFFECTS: blobs is set to empty ArrayList<Blob>
     public Blobs() {
@@ -74,13 +78,9 @@ public class Blobs implements Writable {
     public void addRandomBlob() {
         String name = getRandomName();
 
-        int minSize = 10;
-        int maxSize = 80;
-        int size = randIntBetweenValues(minSize, maxSize);
+        int size = randIntBetweenValues(MIN_SIZE, MAX_SIZE);
 
-        int minSpeed = 1;
-        int maxSpeed = 5;
-        int speed = randIntBetweenValues(minSpeed, maxSpeed);
+        int speed = randIntBetweenValues(MIN_SPEED, MAX_SPEED);
 
         ArrayList<Double> randomBoundaryXY = makeRandomBoundaryPositionXY();
         double positionX = randomBoundaryXY.get(0);

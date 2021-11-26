@@ -11,6 +11,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static model.Blobs.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BlobsTest {
@@ -77,10 +78,10 @@ public class BlobsTest {
         }
 
         for (Blob blob : testBlobs1.getBlobs()) {
-            assertTrue(blob.getSize() >= 10);
-            assertTrue(blob.getSize() <= 50);
-            assertTrue(blob.getSpeed() >= 1);
-            assertTrue(blob.getSpeed() <= 5);
+            assertTrue(blob.getSize() >= MIN_SIZE);
+            assertTrue(blob.getSize() <= MAX_SIZE);
+            assertTrue(blob.getSpeed() >= MIN_SPEED);
+            assertTrue(blob.getSpeed() <= MAX_SPEED);
             assertEquals(0, blob.getMovementX());
             assertEquals(0, blob.getMovementY());
 

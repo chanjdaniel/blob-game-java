@@ -183,8 +183,8 @@ public class BlobGame implements Writable {
     private void moveEnemyBlobs() {
         for (Blob next : enemyBlobs.getBlobs()) {
             int speed = next.getSpeed();
-            int randX = randIntBetweenValues(speed * -2, speed * 2);
-            int randY = randIntBetweenValues(speed * -2, speed * 2);
+            int randX = randIntBetweenValues(speed, speed);
+            int randY = randIntBetweenValues(speed, speed);
             next.setMovementX(randX);
             next.setMovementY(randY);
             next.move();
