@@ -1,3 +1,5 @@
+## *This read me was written during development of this game for a second-year computer science course
+
 # r9r2b - Personal Project
 
 ## A blob eat blob world
