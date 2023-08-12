@@ -1,4 +1,4 @@
-## *This read me was written during development of this game for a second-year computer science course
+***This README was written during development of this game for a second-year computer science course**
 
 # r9r2b - Personal Project
 
@@ -92,3 +92,32 @@ where there should only be one instance; for example, GameFrame and BlobEatBlob.
 
 Otherwise, I was happy with the design decisions I made and 
 putting everything together was quite smooth.
+
+___
+
+*Example images*
+
+<p>&nbsp;</p>
+
+Character creation
+
+<img width="800" alt="Screenshot 2023-08-12 at 8 53 22 PM" src="https://github.com/chanjdaniel/blob-game-java/assets/97641190/4a3307fc-9f36-41f1-9a16-0d2241f01302">
+
+<p>&nbsp;</p>
+
+Pause menu
+
+<img width="800" alt="Screenshot 2023-08-12 at 8 54 19 PM" src="https://github.com/chanjdaniel/blob-game-java/assets/97641190/26661df9-9beb-4189-969e-c6de140ec5b5">
+
+<p>&nbsp;</p>
+
+Main gameplay
+
+<img width="800" alt="Screenshot 2023-08-12 at 8 57 33 PM" src="https://github.com/chanjdaniel/blob-game-java/assets/97641190/8602d050-cf3a-4f2d-ac81-992202ef73c7">
+
+<p>&nbsp;</p>
+
+History of eaten opponents
+
+<img width="800" alt="Screenshot 2023-08-12 at 8 56 04 PM" src="https://github.com/chanjdaniel/blob-game-java/assets/97641190/0f7c9000-a5d7-4a38-be0d-96f4a4e335a9">
+
