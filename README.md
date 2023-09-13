@@ -1,4 +1,4 @@
-***This README was written during development of this game for a second-year computer science course**
+***This README was written in part during development of this game for a second-year computer science course**
 
 # r9r2b - Personal Project
 
